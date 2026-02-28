@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RecoBot — Tally Ledger Reconciliation</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  /* ── Reset & Variables ─────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:        #0D1117;
+    --ink-soft:   #3D4451;
+    --ink-muted:  #8892A4;
+    --paper:      #F7F6F2;
+    --paper-warm: #EFEDE6;
+    --rule:       #DDD9CF;
+    --accent:     #C8410B;
+    --accent-2:   #1A6B4A;
+    --gold:       #C4882A;
+    --warning:    #E8A020;
+    --danger:     #C8410B;
+    --success:    #1A6B4A;
+    --font-head:  'DM Serif Display', Georgia, serif;
+    --font-body:  'DM Sans', sans-serif;
+    --font-mono:  'DM Mono', monospace;
+    --radius:     4px;
+    --radius-lg:  10px;
+    --shadow:     0 1px 4px rgba(13,17,23,0.08), 0 4px 20px rgba(13,17,23,0.05);
+    --shadow-lg:  0 8px 40px rgba(13,17,23,0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* ── Layout ─────────────────────────────────────────── */
+  .shell {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    background: var(--ink);
+    padding: 0 2rem;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo {
+    font-family: var(--font-head);
+    font-size: 1.5rem;
+    color: var(--paper);
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .logo-dot {
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .trust-tag {
+    font-size: 11px;
+    color: var(--ink-muted);
+    font-family: var(--font-mono);
+    letter-spacing: 0.04em;
+  }
+
+  main {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 3rem 1.5rem 5rem;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 860px;
+  }
+
+  /* ── Screen switching ───────────────────────────────── */
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* ── Typography ─────────────────────────────────────── */
+  .page-title {
+    font-family: var(--font-head);
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+
+  .page-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .page-subtitle {
+    color: var(--ink-soft);
+    font-size: 1rem;
+    max-width: 560px;
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+  }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  /* ── Cards ──────────────────────────────────────────── */
+  .card {
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+  }
+
+  .card + .card { margin-top: 1.25rem; }
+
+  .card-title {
+    font-family: var(--font-head);
+    font-size: 1.25rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .card-title .num {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 3px;
+    padding: 2px 6px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── Form Elements ──────────────────────────────────── */
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .form-row.single { grid-template-columns: 1fr; }
+
+  label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  input[type="text"],
+  select {
+    width: 100%;
+    padding: 0.6rem 0.85rem;
+    border: 1.5px solid var(--rule);
+    border-radius: var(--radius);
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--ink);
+    background: var(--paper);
+    transition: border-color 0.15s, box-shadow 0.15s;
+    outline: none;
+    appearance: none;
+  }
+
+  input[type="text"]:focus,
+  select:focus {
+    border-color: var(--ink);
+    box-shadow: 0 0 0 3px rgba(13,17,23,0.08);
+    background: #fff;
+  }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238892A4' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    padding-right: 2rem;
+    cursor: pointer;
+  }
+
+  /* ── File Upload ────────────────────────────────────── */
+  .upload-zone {
+    border: 2px dashed var(--rule);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    position: relative;
+    background: var(--paper);
+  }
+
+  .upload-zone:hover, .upload-zone.drag-over {
+    border-color: var(--ink);
+    background: var(--paper-warm);
+  }
+
+  .upload-zone.has-file {
+    border-color: var(--accent-2);
+    background: #f0f9f4;
+    border-style: solid;
+  }
+
+  .upload-zone input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+  }
+
+  .upload-icon {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .upload-label {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  .upload-label strong { color: var(--ink); }
+
+  .upload-filename {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent-2);
+    margin-top: 0.4rem;
+    font-weight: 500;
+  }
+
+  /* ── Role Pill Selector ─────────────────────────────── */
+  .role-selector {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.4rem;
+  }
+
+  .role-pill {
+    flex: 1;
+    padding: 0.45rem 0.75rem;
+    border: 1.5px solid var(--rule);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--ink-soft);
+    background: var(--paper);
+    user-select: none;
+  }
+
+  .role-pill:hover { border-color: var(--ink-soft); color: var(--ink); }
+
+  .role-pill.selected {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+  }
+
+  /* ── Warning Banner ─────────────────────────────────── */
+  .warning-banner {
+    background: #FFF8EC;
+    border: 1px solid #F0C060;
+    border-radius: var(--radius);
+    padding: 0.75rem 1rem;
+    font-size: 13px;
+    color: #7A5010;
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+  }
+
+  .warning-banner .icon { flex-shrink: 0; margin-top: 1px; }
+
+  /* ── Buttons ────────────────────────────────────────── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.75rem;
+    border-radius: var(--radius);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.15s;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+  }
+
+  .btn-primary {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .btn-primary:hover { background: #1e2530; transform: translateY(-1px); box-shadow: var(--shadow); }
+  .btn-primary:active { transform: translateY(0); }
+
+  .btn-accent {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .btn-accent:hover { background: #a8340a; transform: translateY(-1px); box-shadow: var(--shadow); }
+
+  .btn-success {
+    background: var(--accent-2);
+    color: #fff;
+  }
+
+  .btn-success:hover { background: #145a3d; transform: translateY(-1px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--ink);
+    border: 1.5px solid var(--rule);
+  }
+
+  .btn-outline:hover { border-color: var(--ink); }
+
+  .btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  .btn-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+
+  /* ── Progress / Steps ───────────────────────────────── */
+  .steps-bar {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 2.5rem;
+    font-size: 12px;
+  }
+
+  .step-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--ink-muted);
+    font-weight: 500;
+  }
+
+  .step-item.active { color: var(--ink); }
+  .step-item.done { color: var(--accent-2); }
+
+  .step-num {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: 1.5px solid currentColor;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    flex-shrink: 0;
+  }
+
+  .step-item.active .step-num {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: #fff;
+  }
+
+  .step-item.done .step-num {
+    background: var(--accent-2);
+    border-color: var(--accent-2);
+    color: #fff;
+  }
+
+  .step-sep {
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+    margin: 0 0.75rem;
+    min-width: 24px;
+    max-width: 60px;
+  }
+
+  /* ── Period Info ────────────────────────────────────── */
+  .period-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    font-size: 13px;
+  }
+
+  .period-cell {
+    background: #fff;
+    padding: 0.85rem 1rem;
+  }
+
+  .period-cell .p-label {
+    font-size: 10px;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-muted);
+    margin-bottom: 0.3rem;
+  }
+
+  .period-cell .p-val {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .period-cell.highlight { background: #f0f9f4; }
+  .period-cell.highlight .p-label { color: var(--accent-2); }
+  .period-cell.highlight .p-val { color: var(--accent-2); }
+
+  /* ── Voucher Table ──────────────────────────────────── */
+  .voucher-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+
+  .voucher-table th {
+    text-align: left;
+    padding: 0.6rem 0.85rem;
+    font-size: 10px;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-muted);
+    border-bottom: 1px solid var(--rule);
+    background: var(--paper);
+    font-weight: 500;
+  }
+
+  .voucher-table td {
+    padding: 0.7rem 0.85rem;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: middle;
+  }
+
+  .voucher-table tr:last-child td { border-bottom: none; }
+
+  .voucher-table tr:hover td { background: var(--paper); }
+
+  .vt-name {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .vt-source {
+    display: inline-block;
+    font-size: 10px;
+    font-family: var(--font-mono);
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 1px 5px;
+    color: var(--ink-soft);
+    margin-left: 0.4rem;
+  }
+
+  .vt-count {
+    color: var(--ink-muted);
+    font-size: 12px;
+    font-family: var(--font-mono);
+  }
+
+  .confidence-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: var(--font-mono);
+    letter-spacing: 0.04em;
+  }
+
+  .confidence-high {
+    background: #e8f5e9;
+    color: var(--accent-2);
+  }
+
+  .confidence-medium {
+    background: #fff3e0;
+    color: #b05010;
+  }
+
+  .auto-ignore-badge {
+    background: #f5f5f5;
+    color: var(--ink-muted);
+    font-size: 10px;
+    font-family: var(--font-mono);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-style: italic;
+  }
+
+  /* ── Results Screen ─────────────────────────────────── */
+  .results-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .result-card {
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+  }
+
+  .result-card .rc-label {
+    font-size: 10px;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .result-card .rc-count {
+    font-family: var(--font-head);
+    font-size: 2.5rem;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+    color: var(--ink);
+  }
+
+  .result-card.has-issues .rc-count { color: var(--accent); }
+  .result-card.no-issues .rc-count { color: var(--accent-2); }
+
+  .result-card .rc-value {
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-family: var(--font-mono);
+  }
+
+  .result-card .rc-breakdown {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--rule);
+    font-size: 12px;
+    color: var(--ink-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .result-card .rc-breakdown span {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .pay-box {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .pay-box .pay-copy h3 {
+    font-family: var(--font-head);
+    font-size: 1.3rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .pay-box .pay-copy p {
+    font-size: 12px;
+    color: var(--ink-muted);
+    max-width: 360px;
+  }
+
+  .pay-amount {
+    font-family: var(--font-head);
+    font-size: 2.25rem;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+
+  .pay-amount sup {
+    font-size: 1rem;
+    vertical-align: super;
+  }
+
+  .zero-mismatch-box {
+    background: #f0f9f4;
+    border: 1px solid #a8d8b8;
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    text-align: center;
+  }
+
+  .zero-mismatch-box h3 {
+    font-family: var(--font-head);
+    font-size: 1.5rem;
+    color: var(--accent-2);
+    margin-bottom: 0.5rem;
+  }
+
+  .zero-mismatch-box p {
+    color: var(--ink-soft);
+    font-size: 13px;
+  }
+
+  /* ── Download Screen ────────────────────────────────── */
+  .download-hero {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .download-hero .check {
+    width: 64px; height: 64px;
+    background: #e8f5e9;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.25rem;
+    font-size: 1.75rem;
+  }
+
+  .download-hero h2 {
+    font-family: var(--font-head);
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .download-hero p {
+    color: var(--ink-soft);
+    font-size: 13px;
+    margin-bottom: 2rem;
+  }
+
+  .expiry-note {
+    margin-top: 1.25rem;
+    font-size: 11px;
+    color: var(--ink-muted);
+    font-family: var(--font-mono);
+  }
+
+  /* ── Loading Overlay ────────────────────────────────── */
+  .loading-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(247,246,242,0.88);
+    z-index: 1000;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    backdrop-filter: blur(4px);
+  }
+
+  .loading-overlay.active { display: flex; }
+
+  .spinner {
+    width: 40px; height: 40px;
+    border: 3px solid var(--rule);
+    border-top-color: var(--ink);
+    border-radius: 50%;
+    animation: spin 0.75s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .loading-text {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink-soft);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── Toast ──────────────────────────────────────────── */
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--ink);
+    color: var(--paper);
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius);
+    font-size: 13px;
+    font-family: var(--font-mono);
+    z-index: 2000;
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    max-width: 90vw;
+    text-align: center;
+  }
+
+  .toast.error { background: var(--accent); }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ── Footer ─────────────────────────────────────────── */
+  footer {
+    background: var(--ink);
+    color: var(--ink-muted);
+    font-size: 11px;
+    font-family: var(--font-mono);
+    text-align: center;
+    padding: 1rem;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── Responsive ─────────────────────────────────────── */
+  @media (max-width: 640px) {
+    .form-row { grid-template-columns: 1fr; }
+    .results-grid { grid-template-columns: 1fr; }
+    .period-grid { grid-template-columns: 1fr; }
+    .pay-box { flex-direction: column; text-align: center; }
+    header { padding: 0 1rem; }
+    main { padding: 2rem 1rem 4rem; }
+  }
+
+  /* ── Fade in animation ──────────────────────────────── */
+  .screen.active {
+    animation: fadeUp 0.35s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+
+<body>
+<div class="shell">
+
+  <!-- ── Header ─────────────────────────────────────── -->
+  <header>
+    <div class="logo">
+      <span class="logo-dot"></span>RecoBot
+    </div>
+    <span class="trust-tag">your files are never stored</span>
+  </header>
+
+  <!-- ── Main ───────────────────────────────────────── -->
+  <main>
+    <div class="container">
+
+      <!-- ════════════════════════════════════════════ -->
+      <!-- SCREEN 1 — Upload                           -->
+      <!-- ════════════════════════════════════════════ -->
+      <div id="screen-upload" class="screen active">
+
+        <p class="section-label">Tally Ledger Reconciliation</p>
+        <h1 class="page-title">Find every mismatch.<br><em>In under 2 minutes.</em></h1>
+        <p class="page-subtitle">
+          Upload two Tally XML ledger exports — yours and your counterparty's —
+          and RecoBot instantly pinpoints every invoice and payment discrepancy.
+        </p>
+
+        <div class="warning-banner">
+          <span class="icon">⚠️</span>
+          <span>Both files must be <strong>INR ledgers</strong>. Multi-currency ledgers are not supported in the current version.</span>
+        </div>
+
+        <!-- Party A -->
+        <div class="card">
+          <div class="card-title">
+            <span class="num">01</span> Your Details
+          </div>
+
+          <div class="form-row">
+            <div>
+              <label>Your Company Name</label>
+              <input type="text" id="party-a-name" placeholder="e.g. Bite Foods Pvt Ltd" />
+            </div>
+            <div>
+              <label>Your Role in this Transaction</label>
+              <div class="role-selector">
+                <div class="role-pill selected" data-party="a" data-role="buyer">Buyer</div>
+                <div class="role-pill" data-party="a" data-role="seller">Seller</div>
+              </div>
+              <input type="hidden" id="party-a-role" value="buyer" />
+            </div>
+          </div>
+
+          <div class="form-row single">
+            <div>
+              <label>Your Tally XML Export</label>
+              <div class="upload-zone" id="zone-a">
+                <input type="file" id="file-a" accept=".xml" />
+                <span class="upload-icon">📄</span>
+                <div class="upload-label">
+                  <strong>Click to choose</strong> or drag your XML file here
+                </div>
+                <div class="upload-filename" id="filename-a"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Party B -->
+        <div class="card">
+          <div class="card-title">
+            <span class="num">02</span> Counterparty Details
+          </div>
+
+          <div class="form-row">
+            <div>
+              <label>Counterparty Company Name</label>
+              <input type="text" id="party-b-name" placeholder="e.g. THF Logistics" />
+            </div>
+            <div>
+              <label>Counterparty's Role</label>
+              <div class="role-selector">
+                <div class="role-pill" data-party="b" data-role="buyer">Buyer</div>
+                <div class="role-pill selected" data-party="b" data-role="seller">Seller</div>
+              </div>
+              <input type="hidden" id="party-b-role" value="seller" />
+            </div>
+          </div>
+
+          <div class="form-row single">
+            <div>
+              <label>Counterparty's Tally XML Export</label>
+              <div class="upload-zone" id="zone-b">
+                <input type="file" id="file-b" accept=".xml" />
+                <span class="upload-icon">📄</span>
+                <div class="upload-label">
+                  <strong>Click to choose</strong> or drag their XML file here
+                </div>
+                <div class="upload-filename" id="filename-b"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" id="btn-analyse">
+            Analyse Files →
+          </button>
+          <span style="font-size:12px; color:var(--ink-muted);">
+            Files are processed in memory and discarded immediately.
+          </span>
+        </div>
+
+      </div><!-- /screen-upload -->
+
+
+      <!-- ════════════════════════════════════════════ -->
+      <!-- SCREEN 2 — Voucher Confirmation             -->
+      <!-- ════════════════════════════════════════════ -->
+      <div id="screen-vouchers" class="screen">
+
+        <div class="steps-bar">
+          <div class="step-item done"><div class="step-num">✓</div> Upload</div>
+          <div class="step-sep"></div>
+          <div class="step-item active"><div class="step-num">2</div> Confirm Vouchers</div>
+          <div class="step-sep"></div>
+          <div class="step-item"><div class="step-num">3</div> Results</div>
+          <div class="step-sep"></div>
+          <div class="step-item"><div class="step-num">4</div> Download</div>
+        </div>
+
+        <p class="section-label">Step 2 of 4</p>
+        <h1 class="page-title" style="font-size:2rem; margin-bottom:0.5rem;">
+          Confirm Voucher Types
+        </h1>
+        <p class="page-subtitle" style="margin-bottom:1.5rem;">
+          RecoBot found the voucher types below in your files. Confirm or correct
+          each classification — this tells the engine what to match against what.
+          <br>⚠️ entries marked with a warning need your attention.
+        </p>
+
+        <!-- Period info -->
+        <div class="period-grid" id="period-display">
+          <div class="period-cell">
+            <div class="p-label">Your File</div>
+            <div class="p-val" id="period-a">—</div>
+          </div>
+          <div class="period-cell">
+            <div class="p-label">Counterparty File</div>
+            <div class="p-val" id="period-b">—</div>
+          </div>
+          <div class="period-cell highlight">
+            <div class="p-label">Reconciliation Period</div>
+            <div class="p-val" id="period-overlap">—</div>
+          </div>
+        </div>
+
+        <div class="card" style="padding:0; overflow:hidden;">
+          <table class="voucher-table" id="voucher-table">
+            <thead>
+              <tr>
+                <th>Voucher Type</th>
+                <th>Found In</th>
+                <th>Count</th>
+                <th>Classification</th>
+                <th>Confidence</th>
+              </tr>
+            </thead>
+            <tbody id="voucher-tbody"></tbody>
+          </table>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" id="btn-reconcile">
+            Confirm &amp; Run Reconciliation →
+          </button>
+          <button class="btn btn-outline" id="btn-back-upload">← Back</button>
+        </div>
+
+      </div><!-- /screen-vouchers -->
+
+
+      <!-- ════════════════════════════════════════════ -->
+      <!-- SCREEN 3 — Results                         -->
+      <!-- ════════════════════════════════════════════ -->
+      <div id="screen-results" class="screen">
+
+        <div class="steps-bar">
+          <div class="step-item done"><div class="step-num">✓</div> Upload</div>
+          <div class="step-sep"></div>
+          <div class="step-item done"><div class="step-num">✓</div> Confirm Vouchers</div>
+          <div class="step-sep"></div>
+          <div class="step-item active"><div class="step-num">3</div> Results</div>
+          <div class="step-sep"></div>
+          <div class="step-item"><div class="step-num">4</div> Download</div>
+        </div>
+
+        <p class="section-label">Reconciliation Complete</p>
+        <h1 class="page-title" style="font-size:2rem; margin-bottom:0.4rem;">
+          Here's what we found.
+        </h1>
+        <p style="color:var(--ink-soft); font-size:13px; margin-bottom:1.75rem;">
+          Period: <span id="results-period" style="font-family:var(--font-mono); color:var(--ink);"></span>
+        </p>
+
+        <!-- Results cards -->
+        <div class="results-grid" id="results-grid">
+          <div class="result-card" id="rc-invoices">
+            <div class="rc-label">Invoice Mismatches</div>
+            <div class="rc-count" id="rc-inv-count">—</div>
+            <div class="rc-value" id="rc-inv-value">—</div>
+            <div class="rc-breakdown" id="rc-inv-breakdown"></div>
+          </div>
+          <div class="result-card" id="rc-payments">
+            <div class="rc-label">Payment Mismatches</div>
+            <div class="rc-count" id="rc-pay-count">—</div>
+            <div class="rc-value" id="rc-pay-value">—</div>
+            <div class="rc-breakdown" id="rc-pay-breakdown"></div>
+          </div>
+        </div>
+
+        <!-- Zero mismatch state -->
+        <div class="zero-mismatch-box" id="zero-box" style="display:none;">
+          <h3>✓ Your books are in perfect sync.</h3>
+          <p>0 invoice mismatches · 0 payment mismatches — your records agree completely.</p>
+        </div>
+
+        <!-- Pay box -->
+        <div class="pay-box" id="pay-box">
+          <div class="pay-copy">
+            <h3>Get the full detailed report</h3>
+            <p>Download a complete 6-sheet Excel with every matched, mismatched, and varied entry broken down clearly.</p>
+          </div>
+          <div>
+            <div class="pay-amount"><sup>₹</sup>12</div>
+          </div>
+          <button class="btn btn-accent" id="btn-pay" style="white-space:nowrap;">
+            Download Report — Pay ₹12
+          </button>
+        </div>
+
+        <!-- Free download (zero mismatches) -->
+        <div id="free-download-box" style="display:none; margin-top:1.25rem; text-align:center;">
+          <button class="btn btn-success" id="btn-free-download">
+            ⬇ Download Free Report
+          </button>
+          <p style="font-size:11px; color:var(--ink-muted); margin-top:0.75rem; font-family:var(--font-mono);">
+            No payment required — zero mismatches detected.
+          </p>
+        </div>
+
+      </div><!-- /screen-results -->
+
+
+      <!-- ════════════════════════════════════════════ -->
+      <!-- SCREEN 4 — Download                        -->
+      <!-- ════════════════════════════════════════════ -->
+      <div id="screen-download" class="screen">
+
+        <div class="steps-bar">
+          <div class="step-item done"><div class="step-num">✓</div> Upload</div>
+          <div class="step-sep"></div>
+          <div class="step-item done"><div class="step-num">✓</div> Confirm Vouchers</div>
+          <div class="step-sep"></div>
+          <div class="step-item done"><div class="step-num">✓</div> Results</div>
+          <div class="step-sep"></div>
+          <div class="step-item active"><div class="step-num">4</div> Download</div>
+        </div>
+
+        <div class="download-hero">
+          <div class="check">✓</div>
+          <h2>Payment confirmed.</h2>
+          <p>Your reconciliation report is ready. Click below to download your Excel file.</p>
+
+          <button class="btn btn-success" id="btn-download" style="font-size:15px; padding:0.85rem 2.5rem;">
+            ⬇ Download Excel Report
+          </button>
+
+          <p class="expiry-note">This link is active for 60 minutes · Session data is deleted after download</p>
+
+          <div style="margin-top:1.75rem; padding-top:1.25rem; border-top:1px solid var(--rule);">
+            <a id="whatsapp-link" href="#" target="_blank"
+               style="font-size:12px; color:var(--ink-muted); text-decoration:none; font-family:var(--font-mono);">
+              Payment deducted but no access? Contact support on WhatsApp →
+            </a>
+          </div>
+        </div>
+
+      </div><!-- /screen-download -->
+
+    </div><!-- /container -->
+  </main>
+
+  <footer>
+    RecoBot · Built for Indian SMEs · Data never stored · Processed in memory only
+  </footer>
+</div><!-- /shell -->
+
+<!-- ── Loading overlay ───────────────────────────── -->
+<div class="loading-overlay" id="loading">
+  <div class="spinner"></div>
+  <div class="loading-text" id="loading-text">Analysing files…</div>
+</div>
+
+<!-- ── Toast ─────────────────────────────────────── -->
+<div class="toast" id="toast"></div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- JavaScript                                      -->
+<!-- ════════════════════════════════════════════════ -->
+<script>
+// ── Config ──────────────────────────────────────────
+// Change this to your Railway URL when deployed.
+// During local dev, use http://localhost:8000
+const API_BASE = window.location.origin;
+
+// ── State ────────────────────────────────────────────
+let state = {
+  sessionToken:   null,
+  period:         null,
+  voucherTypes:   [],
+  resultsPreview: null,
+};
+
+// ── Utilities ────────────────────────────────────────
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showLoading(text = 'Processing…') {
+  document.getElementById('loading-text').textContent = text;
+  document.getElementById('loading').classList.add('active');
+}
+
+function hideLoading() {
+  document.getElementById('loading').classList.remove('active');
+}
+
+function showToast(msg, type = '') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast' + (type ? ' ' + type : '');
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 4000);
+}
+
+function fmtDate(iso) {
+  if (!iso) return '—';
+  const [y, m, d] = iso.split('-');
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${d}-${months[parseInt(m)-1]}-${y}`;
+}
+
+function fmtAmount(n) {
+  if (n === undefined || n === null) return '—';
+  return '₹' + Number(n).toLocaleString('en-IN', { minimumFractionDigits: 2 });
+}
+
+function fmtPeriod(from, to) {
+  return `${fmtDate(from)} to ${fmtDate(to)}`;
+}
+
+// ── Role pills ───────────────────────────────────────
+document.querySelectorAll('.role-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    const party = pill.dataset.party;
+    document.querySelectorAll(`.role-pill[data-party="${party}"]`)
+      .forEach(p => p.classList.remove('selected'));
+    pill.classList.add('selected');
+    document.getElementById(`party-${party}-role`).value = pill.dataset.role;
+  });
+});
+
+// ── File upload display ──────────────────────────────
+function setupFileInput(inputId, zoneId, filenameId) {
+  const input    = document.getElementById(inputId);
+  const zone     = document.getElementById(zoneId);
+  const filename = document.getElementById(filenameId);
+
+  input.addEventListener('change', () => {
+    if (input.files[0]) {
+      filename.textContent = '✓ ' + input.files[0].name;
+      zone.classList.add('has-file');
+      zone.querySelector('.upload-icon').textContent = '✅';
+    }
+  });
+
+  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+  zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+  zone.addEventListener('drop', e => {
+    e.preventDefault();
+    zone.classList.remove('drag-over');
+    if (e.dataTransfer.files[0]) {
+      input.files = e.dataTransfer.files;
+      filename.textContent = '✓ ' + e.dataTransfer.files[0].name;
+      zone.classList.add('has-file');
+      zone.querySelector('.upload-icon').textContent = '✅';
+    }
+  });
+}
+
+setupFileInput('file-a', 'zone-a', 'filename-a');
+setupFileInput('file-b', 'zone-b', 'filename-b');
+
+// ── Screen 1 → /analyse ──────────────────────────────
+document.getElementById('btn-analyse').addEventListener('click', async () => {
+  const partyAName = document.getElementById('party-a-name').value.trim();
+  const partyARole = document.getElementById('party-a-role').value;
+  const partyBName = document.getElementById('party-b-name').value.trim();
+  const partyBRole = document.getElementById('party-b-role').value;
+  const fileA      = document.getElementById('file-a').files[0];
+  const fileB      = document.getElementById('file-b').files[0];
+
+  if (!partyAName || !partyBName) { showToast('Please enter both company names.', 'error'); return; }
+  if (!fileA)  { showToast('Please upload your Tally XML file.', 'error'); return; }
+  if (!fileB)  { showToast('Please upload the counterparty XML file.', 'error'); return; }
+
+  const fd = new FormData();
+  fd.append('party_a_name', partyAName);
+  fd.append('party_a_role', partyARole);
+  fd.append('party_b_name', partyBName);
+  fd.append('party_b_role', partyBRole);
+  fd.append('file_a', fileA);
+  fd.append('file_b', fileB);
+
+  showLoading('Analysing your Tally files…');
+  try {
+    const res  = await fetch(`${API_BASE}/analyse`, { method: 'POST', body: fd });
+    const data = await res.json();
+    hideLoading();
+
+    if (data.status === 'error') {
+      showToast(data.message || 'Analysis failed. Please check your files.', 'error');
+      return;
+    }
+
+    state.sessionToken = data.session_token;
+    state.period       = data.period;
+    state.voucherTypes = data.voucher_types;
+
+    buildVoucherScreen();
+    showScreen('screen-vouchers');
+
+  } catch (err) {
+    hideLoading();
+    showToast('Could not reach the server. Please try again.', 'error');
+    console.error(err);
+  }
+});
+
+// ── Build voucher confirmation screen ────────────────
+function buildVoucherScreen() {
+  const p = state.period;
+
+  document.getElementById('period-a').textContent       = fmtPeriod(p.file_a.from, p.file_a.to);
+  document.getElementById('period-b').textContent       = fmtPeriod(p.file_b.from, p.file_b.to);
+  document.getElementById('period-overlap').textContent = fmtPeriod(p.overlap.from, p.overlap.to);
+
+  const classOptions = [
+    ['purchase_invoice', 'Purchase Invoice'],
+    ['sales_invoice',    'Sales Invoice'],
+    ['payment',          'Payment'],
+    ['receipt',          'Receipt'],
+    ['debit_note',       'Debit Note'],
+    ['credit_note',      'Credit Note'],
+    ['ignore',           'Ignore'],
+  ];
+
+  const tbody = document.getElementById('voucher-tbody');
+  tbody.innerHTML = '';
+
+  state.voucherTypes.forEach((vt, idx) => {
+    const tr = document.createElement('tr');
+
+    // Name + source badge
+    const tdName = document.createElement('td');
+    tdName.innerHTML = `<span class="vt-name">${vt.name}</span>
+      <span class="vt-source">${vt.found_in === 'A' ?
+        document.getElementById('party-a-name').value.trim() || 'Party A' :
+        document.getElementById('party-b-name').value.trim() || 'Party B'
+      }</span>`;
+
+    // Found in
+    const tdIn = document.createElement('td');
+    tdIn.style.color = 'var(--ink-muted)';
+    tdIn.style.fontSize = '12px';
+    tdIn.textContent = vt.found_in === 'A' ? 'Your File' : 'Counterparty File';
+
+    // Count
+    const tdCount = document.createElement('td');
+    tdCount.innerHTML = `<span class="vt-count">${vt.count} entries</span>`;
+
+    // Classification dropdown
+    const tdClass = document.createElement('td');
+    if (vt.auto_ignore) {
+      tdClass.innerHTML = `<span class="auto-ignore-badge">auto-ignored</span>
+        <input type="hidden" class="cls-input" data-idx="${idx}" value="ignore" />`;
+    } else {
+      const sel = document.createElement('select');
+      sel.className = 'cls-input';
+      sel.dataset.idx = idx;
+      classOptions.forEach(([val, label]) => {
+        const opt = document.createElement('option');
+        opt.value = val;
+        opt.textContent = label;
+        if (val === vt.suggested_classification) opt.selected = true;
+        sel.appendChild(opt);
+      });
+      tdClass.appendChild(sel);
+    }
+
+    // Confidence
+    const tdConf = document.createElement('td');
+    if (vt.auto_ignore) {
+      tdConf.innerHTML = `<span class="confidence-badge confidence-high">auto</span>`;
+    } else if (vt.confidence === 'high') {
+      tdConf.innerHTML = `<span class="confidence-badge confidence-high">✓ high</span>`;
+    } else {
+      tdConf.innerHTML = `<span class="confidence-badge confidence-medium">⚠ review</span>`;
+    }
+
+    tr.appendChild(tdName);
+    tr.appendChild(tdIn);
+    tr.appendChild(tdCount);
+    tr.appendChild(tdClass);
+    tr.appendChild(tdConf);
+    tbody.appendChild(tr);
+  });
+}
+
+// ── Back to upload ────────────────────────────────────
+document.getElementById('btn-back-upload').addEventListener('click', () => {
+  showScreen('screen-upload');
+});
+
+// ── Screen 2 → /reconcile ────────────────────────────
+document.getElementById('btn-reconcile').addEventListener('click', async () => {
+  // Collect classifications
+  const inputs = document.querySelectorAll('.cls-input');
+  const classifications = [];
+
+  inputs.forEach(inp => {
+    const idx = parseInt(inp.dataset.idx);
+    const vt  = state.voucherTypes[idx];
+    classifications.push({ name: vt.name, classification: inp.value || inp.dataset.value || 'ignore' });
+  });
+
+  const payload = {
+    session_token:   state.sessionToken,
+    period_override: null,
+    classifications,
+  };
+
+  showLoading('Running reconciliation…');
+  try {
+    const res  = await fetch(`${API_BASE}/reconcile`, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload),
+    });
+    const data = await res.json();
+    hideLoading();
+
+    if (data.status === 'error' || !data.results_preview) {
+      showToast(data.message || 'Reconciliation failed. Please try again.', 'error');
+      return;
+    }
+
+    state.resultsPreview = data.results_preview;
+    buildResultsScreen();
+    showScreen('screen-results');
+
+  } catch (err) {
+    hideLoading();
+    showToast('Could not reach the server. Please try again.', 'error');
+    console.error(err);
+  }
+});
+
+// ── Build results screen ──────────────────────────────
+function buildResultsScreen() {
+  const r   = state.resultsPreview;
+  const inv = r.invoices;
+  const pay = r.payments;
+
+  document.getElementById('results-period').textContent =
+    fmtPeriod(r.period_used.from, r.period_used.to);
+
+  const invTotal = inv.a_not_in_b_count + inv.b_not_in_a_count;
+  const payTotal = pay.a_not_in_b_count + pay.b_not_in_a_count;
+  const invValue = inv.a_not_in_b_value + inv.b_not_in_a_value;
+  const payValue = pay.a_not_in_b_value + pay.b_not_in_a_value;
+
+  // Invoice card
+  const rcInv = document.getElementById('rc-invoices');
+  document.getElementById('rc-inv-count').textContent = invTotal;
+  document.getElementById('rc-inv-value').textContent = invTotal > 0 ? fmtAmount(invValue) : 'No issues';
+  document.getElementById('rc-inv-breakdown').innerHTML = `
+    <span><span>In your file, not in theirs</span><span>${inv.a_not_in_b_count} · ${fmtAmount(inv.a_not_in_b_value)}</span></span>
+    <span><span>In their file, not in yours</span><span>${inv.b_not_in_a_count} · ${fmtAmount(inv.b_not_in_a_value)}</span></span>
+    <span><span>Matched exactly</span><span>${inv.matched_exact}</span></span>
+    <span><span>Matched with variation</span><span>${inv.matched_variation}</span></span>
+  `;
+  rcInv.classList.toggle('has-issues', invTotal > 0);
+  rcInv.classList.toggle('no-issues',  invTotal === 0);
+
+  // Payment card
+  const rcPay = document.getElementById('rc-payments');
+  document.getElementById('rc-pay-count').textContent = payTotal;
+  document.getElementById('rc-pay-value').textContent = payTotal > 0 ? fmtAmount(payValue) : 'No issues';
+  document.getElementById('rc-pay-breakdown').innerHTML = `
+    <span><span>In your file, not in theirs</span><span>${pay.a_not_in_b_count} · ${fmtAmount(pay.a_not_in_b_value)}</span></span>
+    <span><span>In their file, not in yours</span><span>${pay.b_not_in_a_count} · ${fmtAmount(pay.b_not_in_a_value)}</span></span>
+    <span><span>Matched</span><span>${pay.matched}</span></span>
+  `;
+  rcPay.classList.toggle('has-issues', payTotal > 0);
+  rcPay.classList.toggle('no-issues',  payTotal === 0);
+
+  // Zero mismatch vs pay flow
+  if (r.zero_mismatches) {
+    document.getElementById('results-grid').style.display   = 'none';
+    document.getElementById('pay-box').style.display        = 'none';
+    document.getElementById('zero-box').style.display       = 'block';
+    document.getElementById('free-download-box').style.display = 'block';
+  } else {
+    document.getElementById('results-grid').style.display   = 'grid';
+    document.getElementById('pay-box').style.display        = 'flex';
+    document.getElementById('zero-box').style.display       = 'none';
+    document.getElementById('free-download-box').style.display = 'none';
+  }
+}
+
+// ── Pay button (placeholder — wire to Stripe/Razorpay later) ──
+document.getElementById('btn-pay').addEventListener('click', () => {
+  // ── PAYMENT INTEGRATION POINT ──────────────────────
+  // Replace the alert below with your Stripe or Razorpay checkout call.
+  //
+  // STRIPE example:
+  //   const stripe = Stripe('pk_live_xxx');
+  //   const { error } = await stripe.redirectToCheckout({ sessionId: ... });
+  //
+  // RAZORPAY example:
+  //   const rzp = new Razorpay({ key: 'rzp_live_xxx', amount: 1200,
+  //     currency: 'INR', order_id: state.sessionToken, ... });
+  //   rzp.open();
+  // ────────────────────────────────────────────────────
+
+  alert('💳 Payment gateway not yet configured.\n\nThis button will open Stripe or Razorpay checkout once you connect a payment provider.\n\nFor now, use the direct download below to test.');
+
+  // TEMP: for local testing, go straight to download
+  // Remove this line once payment is wired up:
+  simulatePaymentSuccess();
+});
+
+// ── Simulate payment success (testing only) ───────────
+function simulatePaymentSuccess() {
+  buildDownloadScreen();
+  showScreen('screen-download');
+}
+
+// ── Free download (zero mismatches) ──────────────────
+document.getElementById('btn-free-download').addEventListener('click', () => {
+  buildDownloadScreen();
+  showScreen('screen-download');
+});
+
+// ── Build download screen ─────────────────────────────
+function buildDownloadScreen() {
+  const partyA  = document.getElementById('party-a-name').value.trim() || 'PartyA';
+  const partyB  = document.getElementById('party-b-name').value.trim() || 'PartyB';
+  const date    = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+  const filename = `${partyA}_vs_${partyB}_Reconciliation_${date}.xlsx`.replace(/\s+/g, '_');
+
+  // Set WhatsApp support link
+  const msg = encodeURIComponent(
+    `Refund request | Session: ${state.sessionToken} | Amount: ₹12 | Time: ${new Date().toISOString()}`
+  );
+  document.getElementById('whatsapp-link').href =
+    `https://wa.me/91XXXXXXXXXX?text=${msg}`;  // ← replace with your WhatsApp number
+}
+
+// ── Download button → /download ───────────────────────
+document.getElementById('btn-download').addEventListener('click', async () => {
+  if (!state.sessionToken) { showToast('Session expired. Please start again.', 'error'); return; }
+
+  showLoading('Preparing your Excel report…');
+  try {
+    const res = await fetch(`${API_BASE}/download?token=${state.sessionToken}`);
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      hideLoading();
+      showToast(err.detail || 'Download failed. Please try again.', 'error');
+      return;
+    }
+
+    const blob     = await res.blob();
+    const url      = URL.createObjectURL(blob);
+    const a        = document.createElement('a');
+    const partyA   = document.getElementById('party-a-name').value.trim() || 'PartyA';
+    const partyB   = document.getElementById('party-b-name').value.trim() || 'PartyB';
+    const date     = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+    a.href         = url;
+    a.download     = `${partyA}_vs_${partyB}_Reconciliation_${date}.xlsx`.replace(/\s+/g, '_');
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    hideLoading();
+    showToast('Report downloaded successfully!');
+
+  } catch (err) {
+    hideLoading();
+    showToast('Download failed. Please try again.', 'error');
+    console.error(err);
+  }
+});
+</script>
+</body>
+</html>
