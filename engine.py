@@ -73,17 +73,14 @@ def _engine1(inv_a: list, inv_b: list, dn_a: list, dn_b: list,
       - Debit notes ↔ Credit notes (date + amount)
     """
 
-    matched_exact     = []  # invoice number + amount identical
-    matched_variation = []  # invoice number match + amount within 1%
-    a_not_in_b        = []  # in A, no match in B
-    b_not_in_a        = []  # in B, no match in A
+    matched_exact     = []
+    matched_variation = []
+    a_not_in_b        = []
+    b_not_in_a        = []
 
     # ── Three-pass invoice matching ──────────────────────────────────────────
-    group_a = _group(inv_a)  # norm_invoice → [entries]
+    group_a = _group(inv_a)
     group_b = _group(inv_b)
-
-    used_a: set = set()
-    used_b: set = set()
 
     def _match_passes(g_a, g_b):
         """Run 3 passes, return (exact, variation, unmatched_a_keys, unmatched_b_keys)."""
@@ -158,9 +155,6 @@ def _engine1(inv_a: list, inv_b: list, dn_a: list, dn_b: list,
     dn_matched_variation = []
     dn_a_not_in_b        = []
     dn_b_not_in_a        = []
-
-    used_dn_a: set = set()
-    used_dn_b: set = set()
 
     # Debit note A ↔ Credit note B  (and swap)
     sides = [(dn_a, cn_b, dn_a_not_in_b), (dn_b, cn_a, dn_b_not_in_a)]
