@@ -18,7 +18,6 @@ from typing import Optional
 from fastapi import FastAPI, File, Form, UploadFile, HTTPException, Request
 from fastapi.responses import StreamingResponse, JSONResponse, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from parser_tally import parse_tally_xml
@@ -193,13 +192,17 @@ async def reconcile(req: ReconcileRequest):
         pay["a_not_in_b_count"] + pay["b_not_in_a_count"]
     )
 
+    # Only send counts/values to frontend — strip the large detail lists
+    inv_preview = {k: v for k, v in inv.items() if not k.startswith("_")}
+    pay_preview = {k: v for k, v in pay.items() if not k.startswith("_")}
+
     return {
         "session_token": req.session_token,
         "status": "success",
         "results_preview": {
             "period_used":      period,
-            "invoices":         inv,
-            "payments":         pay,
+            "invoices":         inv_preview,
+            "payments":         pay_preview,
             "zero_mismatches":  total_mismatches == 0,
             "payment_required": total_mismatches > 0,
             "amount":           0.0 if total_mismatches == 0 else 12.0,
