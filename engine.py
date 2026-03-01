@@ -305,8 +305,12 @@ def run_reconciliation(
 
     # Invoice engine:
     # Party A's purchase invoices ↔ Party B's sales invoices (and vice-versa)
-    inv_a = ba.get("purchase_invoice", []) + bb.get("sales_invoice", [])
-    inv_b = bb.get("purchase_invoice", []) + ba.get("sales_invoice", [])
+    # Invoice matching: cross-party
+    # A's purchases + A's sales (all invoices from file A)  vs
+    # B's purchases + B's sales (all invoices from file B)
+    # The engine matches by invoice number across both sides.
+    inv_a = ba.get("purchase_invoice", []) + ba.get("sales_invoice", [])
+    inv_b = bb.get("purchase_invoice", []) + bb.get("sales_invoice", [])
 
     dn_a = ba.get("debit_note",  [])
     dn_b = bb.get("debit_note",  [])
