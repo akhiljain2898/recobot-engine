@@ -293,6 +293,7 @@
   }
 
   .role-pill:hover { border-color: var(--ink-soft); color: var(--ink); }
+  .role-pill.locked { cursor: default; pointer-events: none; opacity: 0.75; }
 
   .role-pill.selected {
     background: var(--ink);
@@ -707,33 +708,136 @@
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(247,246,242,0.88);
+    background: rgba(247,246,242,0.94);
     z-index: 1000;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(6px);
   }
-
   .loading-overlay.active { display: flex; }
 
-  .spinner {
-    width: 40px; height: 40px;
-    border: 3px solid var(--rule);
-    border-top-color: var(--ink);
-    border-radius: 50%;
-    animation: spin 0.75s linear infinite;
+  /* ── Shared card ── */
+  .progress-card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 16px;
+    padding: 2.5rem 2.75rem;
+    width: min(400px, 90vw);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.08);
   }
+  .progress-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink);
+    text-align: center;
+  }
+  .progress-sub {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    text-align: center;
+    letter-spacing: 0.04em;
+    min-height: 1rem;
+    transition: opacity 0.3s;
+  }
+
+  /* ── Mode A: animated circle (analyse) ── */
+  .circle-wrap {
+    position: relative;
+    width: 110px;
+    height: 110px;
+  }
+  .circle-wrap svg {
+    transform: rotate(-90deg);
+    width: 110px;
+    height: 110px;
+  }
+  .circle-bg   { fill: none; stroke: var(--rule); stroke-width: 5; }
+  .circle-spin {
+    fill: none;
+    stroke: #00838F;
+    stroke-width: 5;
+    stroke-linecap: round;
+    stroke-dasharray: 310;
+    stroke-dashoffset: 230;
+    animation: circle-rotate 1.4s ease-in-out infinite;
+    transform-origin: center;
+    transform-box: fill-box;
+  }
+  @keyframes circle-rotate {
+    0%   { stroke-dashoffset: 280; transform: rotate(0deg); }
+    50%  { stroke-dashoffset: 80;  transform: rotate(180deg); }
+    100% { stroke-dashoffset: 280; transform: rotate(360deg); }
+  }
+  .circle-inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+  .circle-icon { font-size: 1.5rem; line-height: 1; }
+  .circle-label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── Mode B: progress bar (reconcile) ── */
+  .pbar-wrap { width: 100%; display: flex; flex-direction: column; gap: 0.5rem; }
+  .pbar-row  { display: flex; justify-content: space-between; align-items: baseline; }
+  .pbar-label { font-size: 0.8rem; color: var(--ink-soft); }
+  .pbar-pct   { font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600; color: var(--ink); }
+  .pbar-track {
+    width: 100%;
+    height: 6px;
+    background: var(--rule);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .pbar-fill {
+    height: 100%;
+    width: 0%;
+    background: #2E7D32;
+    border-radius: 99px;
+    transition: width 0.5s ease;
+  }
+  .pbar-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    width: 100%;
+    margin-top: 0.25rem;
+  }
+  .pbar-step {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    transition: color 0.3s;
+  }
+  .pbar-step.done   { color: #2E7D32; }
+  .pbar-step.active { color: var(--ink); font-weight: 500; }
+  .pbar-step-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--rule);
+    flex-shrink: 0;
+    transition: background 0.3s;
+  }
+  .pbar-step.done   .pbar-step-dot { background: #2E7D32; }
+  .pbar-step.active .pbar-step-dot { background: var(--ink); }
 
   @keyframes spin { to { transform: rotate(360deg); } }
-
-  .loading-text {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--ink-soft);
-    letter-spacing: 0.05em;
-  }
 
   /* ── Toast ──────────────────────────────────────────── */
   .toast {
@@ -871,10 +975,10 @@
             <div>
               <label>Counterparty's Role</label>
               <div class="role-selector">
-                <div class="role-pill" data-party="b" data-role="buyer">Buyer</div>
-                <div class="role-pill selected" data-party="b" data-role="seller">Seller</div>
+                <div class="role-pill selected locked" id="party-b-role-pill">Seller</div>
               </div>
               <input type="hidden" id="party-b-role" value="seller" />
+              <div style="font-size:0.75rem;color:var(--ink-soft);margin-top:0.35rem;">Auto-set — opposite of your role</div>
             </div>
           </div>
 
@@ -1087,10 +1191,35 @@
   </footer>
 </div><!-- /shell -->
 
-<!-- ── Loading overlay ───────────────────────────── -->
+<!-- ── Progress overlay ───────────────────────────── -->
 <div class="loading-overlay" id="loading">
-  <div class="spinner"></div>
-  <div class="loading-text" id="loading-text">Analysing files…</div>
+  <div class="progress-card">
+    <div class="progress-title" id="progress-title">Analysing files…</div>
+
+    <!-- Mode A: animated circle (analyse) -->
+    <div class="circle-wrap" id="mode-circle">
+      <svg viewBox="0 0 110 110">
+        <circle class="circle-bg"   cx="55" cy="55" r="49"/>
+        <circle class="circle-spin" cx="55" cy="55" r="49"/>
+      </svg>
+      <div class="circle-inner">
+        <div class="circle-icon">📄</div>
+        <div class="circle-label">READING</div>
+      </div>
+    </div>
+
+    <!-- Mode B: progress bar (reconcile) -->
+    <div class="pbar-wrap" id="mode-pbar" style="display:none">
+      <div class="pbar-row">
+        <span class="pbar-label" id="pbar-step-label">Filtering entries…</span>
+        <span class="pbar-pct"   id="pbar-pct">0%</span>
+      </div>
+      <div class="pbar-track"><div class="pbar-fill" id="pbar-fill"></div></div>
+      <div class="pbar-steps" id="pbar-steps"></div>
+    </div>
+
+    <div class="progress-sub" id="progress-sub"></div>
+  </div>
 </div>
 
 <!-- ── Toast ─────────────────────────────────────── -->
@@ -1111,6 +1240,7 @@ let state = {
   period:         null,
   voucherTypes:   [],
   resultsPreview: null,
+  analysisData:   null,
 };
 
 // ── Utilities ────────────────────────────────────────
@@ -1120,13 +1250,102 @@ function showScreen(id) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function showLoading(text = 'Processing…') {
-  document.getElementById('loading-text').textContent = text;
+// ── Progress overlay ─────────────────────────────────
+
+let _progressTimer = null;
+
+function _setMode(mode) {
+  document.getElementById('mode-circle').style.display = mode === 'circle' ? 'block' : 'none';
+  document.getElementById('mode-pbar').style.display   = mode === 'pbar'   ? 'block' : 'none';
+}
+
+// ── Mode A: animated circle for /analyse ─────────────
+function showAnalyseProgress() {
+  _setMode('circle');
+  document.getElementById('progress-title').textContent = 'Reading your files…';
   document.getElementById('loading').classList.add('active');
+
+  const subs = [
+    'Detecting file encoding…',
+    'Cleaning Tally character spacing…',
+    'Extracting voucher blocks…',
+    'Normalising invoice numbers…',
+    'Calculating date overlap…',
+  ];
+  let i = 0;
+  document.getElementById('progress-sub').textContent = subs[0];
+  _progressTimer = setInterval(() => {
+    i = (i + 1) % subs.length;
+    document.getElementById('progress-sub').textContent = subs[i];
+  }, 900);
+}
+
+// ── Mode B: progress bar for /reconcile ──────────────
+function showReconcileProgress() {
+  _setMode('pbar');
+  document.getElementById('progress-title').textContent = 'Running reconciliation…';
+  document.getElementById('progress-sub').textContent   = '';
+  document.getElementById('loading').classList.add('active');
+
+  const steps = [
+    { label: 'Filtering entries to overlap period', pct: 15 },
+    { label: 'Classifying voucher types',           pct: 35 },
+    { label: 'Invoice Engine — 3 matching passes',  pct: 62 },
+    { label: 'Payment Engine — exact matching',     pct: 82 },
+    { label: 'Compiling mismatch report',           pct: 96 },
+  ];
+
+  let current = 0;
+  _renderPbarSteps(steps, current);
+  _setPbar(steps[0].pct, steps[0].label);
+
+  _progressTimer = setInterval(() => {
+    if (current >= steps.length - 1) { clearInterval(_progressTimer); return; }
+    current++;
+    _renderPbarSteps(steps, current);
+    _setPbar(steps[current].pct, steps[current].label);
+  }, 650);
+}
+
+function _setPbar(pct, label) {
+  document.getElementById('pbar-fill').style.width        = pct + '%';
+  document.getElementById('pbar-pct').textContent         = pct + '%';
+  document.getElementById('pbar-step-label').textContent  = label;
+}
+
+function _renderPbarSteps(steps, activeIdx) {
+  document.getElementById('pbar-steps').innerHTML = steps.map((s, i) => {
+    const cls = i < activeIdx ? 'done' : i === activeIdx ? 'active' : '';
+    return `<div class="pbar-step ${cls}">
+      <div class="pbar-step-dot"></div>
+      <span>${s.label}</span>
+    </div>`;
+  }).join('');
+}
+
+// ── Finish (shared) ───────────────────────────────────
+function finishProgress(callback) {
+  clearInterval(_progressTimer);
+  // Snap to 100%
+  _setPbar(100, 'Complete');
+  document.getElementById('pbar-fill').style.width = '100%';
+  document.getElementById('pbar-pct').textContent  = '100%';
+  setTimeout(() => {
+    document.getElementById('loading').classList.remove('active');
+    if (callback) callback();
+  }, 400);
 }
 
 function hideLoading() {
+  clearInterval(_progressTimer);
   document.getElementById('loading').classList.remove('active');
+}
+
+function shortDate(iso) {
+  if (!iso) return '?';
+  const [y, m] = iso.split('-');
+  const months = ['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return months[+m] + ' ' + y.slice(2);
 }
 
 function showToast(msg, type = '') {
@@ -1154,13 +1373,20 @@ function fmtPeriod(from, to) {
 }
 
 // ── Role pills ───────────────────────────────────────
-document.querySelectorAll('.role-pill').forEach(pill => {
+document.querySelectorAll('.role-pill[data-party="a"]').forEach(pill => {
   pill.addEventListener('click', () => {
-    const party = pill.dataset.party;
-    document.querySelectorAll(`.role-pill[data-party="${party}"]`)
+    // Update Party A selection
+    document.querySelectorAll('.role-pill[data-party="a"]')
       .forEach(p => p.classList.remove('selected'));
     pill.classList.add('selected');
-    document.getElementById(`party-${party}-role`).value = pill.dataset.role;
+    const roleA = pill.dataset.role;
+    document.getElementById('party-a-role').value = roleA;
+
+    // Auto-set Party B to the opposite role (locked)
+    const roleB = roleA === 'buyer' ? 'seller' : 'buyer';
+    document.getElementById('party-b-role').value = roleB;
+    const bPill = document.getElementById('party-b-role-pill');
+    bPill.textContent = roleB.charAt(0).toUpperCase() + roleB.slice(1);
   });
 });
 
@@ -1216,13 +1442,13 @@ document.getElementById('btn-analyse').addEventListener('click', async () => {
   fd.append('file_a', fileA);
   fd.append('file_b', fileB);
 
-  showLoading('Analysing your Tally files…');
+  showAnalyseProgress();
   try {
     const res  = await fetch(`${API_BASE}/analyse`, { method: 'POST', body: fd });
     const data = await res.json();
-    hideLoading();
 
     if (data.status === 'error') {
+      hideLoading();
       showToast(data.message || 'Analysis failed. Please check your files.', 'error');
       return;
     }
@@ -1230,9 +1456,12 @@ document.getElementById('btn-analyse').addEventListener('click', async () => {
     state.sessionToken = data.session_token;
     state.period       = data.period;
     state.voucherTypes = data.voucher_types;
+    state.analysisData = data;
 
-    buildVoucherScreen();
-    showScreen('screen-vouchers');
+    finishProgress(() => {
+      buildVoucherScreen();
+      showScreen('screen-vouchers');
+    });
 
   } catch (err) {
     hideLoading();
@@ -1344,7 +1573,7 @@ document.getElementById('btn-reconcile').addEventListener('click', async () => {
     classifications,
   };
 
-  showLoading('Running reconciliation…');
+  showReconcileProgress();
   try {
     const res  = await fetch(`${API_BASE}/reconcile`, {
       method:  'POST',
@@ -1352,16 +1581,18 @@ document.getElementById('btn-reconcile').addEventListener('click', async () => {
       body:    JSON.stringify(payload),
     });
     const data = await res.json();
-    hideLoading();
 
     if (data.status === 'error' || !data.results_preview) {
+      hideLoading();
       showToast(data.message || 'Reconciliation failed. Please try again.', 'error');
       return;
     }
 
     state.resultsPreview = data.results_preview;
-    buildResultsScreen();
-    showScreen('screen-results');
+    finishProgress(() => {
+      buildResultsScreen();
+      showScreen('screen-results');
+    });
 
   } catch (err) {
     hideLoading();
