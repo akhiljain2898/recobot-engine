@@ -1,6 +1,9 @@
 """
 RecoBot — Tally Ledger Reconciliation Engine
 Main FastAPI application
+
+Changes (v2):
+  [1] Payment gate temporarily disabled for testing — one line to re-enable
 """
 
 import os
@@ -192,7 +195,6 @@ async def reconcile(req: ReconcileRequest):
         pay["a_not_in_b_count"] + pay["b_not_in_a_count"]
     )
 
-    # Only send counts/values to frontend — strip the large detail lists
     inv_preview = {k: v for k, v in inv.items() if not k.startswith("_")}
     pay_preview = {k: v for k, v in pay.items() if not k.startswith("_")}
 
@@ -267,17 +269,17 @@ async def download(token: str):
     if session["results"] is None:
         raise HTTPException(400, "Reconciliation not yet run for this session.")
 
-    # Zero-mismatch sessions don't need payment
-    r   = session["results"]
-    inv = r["invoices"]
-    pay = r["payments"]
-    zero = (
-        inv["a_not_in_b_count"] + inv["b_not_in_a_count"] +
-        pay["a_not_in_b_count"] + pay["b_not_in_a_count"]
-    ) == 0
-
-    if not zero and not session["paid"]:
-        raise HTTPException(402, "Payment required before download.")
+    # FIX [1]: Payment gate disabled for testing
+    # To re-enable: remove the comment from the two lines below
+    # r   = session["results"]
+    # inv = r["invoices"]
+    # pay = r["payments"]
+    # zero = (
+    #     inv["a_not_in_b_count"] + inv["b_not_in_a_count"] +
+    #     pay["a_not_in_b_count"] + pay["b_not_in_a_count"]
+    # ) == 0
+    # if not zero and not session["paid"]:
+    #     raise HTTPException(402, "Payment required before download.")
 
     excel_bytes = generate_excel(
         results=session["results"],
@@ -289,8 +291,8 @@ async def download(token: str):
     with sessions_lock:
         sessions[token]["downloaded"] = True
 
-    date_str  = datetime.now().strftime("%Y%m%d")
-    filename  = (
+    date_str = datetime.now().strftime("%Y%m%d")
+    filename = (
         f"{session['party_a_name']}_vs_{session['party_b_name']}"
         f"_Reconciliation_{date_str}.xlsx"
     ).replace(" ", "_")
