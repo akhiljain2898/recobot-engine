@@ -11,6 +11,10 @@ Handles:
 - Auto-exclusions: RCM, TDS, opening balance, cancelled vouchers
 - Grouping by normalised invoice number (GST head splits)
 - Voucher type classification suggestions
+
+Changes (v2):
+  [1] Blank invoice numbers stamped with unmatched_reason at parse time
+  [2] Friendlier, actionable error message when XML structure not recognised
 """
 
 import re
@@ -25,7 +29,6 @@ _MONTH = {
     "sep": "09", "oct": "10", "nov": "11", "dec": "12",
 }
 
-# Voucher type keyword → suggested classification + confidence
 _KEYWORD_MAP = [
     (re.compile(r"purc|purch|purchase",        re.I), "purchase_invoice", "high"),
     (re.compile(r"sale|sales",                 re.I), "sales_invoice",    "high"),
@@ -39,7 +42,6 @@ _KEYWORD_MAP = [
 
 
 def _decode(raw: bytes) -> str:
-    """Detect BOM and decode bytes to string."""
     if raw[:2] in (b"\xff\xfe", b"\xfe\xff"):
         return raw.decode("utf-16")
     try:
@@ -49,25 +51,16 @@ def _decode(raw: bytes) -> str:
 
 
 def _remove_char_spacing(text: str) -> str:
-    """
-    Tally exports have spaces between every character inside tag values.
-    e.g.  <DSPVCHTYPE>P u r c</DSPVCHTYPE>
-    This regex collapses those spaced-out strings inside XML tags.
-    Strategy: replace 'X Y Z' patterns inside > ... < with 'XYZ'.
-    """
     def collapse(m):
         inner = m.group(1)
-        # If every token is 1 char separated by single spaces → collapse
         tokens = inner.split(" ")
         if all(len(t) == 1 for t in tokens) and len(tokens) > 1:
             return ">" + "".join(tokens) + "<"
         return m.group(0)
-
     return re.sub(r">([^<]+)<", collapse, text)
 
 
 def _parse_date(raw: str) -> str | None:
-    """Convert '1-Apr-25' or '01-Apr-2025' → '2025-04-01'."""
     raw = raw.strip()
     m = re.match(r"(\d{1,2})-([A-Za-z]{3})-(\d{2,4})$", raw)
     if not m:
@@ -82,7 +75,6 @@ def _parse_date(raw: str) -> str | None:
 
 
 def _parse_amount(cr: str, dr: str) -> float:
-    """Return absolute value of whichever field is populated."""
     for val in (cr, dr):
         val = val.strip()
         if val:
@@ -94,10 +86,6 @@ def _parse_amount(cr: str, dr: str) -> float:
 
 
 def _normalise_invoice(raw: str) -> str:
-    """
-    Strip (No.: prefix and ) suffix, then:
-    uppercase → remove spaces → remove hyphens → remove forward slashes
-    """
     raw = raw.strip()
     raw = re.sub(r"^\(No\.?:\s*", "", raw, flags=re.I)
     raw = re.sub(r"\)$", "", raw)
@@ -110,11 +98,10 @@ def _suggest_classification(vtype: str):
     for pattern, classification, confidence in _KEYWORD_MAP:
         if pattern.search(vtype):
             return classification, confidence
-    return "purchase_invoice", "medium"  # fallback — ask user
+    return "purchase_invoice", "medium"
 
 
 def _is_auto_ignore(vtype: str) -> tuple:
-    """Returns (bool, reason)."""
     if re.search(r"rcm|tds", vtype, re.I):
         return True, "Auto-detected TDS/RCM entry"
     return False, None
@@ -127,7 +114,8 @@ def parse_tally_xml(raw: bytes, label: str = "A") -> dict:
     Returns:
         {
           "entries":       [ { date, voucher_type, invoice_number_raw,
-                               invoice_number_norm, amount, source } ],
+                               invoice_number_norm, amount, source,
+                               unmatched_reason } ],
           "voucher_types": [ { name, found_in, count, suggested_classification,
                                confidence, auto_ignore, ignore_reason } ]
         }
@@ -135,22 +123,19 @@ def parse_tally_xml(raw: bytes, label: str = "A") -> dict:
     text = _decode(raw)
     text = _remove_char_spacing(text)
 
-    # Decode XML entities
     text = (text
             .replace("&amp;", "&")
             .replace("&lt;",  "<")
             .replace("&gt;",  ">")
             .replace("&quot;", '"'))
 
-    # Validate it looks like a Tally export
+    # FIX [2]: Friendlier, actionable error message
     if "ENVELOPE" not in text.upper() and "DSPVCHTYPE" not in text:
         raise ValueError(
-            f"File {label} does not appear to be a valid Tally XML export. "
-            "Could not find ENVELOPE root tag after cleaning."
+            f"File {label}: You seem to have uploaded the wrong file format. "
+            "Visit the Instructions tab to check out a detailed video on how to fetch a .xml report from Tally."
         )
 
-    # ── Extract 6-tag repeating blocks ──────────────────────────────────────
-    # We look for the 6 confirmed Tally tags in sequence, flexible whitespace
     pattern = re.compile(
         r"<DSPVCHTYPE[^>]*>(.*?)</DSPVCHTYPE>"
         r".*?<DSPEXPLVCHNUMBER[^>]*>(.*?)</DSPEXPLVCHNUMBER>"
@@ -170,33 +155,30 @@ def parse_tally_xml(raw: bytes, label: str = "A") -> dict:
         cr_amt   = m.group(5).strip()
         dr_amt   = m.group(6).strip()
 
-        # ── Auto-exclusions ─────────────────────────────────────────────────
-        # Skip cancelled
-        # (ISCANCELLED check done separately below if present)
-
-        # Skip TDS / RCM
         if re.search(r"rcm|tds", vtype, re.I):
             continue
 
-        # Skip opening balance (blank invoice + blank date)
         if not inv_raw and not date_raw:
             continue
 
-        date   = _parse_date(date_raw) if date_raw else None
-        amount = _parse_amount(cr_amt, dr_amt)
+        date     = _parse_date(date_raw) if date_raw else None
+        amount   = _parse_amount(cr_amt, dr_amt)
         inv_norm = _normalise_invoice(inv_raw) if inv_raw else ""
 
+        # FIX [1]: Stamp reason tag at parse time if invoice number is blank
+        unmatched_reason = f"no_invoice_number_{label.lower()}" if not inv_norm else None
+
         raw_entries.append({
-            "voucher_type":       vtype,
-            "invoice_number_raw": inv_raw,
+            "voucher_type":        vtype,
+            "invoice_number_raw":  inv_raw,
             "invoice_number_norm": inv_norm,
-            "date":               date,
-            "amount":             amount,
-            "source":             label,
+            "date":                date,
+            "amount":              amount,
+            "source":              label,
+            "unmatched_reason":    unmatched_reason,
         })
 
-    # Also catch ISCANCELLED=Yes and drop those entries
-    # We re-scan the full text for cancelled voucher numbers and exclude them
+    # Drop cancelled vouchers
     cancelled = set(re.findall(
         r"<DSPEXPLVCHNUMBER[^>]*>(.*?)</DSPEXPLVCHNUMBER>"
         r"(?:.*?)<ISCANCELLED[^>]*>Yes</ISCANCELLED>",
@@ -206,18 +188,17 @@ def parse_tally_xml(raw: bytes, label: str = "A") -> dict:
     raw_entries = [e for e in raw_entries if e["invoice_number_norm"] not in cancelled_norm]
 
     # ── Group by invoice number (GST head splits) ────────────────────────────
-    # Key = (voucher_type, invoice_number_norm, date)
     groups: dict = defaultdict(lambda: {"amount": 0.0, "count": 0, "entry": None})
     for e in raw_entries:
         key = (e["voucher_type"], e["invoice_number_norm"], e["date"])
         groups[key]["amount"] += e["amount"]
         groups[key]["count"]  += 1
-        groups[key]["entry"]   = e  # keep last for metadata
+        groups[key]["entry"]   = e
 
     entries = []
     for (vtype, inv_norm, date), g in groups.items():
         base = g["entry"].copy()
-        base["amount"]             = g["amount"]
+        base["amount"]              = g["amount"]
         base["invoice_number_norm"] = inv_norm
         entries.append(base)
 
@@ -233,13 +214,13 @@ def parse_tally_xml(raw: bytes, label: str = "A") -> dict:
         if auto_ign:
             sugg, conf = "ignore", "high"
         voucher_types.append({
-            "name":                    vtype,
-            "found_in":                label,
-            "count":                   count,
+            "name":                     vtype,
+            "found_in":                 label,
+            "count":                    count,
             "suggested_classification": sugg,
-            "confidence":              conf,
-            "auto_ignore":             auto_ign,
-            "ignore_reason":           ign_reason,
+            "confidence":               conf,
+            "auto_ignore":              auto_ign,
+            "ignore_reason":            ign_reason,
         })
 
     return {"entries": entries, "voucher_types": voucher_types}
