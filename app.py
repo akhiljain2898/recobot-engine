@@ -1,9 +1,6 @@
 """
 RecoBot — Tally Ledger Reconciliation Engine
 Main FastAPI application
-
-Changes (v2):
-  [1] Payment gate temporarily disabled for testing — one line to re-enable
 """
 
 import os
@@ -55,6 +52,62 @@ def _session_gc():
 
 
 threading.Thread(target=_session_gc, daemon=True).start()
+# ─────────────────────────────────────────────
+# File validation
+# ─────────────────────────────────────────────
+MAX_FILE_SIZE_MB = 8
+MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024
+
+
+def _validate_upload(file: UploadFile, file_bytes: bytes, label: str):
+    """
+    Validate file before passing to parser.
+    Returns a JSONResponse error if invalid, None if OK.
+    Checks: empty file, size > 8 MB, wrong extension.
+    """
+    filename = file.filename or ""
+
+    # Check 1 — empty file
+    if len(file_bytes) == 0:
+        return JSONResponse({
+            "status": "error",
+            "error_code": "EMPTY_FILE",
+            "message": (
+                f"File {label} appears to be empty. "
+                "Please re-export your Tally XML and try again."
+            ),
+        })
+
+    # Check 2 — file too large
+    if len(file_bytes) > MAX_FILE_SIZE_BYTES:
+        size_mb = round(len(file_bytes) / (1024 * 1024), 1)
+        return JSONResponse({
+            "status": "error",
+            "error_code": "FILE_TOO_LARGE",
+            "message": (
+                f"File {label} is {size_mb} MB which exceeds the 8 MB limit. "
+                "Please export a shorter date range or a specific ledger "
+                "instead of the full Day Book."
+            ),
+        })
+
+    # Check 3 — wrong file extension
+    if not filename.lower().endswith(".xml"):
+        ext = Path(filename).suffix or "unknown"
+        return JSONResponse({
+            "status": "error",
+            "error_code": "WRONG_FILE_TYPE",
+            "message": (
+                f"File {label} is a {ext} file. "
+                "Only Tally XML exports (.xml) are accepted. "
+                "Visit the Instructions tab for a step-by-step guide on "
+                "how to export the correct file from Tally."
+            ),
+        })
+
+    return None
+
+
 
 
 # ─────────────────────────────────────────────
@@ -74,6 +127,14 @@ async def analyse(
         bytes_b = await file_b.read()
     except Exception:
         raise HTTPException(400, "Could not read uploaded files.")
+
+    # Validate both files before any processing
+    err = _validate_upload(file_a, bytes_a, "A")
+    if err:
+        return err
+    err = _validate_upload(file_b, bytes_b, "B")
+    if err:
+        return err
 
     try:
         parsed_a = parse_tally_xml(bytes_a, label="A")
@@ -195,6 +256,7 @@ async def reconcile(req: ReconcileRequest):
         pay["a_not_in_b_count"] + pay["b_not_in_a_count"]
     )
 
+    # Only send counts/values to frontend — strip the large detail lists
     inv_preview = {k: v for k, v in inv.items() if not k.startswith("_")}
     pay_preview = {k: v for k, v in pay.items() if not k.startswith("_")}
 
@@ -269,17 +331,17 @@ async def download(token: str):
     if session["results"] is None:
         raise HTTPException(400, "Reconciliation not yet run for this session.")
 
-    # FIX [1]: Payment gate disabled for testing
-    # To re-enable: remove the comment from the two lines below
-    # r   = session["results"]
-    # inv = r["invoices"]
-    # pay = r["payments"]
-    # zero = (
-    #     inv["a_not_in_b_count"] + inv["b_not_in_a_count"] +
-    #     pay["a_not_in_b_count"] + pay["b_not_in_a_count"]
-    # ) == 0
-    # if not zero and not session["paid"]:
-    #     raise HTTPException(402, "Payment required before download.")
+    # Zero-mismatch sessions don't need payment
+    r   = session["results"]
+    inv = r["invoices"]
+    pay = r["payments"]
+    zero = (
+        inv["a_not_in_b_count"] + inv["b_not_in_a_count"] +
+        pay["a_not_in_b_count"] + pay["b_not_in_a_count"]
+    ) == 0
+
+    if not zero and not session["paid"]:
+        raise HTTPException(402, "Payment required before download.")
 
     excel_bytes = generate_excel(
         results=session["results"],
@@ -291,8 +353,8 @@ async def download(token: str):
     with sessions_lock:
         sessions[token]["downloaded"] = True
 
-    date_str = datetime.now().strftime("%Y%m%d")
-    filename = (
+    date_str  = datetime.now().strftime("%Y%m%d")
+    filename  = (
         f"{session['party_a_name']}_vs_{session['party_b_name']}"
         f"_Reconciliation_{date_str}.xlsx"
     ).replace(" ", "_")
