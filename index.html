@@ -1164,7 +1164,7 @@
 
         <div class="download-hero">
           <div class="check">✓</div>
-          <h2>Payment confirmed.</h2>
+          <h2>Your report is ready.</h2>
           <p>Your reconciliation report is ready. Click below to download your Excel file.</p>
 
           <button class="btn btn-success" id="btn-download" style="font-size:15px; padding:0.85rem 2.5rem;">
@@ -1640,18 +1640,29 @@ function buildResultsScreen() {
   rcPay.classList.toggle('has-issues', payTotal > 0);
   rcPay.classList.toggle('no-issues',  payTotal === 0);
 
-  // Zero mismatch vs pay flow
-  if (r.zero_mismatches) {
-    document.getElementById('results-grid').style.display   = 'none';
-    document.getElementById('pay-box').style.display        = 'none';
-    document.getElementById('zero-box').style.display       = 'block';
-    document.getElementById('free-download-box').style.display = 'block';
-  } else {
-    document.getElementById('results-grid').style.display   = 'grid';
-    document.getElementById('pay-box').style.display        = 'flex';
-    document.getElementById('zero-box').style.display       = 'none';
-    document.getElementById('free-download-box').style.display = 'none';
-  }
+  // ── Payment gate disabled for testing ──────────────────
+  // All users go straight to download regardless of mismatches.
+  // To re-enable payment flow: restore the if/else block below.
+  // ────────────────────────────────────────────────────────
+  document.getElementById('results-grid').style.display   = 'grid';
+  document.getElementById('pay-box').style.display        = 'none';
+  document.getElementById('zero-box').style.display       = 'none';
+  document.getElementById('free-download-box').style.display = 'none';
+  buildDownloadScreen();
+  showScreen('screen-download');
+
+  // RESTORE THIS BLOCK to re-enable payment flow:
+  // if (r.zero_mismatches) {
+  //   document.getElementById('results-grid').style.display   = 'none';
+  //   document.getElementById('pay-box').style.display        = 'none';
+  //   document.getElementById('zero-box').style.display       = 'block';
+  //   document.getElementById('free-download-box').style.display = 'block';
+  // } else {
+  //   document.getElementById('results-grid').style.display   = 'grid';
+  //   document.getElementById('pay-box').style.display        = 'flex';
+  //   document.getElementById('zero-box').style.display       = 'none';
+  //   document.getElementById('free-download-box').style.display = 'none';
+  // }
 }
 
 // ── Pay button (placeholder — wire to Stripe/Razorpay later) ──
