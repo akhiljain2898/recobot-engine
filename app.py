@@ -188,7 +188,7 @@ async def analyse(
             },
             "period_used":  {"from": overlap_from, "to": overlap_to},
             "results":      None,
-            "paid":         False,
+            "paid":         True,
             "downloaded":   False,
         }
 
