@@ -3,32 +3,37 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>RecoBot — Tally Ledger Reconciliation</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<title>RecoDone — Tally Ledger Reconciliation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   /* ── Reset & Variables ─────────────────────────────── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --ink:        #0D1117;
-    --ink-soft:   #3D4451;
-    --ink-muted:  #8892A4;
-    --paper:      #F7F6F2;
-    --paper-warm: #EFEDE6;
-    --rule:       #DDD9CF;
+    --ink:        #1a2e4a;
+    --ink-soft:   #4a5e74;
+    --ink-muted:  #8a9ab0;
+    --paper:      #ffffff;
+    --paper-warm: #f0f6ff;
+    --rule:       #e8eef6;
+    --blue:       #6B9FE4;
+    --blue-dark:  #4A80D4;
+    --blue-light: #e8f0fc;
     --accent:     #C8410B;
     --accent-2:   #1A6B4A;
     --gold:       #C4882A;
     --warning:    #E8A020;
     --danger:     #C8410B;
     --success:    #1A6B4A;
-    --font-head:  'DM Serif Display', Georgia, serif;
-    --font-body:  'DM Sans', sans-serif;
-    --font-mono:  'DM Mono', monospace;
-    --radius:     4px;
-    --radius-lg:  10px;
-    --shadow:     0 1px 4px rgba(13,17,23,0.08), 0 4px 20px rgba(13,17,23,0.05);
-    --shadow-lg:  0 8px 40px rgba(13,17,23,0.12);
+    --font-head:  'Inter', Arial, sans-serif;
+    --font-body:  'Inter', Arial, sans-serif;
+    --font-mono:  'Inter', Arial, sans-serif;
+    --radius:     8px;
+    --radius-lg:  14px;
+    --shadow:     0 1px 4px rgba(107,159,228,0.08), 0 4px 20px rgba(107,159,228,0.08);
+    --shadow-lg:  0 8px 40px rgba(107,159,228,0.14);
   }
 
   html { scroll-behavior: smooth; }
@@ -50,7 +55,8 @@
   }
 
   header {
-    background: var(--ink);
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
     padding: 0 2rem;
     height: 56px;
     display: flex;
@@ -59,12 +65,14 @@
     position: sticky;
     top: 0;
     z-index: 100;
+    box-shadow: 0 1px 8px rgba(107,159,228,0.08);
   }
 
   .logo {
     font-family: var(--font-head);
-    font-size: 1.5rem;
-    color: var(--paper);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--ink);
     letter-spacing: -0.02em;
     display: flex;
     align-items: center;
@@ -73,7 +81,7 @@
 
   .logo-dot {
     width: 8px; height: 8px;
-    background: var(--accent);
+    background: var(--blue);
     border-radius: 50%;
     display: inline-block;
   }
@@ -81,7 +89,7 @@
   .trust-tag {
     font-size: 11px;
     color: var(--ink-muted);
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     letter-spacing: 0.04em;
   }
 
@@ -105,20 +113,21 @@
   /* ── Typography ─────────────────────────────────────── */
   .page-title {
     font-family: var(--font-head);
-    font-size: clamp(2rem, 4vw, 3rem);
-    line-height: 1.15;
+    font-size: clamp(2.75rem, 6vw, 4rem);
+    font-weight: 700;
+    line-height: 1.1;
     letter-spacing: -0.03em;
-    color: var(--ink);
+    color: var(--blue);
     margin-bottom: 0.5rem;
   }
 
   .page-title em {
-    font-style: italic;
-    color: var(--accent);
+    font-style: normal;
+    color: var(--blue-dark);
   }
 
   .page-subtitle {
-    color: var(--ink-soft);
+    color: var(--ink-muted);
     font-size: 1rem;
     max-width: 560px;
     margin-bottom: 2.5rem;
@@ -126,11 +135,12 @@
   }
 
   .section-label {
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     font-size: 10px;
+    font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--ink-muted);
+    color: var(--blue);
     margin-bottom: 0.75rem;
   }
 
@@ -147,7 +157,9 @@
 
   .card-title {
     font-family: var(--font-head);
-    font-size: 1.25rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ink);
     margin-bottom: 1.25rem;
     padding-bottom: 0.75rem;
     border-bottom: 1px solid var(--rule);
@@ -157,13 +169,14 @@
   }
 
   .card-title .num {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    background: var(--ink);
-    color: var(--paper);
-    border-radius: 3px;
-    padding: 2px 6px;
-    letter-spacing: 0.05em;
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    font-weight: 600;
+    background: var(--blue);
+    color: #fff;
+    border-radius: 6px;
+    padding: 2px 7px;
+    letter-spacing: 0.04em;
   }
 
   /* ── Form Elements ──────────────────────────────────── */
@@ -178,10 +191,10 @@
 
   label {
     display: block;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     color: var(--ink-soft);
-    letter-spacing: 0.04em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     margin-bottom: 0.4rem;
   }
@@ -195,7 +208,7 @@
     font-family: var(--font-body);
     font-size: 14px;
     color: var(--ink);
-    background: var(--paper);
+    background: #fff;
     transition: border-color 0.15s, box-shadow 0.15s;
     outline: none;
     appearance: none;
@@ -203,13 +216,13 @@
 
   input[type="text"]:focus,
   select:focus {
-    border-color: var(--ink);
-    box-shadow: 0 0 0 3px rgba(13,17,23,0.08);
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(107,159,228,0.15);
     background: #fff;
   }
 
   select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238892A4' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a9ab0' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 0.75rem center;
     padding-right: 2rem;
@@ -225,11 +238,11 @@
     cursor: pointer;
     transition: border-color 0.2s, background 0.2s;
     position: relative;
-    background: var(--paper);
+    background: #fff;
   }
 
   .upload-zone:hover, .upload-zone.drag-over {
-    border-color: var(--ink);
+    border-color: var(--blue);
     background: var(--paper-warm);
   }
 
@@ -256,18 +269,18 @@
 
   .upload-label {
     font-size: 13px;
-    color: var(--ink-soft);
+    color: var(--ink-muted);
     line-height: 1.5;
   }
 
-  .upload-label strong { color: var(--ink); }
+  .upload-label strong { color: var(--blue); }
 
   .upload-filename {
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     font-size: 11px;
+    font-weight: 600;
     color: var(--accent-2);
     margin-top: 0.4rem;
-    font-weight: 500;
   }
 
   /* ── Role Pill Selector ─────────────────────────────── */
@@ -288,17 +301,17 @@
     cursor: pointer;
     transition: all 0.15s;
     color: var(--ink-soft);
-    background: var(--paper);
+    background: #fff;
     user-select: none;
   }
 
-  .role-pill:hover { border-color: var(--ink-soft); color: var(--ink); }
+  .role-pill:hover { border-color: var(--blue); color: var(--blue); }
   .role-pill.locked { cursor: default; pointer-events: none; opacity: 0.75; }
 
   .role-pill.selected {
-    background: var(--ink);
-    border-color: var(--ink);
-    color: var(--paper);
+    background: var(--blue);
+    border-color: var(--blue);
+    color: #fff;
   }
 
   /* ── Warning Banner ─────────────────────────────────── */
@@ -323,7 +336,7 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.7rem 1.75rem;
-    border-radius: var(--radius);
+    border-radius: 10px;
     font-family: var(--font-body);
     font-size: 14px;
     font-weight: 600;
@@ -335,11 +348,11 @@
   }
 
   .btn-primary {
-    background: var(--ink);
-    color: var(--paper);
+    background: var(--blue);
+    color: #fff;
   }
 
-  .btn-primary:hover { background: #1e2530; transform: translateY(-1px); box-shadow: var(--shadow); }
+  .btn-primary:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: var(--shadow); }
   .btn-primary:active { transform: translateY(0); }
 
   .btn-accent {
@@ -362,7 +375,7 @@
     border: 1.5px solid var(--rule);
   }
 
-  .btn-outline:hover { border-color: var(--ink); }
+  .btn-outline:hover { border-color: var(--blue); color: var(--blue); }
 
   .btn:disabled {
     opacity: 0.45;
@@ -404,14 +417,15 @@
     border-radius: 50%;
     border: 1.5px solid currentColor;
     display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     font-size: 10px;
+    font-weight: 600;
     flex-shrink: 0;
   }
 
   .step-item.active .step-num {
-    background: var(--ink);
-    border-color: var(--ink);
+    background: var(--blue);
+    border-color: var(--blue);
     color: #fff;
   }
 
@@ -449,7 +463,8 @@
 
   .period-cell .p-label {
     font-size: 10px;
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--ink-muted);
@@ -476,13 +491,13 @@
     text-align: left;
     padding: 0.6rem 0.85rem;
     font-size: 10px;
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--ink-muted);
     border-bottom: 1px solid var(--rule);
-    background: var(--paper);
-    font-weight: 500;
+    background: var(--paper-warm);
   }
 
   .voucher-table td {
@@ -492,32 +507,32 @@
   }
 
   .voucher-table tr:last-child td { border-bottom: none; }
-
-  .voucher-table tr:hover td { background: var(--paper); }
+  .voucher-table tr:hover td { background: var(--paper-warm); }
 
   .vt-name {
-    font-family: var(--font-mono);
-    font-size: 12.5px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
     color: var(--ink);
-    font-weight: 500;
   }
 
   .vt-source {
     display: inline-block;
     font-size: 10px;
-    font-family: var(--font-mono);
-    background: var(--paper-warm);
+    font-family: var(--font-body);
+    background: var(--blue-light);
     border: 1px solid var(--rule);
-    border-radius: 3px;
-    padding: 1px 5px;
-    color: var(--ink-soft);
+    border-radius: 6px;
+    padding: 1px 6px;
+    color: var(--blue-dark);
     margin-left: 0.4rem;
+    font-weight: 500;
   }
 
   .vt-count {
     color: var(--ink-muted);
     font-size: 12px;
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
   }
 
   .confidence-badge {
@@ -525,10 +540,11 @@
     align-items: center;
     gap: 0.3rem;
     font-size: 10px;
-    padding: 2px 6px;
-    border-radius: 3px;
-    font-family: var(--font-mono);
-    letter-spacing: 0.04em;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 6px;
+    font-family: var(--font-body);
+    letter-spacing: 0.02em;
   }
 
   .confidence-high {
@@ -542,12 +558,13 @@
   }
 
   .auto-ignore-badge {
-    background: #f5f5f5;
+    background: var(--paper-warm);
     color: var(--ink-muted);
     font-size: 10px;
-    font-family: var(--font-mono);
-    padding: 2px 6px;
-    border-radius: 3px;
+    font-family: var(--font-body);
+    font-weight: 500;
+    padding: 2px 7px;
+    border-radius: 6px;
     font-style: italic;
   }
 
@@ -569,7 +586,8 @@
 
   .result-card .rc-label {
     font-size: 10px;
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--ink-muted);
@@ -579,18 +597,19 @@
   .result-card .rc-count {
     font-family: var(--font-head);
     font-size: 2.5rem;
+    font-weight: 700;
     line-height: 1;
     margin-bottom: 0.25rem;
     color: var(--ink);
   }
 
-  .result-card.has-issues .rc-count { color: var(--accent); }
+  .result-card.has-issues .rc-count { color: var(--danger); }
   .result-card.no-issues .rc-count { color: var(--accent-2); }
 
   .result-card .rc-value {
     font-size: 13px;
     color: var(--ink-soft);
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
   }
 
   .result-card .rc-breakdown {
@@ -611,7 +630,7 @@
 
   .pay-box {
     background: var(--ink);
-    color: var(--paper);
+    color: #fff;
     border-radius: var(--radius-lg);
     padding: 1.75rem 2rem;
     display: flex;
@@ -623,19 +642,21 @@
 
   .pay-box .pay-copy h3 {
     font-family: var(--font-head);
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+    font-weight: 700;
     margin-bottom: 0.25rem;
   }
 
   .pay-box .pay-copy p {
     font-size: 12px;
-    color: var(--ink-muted);
+    color: rgba(255,255,255,0.6);
     max-width: 360px;
   }
 
   .pay-amount {
     font-family: var(--font-head);
     font-size: 2.25rem;
+    font-weight: 700;
     color: var(--gold);
     white-space: nowrap;
   }
@@ -655,7 +676,8 @@
 
   .zero-mismatch-box h3 {
     font-family: var(--font-head);
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+    font-weight: 700;
     color: var(--accent-2);
     margin-bottom: 0.5rem;
   }
@@ -686,7 +708,8 @@
 
   .download-hero h2 {
     font-family: var(--font-head);
-    font-size: 2rem;
+    font-size: 1.75rem;
+    font-weight: 700;
     margin-bottom: 0.5rem;
   }
 
@@ -700,7 +723,7 @@
     margin-top: 1.25rem;
     font-size: 11px;
     color: var(--ink-muted);
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
   }
 
   /* ── Loading Overlay ────────────────────────────────── */
@@ -708,7 +731,7 @@
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(247,246,242,0.94);
+    background: rgba(255,255,255,0.92);
     z-index: 1000;
     flex-direction: column;
     align-items: center;
@@ -719,7 +742,7 @@
 
   /* ── Shared card ── */
   .progress-card {
-    background: var(--surface);
+    background: #fff;
     border: 1px solid var(--rule);
     border-radius: 16px;
     padding: 2.5rem 2.75rem;
@@ -728,7 +751,7 @@
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+    box-shadow: var(--shadow-lg);
   }
   .progress-title {
     font-size: 1rem;
@@ -737,7 +760,7 @@
     text-align: center;
   }
   .progress-sub {
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     font-size: 0.72rem;
     color: var(--ink-soft);
     text-align: center;
@@ -746,7 +769,7 @@
     transition: opacity 0.3s;
   }
 
-  /* ── Mode A: animated circle (analyse) ── */
+  /* ── Mode A: animated circle ── */
   .circle-wrap {
     position: relative;
     width: 110px;
@@ -760,7 +783,7 @@
   .circle-bg   { fill: none; stroke: var(--rule); stroke-width: 5; }
   .circle-spin {
     fill: none;
-    stroke: #00838F;
+    stroke: var(--blue);
     stroke-width: 5;
     stroke-linecap: round;
     stroke-dasharray: 310;
@@ -785,17 +808,18 @@
   }
   .circle-icon { font-size: 1.5rem; line-height: 1; }
   .circle-label {
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     font-size: 0.6rem;
+    font-weight: 600;
     color: var(--ink-soft);
     letter-spacing: 0.08em;
   }
 
-  /* ── Mode B: progress bar (reconcile) ── */
+  /* ── Mode B: progress bar ── */
   .pbar-wrap { width: 100%; display: flex; flex-direction: column; gap: 0.5rem; }
   .pbar-row  { display: flex; justify-content: space-between; align-items: baseline; }
   .pbar-label { font-size: 0.8rem; color: var(--ink-soft); }
-  .pbar-pct   { font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600; color: var(--ink); }
+  .pbar-pct   { font-family: var(--font-body); font-size: 0.85rem; font-weight: 600; color: var(--ink); }
   .pbar-track {
     width: 100%;
     height: 6px;
@@ -806,7 +830,7 @@
   .pbar-fill {
     height: 100%;
     width: 0%;
-    background: #2E7D32;
+    background: var(--blue);
     border-radius: 99px;
     transition: width 0.5s ease;
   }
@@ -825,7 +849,7 @@
     color: var(--ink-soft);
     transition: color 0.3s;
   }
-  .pbar-step.done   { color: #2E7D32; }
+  .pbar-step.done   { color: var(--accent-2); }
   .pbar-step.active { color: var(--ink); font-weight: 500; }
   .pbar-step-dot {
     width: 7px; height: 7px;
@@ -834,8 +858,8 @@
     flex-shrink: 0;
     transition: background 0.3s;
   }
-  .pbar-step.done   .pbar-step-dot { background: #2E7D32; }
-  .pbar-step.active .pbar-step-dot { background: var(--ink); }
+  .pbar-step.done   .pbar-step-dot { background: var(--accent-2); }
+  .pbar-step.active .pbar-step-dot { background: var(--blue); }
 
   @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -846,26 +870,27 @@
     left: 50%;
     transform: translateX(-50%) translateY(100px);
     background: var(--ink);
-    color: var(--paper);
+    color: #fff;
     padding: 0.75rem 1.5rem;
-    border-radius: var(--radius);
+    border-radius: 10px;
     font-size: 13px;
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     z-index: 2000;
     transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
     max-width: 90vw;
     text-align: center;
   }
 
-  .toast.error { background: var(--accent); }
+  .toast.error { background: var(--danger); }
   .toast.show { transform: translateX(-50%) translateY(0); }
 
   /* ── Footer ─────────────────────────────────────────── */
   footer {
-    background: var(--ink);
+    background: var(--paper);
+    border-top: 1px solid var(--rule);
     color: var(--ink-muted);
     font-size: 11px;
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     text-align: center;
     padding: 1rem;
     letter-spacing: 0.04em;
@@ -899,9 +924,9 @@
   <!-- ── Header ─────────────────────────────────────── -->
   <header>
     <div class="logo">
-      <span class="logo-dot"></span>RecoBot
+      <span class="logo-dot"></span>RecoDone
     </div>
-    <span class="trust-tag">your files are never stored</span>
+    
   </header>
 
   <!-- ── Main ───────────────────────────────────────── -->
@@ -913,11 +938,10 @@
       <!-- ════════════════════════════════════════════ -->
       <div id="screen-upload" class="screen active">
 
-        <p class="section-label">Tally Ledger Reconciliation</p>
-        <h1 class="page-title">Find every mismatch.<br><em>In under 2 minutes.</em></h1>
+        <h1 class="page-title">Stop losing hours to reco.<br><em>Find every mismatch in minutes.</em></h1>
         <p class="page-subtitle">
-          Upload two Tally XML ledger exports — yours and your counterparty's —
-          and RecoBot instantly pinpoints every invoice and payment discrepancy.
+          Upload two Tally XML ledger exports - yours and your counterparty's -
+          and RecoDone instantly pinpoints every invoice and payment discrepancy.
         </p>
 
         <div class="warning-banner">
@@ -978,7 +1002,7 @@
                 <div class="role-pill selected locked" id="party-b-role-pill">Seller</div>
               </div>
               <input type="hidden" id="party-b-role" value="seller" />
-              <div style="font-size:0.75rem;color:var(--ink-soft);margin-top:0.35rem;">Auto-set — opposite of your role</div>
+              <div style="font-size:0.75rem;color:var(--ink-soft);margin-top:0.35rem;">Auto-set - opposite of your role</div>
             </div>
           </div>
 
@@ -1029,7 +1053,7 @@
           Confirm Voucher Types
         </h1>
         <p class="page-subtitle" style="margin-bottom:1.5rem;">
-          RecoBot found the voucher types below in your files. Confirm or correct
+          RecoDone found the voucher types below in your files. Confirm or correct
           each classification — this tells the engine what to match against what.
           <br>⚠️ entries marked with a warning need your attention.
         </p>
@@ -1187,7 +1211,7 @@
   </main>
 
   <footer>
-    RecoBot · Built for Indian SMEs · Data never stored · Processed in memory only
+    RecoDone · Built for Indian SMEs · Data never stored · Processed in memory only
   </footer>
 </div><!-- /shell -->
 
