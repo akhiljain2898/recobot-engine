@@ -129,7 +129,7 @@
   .page-subtitle {
     color: var(--ink-muted);
     font-size: 1rem;
-    max-width: 480px;
+    max-width: 100%;
     margin-bottom: 2.5rem;
     line-height: 1.7;
   }
@@ -940,6 +940,27 @@
       <div id="screen-upload" class="screen active">
 
         <h1 class="page-title">Stop losing hours to reco.<br><em>Find every mismatch in minutes.</em></h1>
+
+        <div style="margin-bottom: 1rem;">
+          <span style="
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: #f0f9f4;
+            border: 1px solid #a8d8b8;
+            border-radius: 20px;
+            padding: 5px 14px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #1A6B4A;
+            font-family: 'Inter', Arial, sans-serif;
+            letter-spacing: 0.01em;
+          ">
+            <span style="width:8px;height:8px;background:#1A6B4A;border-radius:50%;display:inline-block;"></span>
+            Built for Tally.ERP · INR ledgers only
+          </span>
+        </div>
+
         <p class="page-subtitle">
           Upload two Tally XML ledger exports - yours and your counterparty's -
           and RecoDone instantly pinpoints every invoice and payment discrepancy.
@@ -1022,7 +1043,7 @@
           </div>
         </div>
 
-        <div class="btn-row">
+        <div class="btn-row" style="flex-direction:column; align-items:center; gap:0.6rem;">
           <button class="btn btn-primary" id="btn-analyse">
             Analyse Files →
           </button>
