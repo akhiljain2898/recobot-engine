@@ -376,6 +376,13 @@ def serve_frontend():
         raise HTTPException(404, "Frontend not found.")
     return FileResponse(str(html_path), media_type="text/html")
 
+@app.get("/reco_logo_website.png")
+def serve_logo():
+    logo_path = Path(__file__).parent / "reco_logo_website.png"
+    if not logo_path.exists():
+        raise HTTPException(404, "Logo not found.")
+    return FileResponse(str(logo_path), media_type="image/png")
+
 
 # ─────────────────────────────────────────────
 # Health
