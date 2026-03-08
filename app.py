@@ -47,7 +47,7 @@ app.add_middleware(
 # ─────────────────────────────────────────────
 sessions: dict = {}
 sessions_lock = threading.Lock()
-TTL_SECONDS = 3600  # 60 minutes
+TTL_SECONDS = 300   # 5 minutes
 
 
 def _session_gc():
@@ -305,22 +305,19 @@ async def confirm_payment(request: Request):
             raise HTTPException(400, "Invalid webhook signature.")
 
     payload = json.loads(body)
-    order_id = (
-        payload
-        .get("payload", {})
-        .get("payment", {})
-        .get("entity", {})
-        .get("order_id")
-    )
+    entity   = payload.get("payload", {}).get("payment", {}).get("entity", {})
+    order_id = entity.get("order_id")
+    payment_id = entity.get("id", "unknown")
 
     if not order_id:
         raise HTTPException(400, "Missing order_id in payload.")
 
     with sessions_lock:
         if order_id in sessions:
-            sessions[order_id]["paid"] = True
+            sessions[order_id]["paid"]             = True
+            sessions[order_id]["razorpay_payment_id"] = payment_id
 
-    audit.info("PAYMENT_SUCCESS | payment_id=%s | session=%s", received_sig[:16] if received_sig else "none", order_id)
+    audit.info("PAYMENT_SUCCESS | razorpay_payment_id=%s | session=%s", payment_id, order_id)
     return {"status": "ok"}
 
 
@@ -363,13 +360,18 @@ async def download(token: str):
     with sessions_lock:
         sessions[token]["downloaded"] = True
 
-    audit.info("DOWNLOAD_SUCCESS | session=%s | file=%s", token, filename)
-
     date_str  = datetime.now().strftime("%Y%m%d")
     filename  = (
         f"{session['party_a_name']}_vs_{session['party_b_name']}"
         f"_Reconciliation_{date_str}.xlsx"
     ).replace(" ", "_")
+
+    audit.info(
+        "DOWNLOAD_SUCCESS | razorpay_payment_id=%s | session=%s | file=%s",
+        session.get("razorpay_payment_id", "zero_mismatch_free"),
+        token,
+        filename,
+    )
 
     return StreamingResponse(
         BytesIO(excel_bytes),
