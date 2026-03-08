@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Refund Policy — easemyreco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink:        #1a2e4a;
+    --ink-soft:   #4a5e74;
+    --ink-muted:  #8a9ab0;
+    --paper:      #ffffff;
+    --rule:       #e8eef6;
+    --blue:       #6B9FE4;
+    --accent-2:   #1A6B4A;
+    --font-body:  'Inter', Arial, sans-serif;
+    --radius:     8px;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.8;
+  }
+  .shell { min-height: 100vh; display: flex; flex-direction: column; }
+
+  header {
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    padding: 0 2rem;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 1px 8px rgba(107,159,228,0.08);
+  }
+  .logo {
+    font-family: var(--font-body);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+
+  main {
+    flex: 1;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 3rem 2rem 5rem;
+    width: 100%;
+  }
+
+  .breadcrumb {
+    font-size: 13px;
+    color: var(--ink-muted);
+    margin-bottom: 2rem;
+  }
+  .breadcrumb a { color: var(--blue); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  .last-updated {
+    font-size: 13px;
+    color: var(--ink-muted);
+    margin-bottom: 2.5rem;
+  }
+  h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-top: 2.25rem;
+    margin-bottom: 0.6rem;
+  }
+  p { color: var(--ink-soft); margin-bottom: 1rem; }
+  ul { color: var(--ink-soft); margin: 0.5rem 0 1rem 1.5rem; }
+  ul li { margin-bottom: 0.4rem; }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .highlight-box {
+    background: #f0f6ff;
+    border-left: 4px solid var(--blue);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+    color: var(--ink-soft);
+    font-size: 14px;
+  }
+
+  .eligibility-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .eligibility-table th {
+    background: #f0f6ff;
+    padding: 0.65rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--ink);
+    border: 1px solid var(--rule);
+  }
+  .eligibility-table td {
+    padding: 0.65rem 1rem;
+    border: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  .yes { color: #1A6B4A; font-weight: 600; }
+  .no  { color: #C8410B; font-weight: 600; }
+
+  footer {
+    background: var(--paper);
+    border-top: 1px solid var(--rule);
+    color: var(--ink-soft);
+    font-size: 13px;
+    text-align: center;
+    padding: 1.5rem;
+  }
+  footer a { color: var(--ink-soft); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 640px) {
+    main { padding: 2rem 1rem 4rem; }
+    h1 { font-size: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <header>
+    <a href="/" class="logo">easemyreco</a>
+  </header>
+
+  <main>
+    <div class="breadcrumb"><a href="/">← Back to easemyreco</a></div>
+
+    <h1>Refund Policy</h1>
+    <p class="last-updated">Last updated: March 2026</p>
+
+    <div class="highlight-box">
+      <strong>Summary:</strong> We charge ₹15 only when your reconciliation has mismatches. If the Excel report failed to generate due to a technical error on our end, you are entitled to a full refund. No refunds are issued once the report has been successfully downloaded.
+    </div>
+
+    <h2>1. Our Pricing Model</h2>
+    <p>easemyreco operates on a pay-per-reconciliation model:</p>
+    <ul>
+      <li><strong>Zero mismatches</strong> — the reconciliation report is provided free of charge</li>
+      <li><strong>One or more mismatches</strong> — a flat fee of ₹15 (inclusive of all charges) is charged before the report can be downloaded</li>
+    </ul>
+    <p>You are shown the full mismatch count before any payment is requested. You choose whether to proceed with the payment.</p>
+
+    <h2>2. Refund Eligibility</h2>
+    <table class="eligibility-table">
+      <tr>
+        <th>Situation</th>
+        <th>Refund</th>
+      </tr>
+      <tr>
+        <td>Excel report failed to generate due to a technical error on our side</td>
+        <td class="yes">Yes — full refund</td>
+      </tr>
+      <tr>
+        <td>Payment was charged but the download link did not appear</td>
+        <td class="yes">Yes — full refund</td>
+      </tr>
+      <tr>
+        <td>Report was successfully downloaded</td>
+        <td class="no">No refund</td>
+      </tr>
+      <tr>
+        <td>You uploaded incorrect files and got an unexpected result</td>
+        <td class="no">No refund</td>
+      </tr>
+      <tr>
+        <td>You changed your mind after payment</td>
+        <td class="no">No refund</td>
+      </tr>
+      <tr>
+        <td>Session expired before download (60-minute window)</td>
+        <td class="no">No refund — please re-run the reconciliation</td>
+      </tr>
+    </table>
+
+    <h2>3. How to Request a Refund</h2>
+    <p>If you believe you are eligible for a refund, contact us within <strong>48 hours</strong> of the payment with the following details:</p>
+    <ul>
+
+      <li>The Razorpay payment ID from your payment confirmation email (starts with <strong>pay_</strong>)</li>
+      <li>The date and approximate time of the transaction</li>
+      <li>A brief description of the issue</li>
+    </ul>
+    <p>Reach us at: <a href="mailto:admin@verifiedwork.co">admin@verifiedwork.co</a></p>
+    <p>We will review your request and respond within 72 hours. Approved refunds will be processed back to the original payment method within 5–7 business days, subject to Razorpay's processing timelines.</p>
+
+    <h2>4. Duplicate Payments</h2>
+    <p>If you were charged more than once for the same reconciliation due to a technical error, the duplicate charge will be refunded in full. Please contact us with both Razorpay payment IDs.</p>
+
+    <h2>5. No Cancellation After Download</h2>
+    <p>Because easemyreco delivers a digital report that is immediately accessible upon download, the service is considered fully delivered once the Excel file has been successfully downloaded. No cancellations or refunds are possible after this point.</p>
+
+    <h2>6. Contact</h2>
+    <p>Aavishkar Technologies Private Limited<br>
+    Maharashtra, India<br>
+    Email: <a href="mailto:admin@verifiedwork.co">admin@verifiedwork.co</a><br>
+    Website: <a href="https://easemyreco.com">easemyreco.com</a></p>
+
+  </main>
+
+  <footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:0.75rem; flex-wrap:wrap;">
+      <span style="font-weight:700;">easemyreco</span>
+      <span>© 2026 Aavishkar Technologies Private Limited · <a href="/privacy-policy">Privacy Policy</a> · <a href="/terms">Terms</a> · <a href="/refund-policy">Refund Policy</a></span>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

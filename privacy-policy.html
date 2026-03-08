@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Privacy Policy — easemyreco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink:        #1a2e4a;
+    --ink-soft:   #4a5e74;
+    --ink-muted:  #8a9ab0;
+    --paper:      #ffffff;
+    --rule:       #e8eef6;
+    --blue:       #6B9FE4;
+    --accent-2:   #1A6B4A;
+    --font-body:  'Inter', Arial, sans-serif;
+    --radius:     8px;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.8;
+  }
+  .shell { min-height: 100vh; display: flex; flex-direction: column; }
+
+  header {
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    padding: 0 2rem;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 1px 8px rgba(107,159,228,0.08);
+  }
+  .logo {
+    font-family: var(--font-body);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+
+  main {
+    flex: 1;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 3rem 2rem 5rem;
+    width: 100%;
+  }
+
+  .breadcrumb {
+    font-size: 13px;
+    color: var(--ink-muted);
+    margin-bottom: 2rem;
+  }
+  .breadcrumb a { color: var(--blue); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  .last-updated {
+    font-size: 13px;
+    color: var(--ink-muted);
+    margin-bottom: 2.5rem;
+  }
+  h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-top: 2.25rem;
+    margin-bottom: 0.6rem;
+  }
+  p { color: var(--ink-soft); margin-bottom: 1rem; }
+  ul { color: var(--ink-soft); margin: 0.5rem 0 1rem 1.5rem; }
+  ul li { margin-bottom: 0.4rem; }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .highlight-box {
+    background: #f0f6ff;
+    border-left: 4px solid var(--blue);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+    color: var(--ink-soft);
+    font-size: 14px;
+  }
+
+  footer {
+    background: var(--paper);
+    border-top: 1px solid var(--rule);
+    color: var(--ink-soft);
+    font-size: 13px;
+    text-align: center;
+    padding: 1.5rem;
+  }
+  footer a { color: var(--ink-soft); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 640px) {
+    main { padding: 2rem 1rem 4rem; }
+    h1 { font-size: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <header>
+    <a href="/" class="logo">easemyreco</a>
+  </header>
+
+  <main>
+    <div class="breadcrumb"><a href="/">← Back to easemyreco</a></div>
+
+    <h1>Privacy Policy</h1>
+    <p class="last-updated">Last updated: March 2026</p>
+
+    <div class="highlight-box">
+      <strong>The short version:</strong> We do not store your data. Your uploaded files are processed in memory and permanently deleted within 60 minutes. We never see, access, or retain your financial information.
+    </div>
+
+    <h2>1. Who We Are</h2>
+    <p>easemyreco is a product of <strong>Aavishkar Technologies Private Limited</strong>, a company incorporated in Maharashtra, India. Our website is <a href="https://easemyreco.com">easemyreco.com</a>.</p>
+    <p>For any privacy-related queries, contact us at <a href="mailto:admin@verifiedwork.co">admin@verifiedwork.co</a>.</p>
+
+    <h2>2. What Data We Process</h2>
+    <p>When you use easemyreco, the following information is temporarily processed:</p>
+    <ul>
+      <li>Party names entered by you (e.g. your business name and counterparty name)</li>
+      <li>Tally XML export files uploaded by you, which may contain transaction data such as invoice numbers, dates, and amounts</li>
+      <li>Email address, if provided at the time of payment via Razorpay</li>
+    </ul>
+    <p>We do not collect names, addresses, government IDs, or any other personal information beyond what is listed above.</p>
+
+    <h2>3. How We Use This Data</h2>
+    <p>The data you upload is used solely to perform the ledger reconciliation you have requested. Specifically:</p>
+    <ul>
+      <li>Your uploaded files are parsed and matched in server memory</li>
+      <li>The reconciliation output (Excel report) is generated and made available for download</li>
+      <li>No data is written to any database or persistent storage at any stage</li>
+    </ul>
+
+    <h2>4. Data Retention</h2>
+    <p>All session data — including uploaded files, parsed entries, and reconciliation results — is stored exclusively in server memory and is <strong>automatically and permanently deleted within 60 minutes</strong> of your session being created. Once you download your report, session data is deleted immediately.</p>
+    <p>We do not maintain any logs of your uploaded content or reconciliation results.</p>
+
+    <h2>5. Data Storage and Cross-Border Transfer</h2>
+    <p>easemyreco is hosted on Railway (<a href="https://railway.app" target="_blank">railway.app</a>), a third-party cloud infrastructure provider. Railway's servers may be located outside India, including in the United States or Singapore.</p>
+    <p>By using easemyreco, you acknowledge and consent to your data being temporarily processed on servers outside India for the sole purpose of performing the reconciliation service. Given that all data is deleted within 60 minutes and no persistent storage is involved, we believe this processing is proportionate and necessary.</p>
+
+    <h2>6. Payment Data</h2>
+    <p>Payments on easemyreco are processed by <strong>Razorpay</strong>. We do not collect, store, or have access to your payment card details, bank account information, or UPI credentials. All payment processing is handled entirely by Razorpay under their own privacy policy and security standards.</p>
+    <p>If you provide your email address during checkout, Razorpay will use it to send you a payment confirmation receipt. We may receive your email address from Razorpay as part of the payment notification.</p>
+
+    <h2>7. Cookies</h2>
+    <p>easemyreco does not use tracking cookies or advertising cookies. We do not use Google Analytics, Facebook Pixel, or any third-party tracking tools. Any cookies set are strictly functional and necessary for the operation of the service.</p>
+
+    <h2>8. Third-Party Services</h2>
+    <p>We use the following third-party services:</p>
+    <ul>
+      <li><strong>Railway</strong> — cloud hosting and server infrastructure</li>
+      <li><strong>Razorpay</strong> — payment processing</li>
+      <li><strong>Google Fonts</strong> — font delivery (Inter typeface)</li>
+    </ul>
+    <p>Each of these services operates under their own privacy policies. We do not share your data with any other third parties.</p>
+
+    <h2>9. Your Rights</h2>
+    <p>Since we do not store any personal data beyond the active session window, there is no persistent data to access, correct, or delete. Your data is automatically erased within 60 minutes regardless.</p>
+    <p>If you have any concerns about how your data was handled during a session, please contact us at <a href="mailto:admin@verifiedwork.co">admin@verifiedwork.co</a> and we will respond within 72 hours.</p>
+
+    <h2>10. Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated date. Continued use of the service after changes constitutes acceptance of the revised policy.</p>
+
+    <h2>11. Contact</h2>
+    <p>Aavishkar Technologies Private Limited<br>
+    Maharashtra, India<br>
+    Email: <a href="mailto:admin@verifiedwork.co">admin@verifiedwork.co</a><br>
+    Website: <a href="https://easemyreco.com">easemyreco.com</a></p>
+
+  </main>
+
+  <footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:0.75rem; flex-wrap:wrap;">
+      <span style="font-weight:700;">easemyreco</span>
+      <span>© 2026 Aavishkar Technologies Private Limited · <a href="/privacy-policy">Privacy Policy</a> · <a href="/terms">Terms</a> · <a href="/refund-policy">Refund Policy</a></span>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
