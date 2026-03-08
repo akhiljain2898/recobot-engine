@@ -907,6 +907,82 @@
     main { padding: 2rem 1rem 4rem; }
   }
 
+  /* ── Terms Checkbox ─────────────────────────────────── */
+  .terms-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    background: var(--paper-warm);
+    border: 1.5px solid var(--rule);
+    border-radius: var(--radius);
+    margin-bottom: 0.75rem;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+
+  .terms-row:hover { border-color: var(--blue); }
+
+  .terms-row.checked {
+    border-color: var(--accent-2);
+    background: #f0f9f4;
+  }
+
+  .terms-checkbox {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--ink-muted);
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    background: #fff;
+  }
+
+  .terms-row.checked .terms-checkbox {
+    background: var(--accent-2);
+    border-color: var(--accent-2);
+    color: #fff;
+  }
+
+  .terms-checkbox-tick {
+    display: none;
+    font-size: 11px;
+    line-height: 1;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .terms-row.checked .terms-checkbox-tick { display: block; }
+
+  .terms-text {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    user-select: none;
+  }
+
+  .terms-text a {
+    color: var(--blue-dark);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    font-weight: 500;
+  }
+
+  .terms-text a:hover { color: var(--blue); }
+
+  /* Grey-out disabled analyse button */
+  .btn-primary.disabled-terms {
+    background: #b0bec5;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+    opacity: 1;
+  }
+
   /* ── Fade in animation ──────────────────────────────── */
   .screen.active {
     animation: fadeUp 0.35s ease both;
@@ -1043,7 +1119,22 @@
         </div>
 
         <div class="btn-row" style="flex-direction:column; align-items:center; gap:0.6rem;">
-          <button class="btn btn-primary" id="btn-analyse">
+
+          <!-- Terms checkbox -->
+          <div class="terms-row" id="terms-row" style="width:100%; max-width:480px;">
+            <div class="terms-checkbox" id="terms-checkbox">
+              <span class="terms-checkbox-tick">✓</span>
+            </div>
+            <span class="terms-text">
+              I have read and agree to the
+              <a href="/terms" target="_blank" onclick="event.stopPropagation()">Terms of Service</a>,
+              <a href="/refund-policy" target="_blank" onclick="event.stopPropagation()">Refund Policy</a>
+              and
+              <a href="/privacy-policy" target="_blank" onclick="event.stopPropagation()">Privacy Policy</a>
+            </span>
+          </div>
+
+          <button class="btn btn-primary disabled-terms" id="btn-analyse" disabled>
             Analyse Files →
           </button>
           <span style="font-size:12px; color:var(--ink-muted);">
@@ -1424,6 +1515,37 @@ function fmtPeriod(from, to) {
   return `${fmtDate(from)} to ${fmtDate(to)}`;
 }
 
+// ── Terms checkbox ────────────────────────────────────
+let termsAccepted = false;
+
+function updateAnalyseBtn() {
+  const partyAName = document.getElementById('party-a-name').value.trim();
+  const partyBName = document.getElementById('party-b-name').value.trim();
+  const fileA      = document.getElementById('file-a').files[0];
+  const fileB      = document.getElementById('file-b').files[0];
+  const btn        = document.getElementById('btn-analyse');
+
+  const allReady = termsAccepted && partyAName && partyBName && fileA && fileB;
+
+  if (allReady) {
+    btn.disabled = false;
+    btn.classList.remove('disabled-terms');
+  } else {
+    btn.disabled = true;
+    btn.classList.add('disabled-terms');
+  }
+}
+
+document.getElementById('terms-row').addEventListener('click', () => {
+  termsAccepted = !termsAccepted;
+  document.getElementById('terms-row').classList.toggle('checked', termsAccepted);
+  updateAnalyseBtn();
+});
+
+// Also re-check on name input and file upload changes
+document.getElementById('party-a-name').addEventListener('input', updateAnalyseBtn);
+document.getElementById('party-b-name').addEventListener('input', updateAnalyseBtn);
+
 // ── Role pills ───────────────────────────────────────
 document.querySelectorAll('.role-pill[data-party="a"]').forEach(pill => {
   pill.addEventListener('click', () => {
@@ -1453,6 +1575,7 @@ function setupFileInput(inputId, zoneId, filenameId) {
       filename.textContent = '✓ ' + input.files[0].name;
       zone.classList.add('has-file');
       zone.querySelector('.upload-icon').textContent = '✅';
+      updateAnalyseBtn();
     }
   });
 
@@ -1466,6 +1589,7 @@ function setupFileInput(inputId, zoneId, filenameId) {
       filename.textContent = '✓ ' + e.dataTransfer.files[0].name;
       zone.classList.add('has-file');
       zone.querySelector('.upload-icon').textContent = '✅';
+      updateAnalyseBtn();
     }
   });
 }
@@ -1785,6 +1909,11 @@ function resetForNewReco() {
   document.getElementById('party-a-role').value = 'buyer';
   document.getElementById('party-b-role').value = 'seller';
   document.getElementById('party-b-role-pill').textContent = 'Seller';
+
+  // Reset terms checkbox
+  termsAccepted = false;
+  document.getElementById('terms-row').classList.remove('checked');
+  updateAnalyseBtn();
 
   showScreen('screen-upload');
 }
