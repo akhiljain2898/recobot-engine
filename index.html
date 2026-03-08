@@ -1172,10 +1172,10 @@
             <p>Download a complete 6-sheet Excel with every matched, mismatched, and varied entry broken down clearly.</p>
           </div>
           <div>
-            <div class="pay-amount"><sup>₹</sup>12</div>
+            <div class="pay-amount"><sup>₹</sup>15</div>
           </div>
           <button class="btn btn-accent" id="btn-pay" style="white-space:nowrap;">
-            Download Report — Pay ₹12
+            Download Report — Pay ₹15
           </button>
         </div>
 
@@ -1712,7 +1712,7 @@ document.getElementById('btn-pay').addEventListener('click', () => {
   //   const { error } = await stripe.redirectToCheckout({ sessionId: ... });
   //
   // RAZORPAY example:
-  //   const rzp = new Razorpay({ key: 'rzp_live_xxx', amount: 1200,
+  //   const rzp = new Razorpay({ key: 'rzp_live_xxx', amount: 1500,
   //     currency: 'INR', order_id: state.sessionToken, ... });
   //   rzp.open();
   // ────────────────────────────────────────────────────
@@ -1745,7 +1745,7 @@ function buildDownloadScreen() {
 
   // Set WhatsApp support link
   const msg = encodeURIComponent(
-    `Refund request | Session: ${state.sessionToken} | Amount: ₹12 | Time: ${new Date().toISOString()}`
+    `Refund request | Session: ${state.sessionToken} | Amount: ₹15 | Time: ${new Date().toISOString()}`
   );
   document.getElementById('whatsapp-link').href =
     `https://wa.me/91XXXXXXXXXX?text=${msg}`;  // ← replace with your WhatsApp number
