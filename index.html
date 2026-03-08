@@ -1216,9 +1216,13 @@
             ⬇ Download Excel Report
           </button>
 
-          <p class="expiry-note">This link is active for 60 minutes · Session data is deleted after download</p>
+          <p class="expiry-note">This link is active for 5 minutes · Session data is deleted after download</p>
 
           <div style="margin-top:1.75rem; padding-top:1.25rem; border-top:1px solid var(--rule);">
+            <button class="btn btn-primary" id="btn-new-reco" style="font-size:14px; padding:0.7rem 2rem; margin-bottom:1.25rem;">
+              ↩ Run Another Reconciliation
+            </button>
+            <br>
             <a id="whatsapp-link" href="#" target="_blank"
                style="font-size:12px; color:var(--ink-muted); text-decoration:none; font-family:var(--font-mono);">
               Payment deducted but no access? Contact support on WhatsApp →
@@ -1751,7 +1755,43 @@ function buildDownloadScreen() {
     `https://wa.me/91XXXXXXXXXX?text=${msg}`;  // ← replace with your WhatsApp number
 }
 
-// ── Download button → /download ───────────────────────
+// ── Run Another Reco — full state + form reset ────────
+function resetForNewReco() {
+  // Clear state
+  state.sessionToken   = null;
+  state.period         = null;
+  state.voucherTypes   = [];
+  state.resultsPreview = null;
+  state.analysisData   = null;
+
+  // Clear form fields
+  document.getElementById('party-a-name').value = '';
+  document.getElementById('party-b-name').value = '';
+
+  // Reset file inputs and upload zones
+  ['a', 'b'].forEach(p => {
+    const input    = document.getElementById(`file-${p}`);
+    const zone     = document.getElementById(`zone-${p}`);
+    const filename = document.getElementById(`filename-${p}`);
+    input.value = '';
+    filename.textContent = '';
+    zone.classList.remove('has-file');
+    zone.querySelector('.upload-icon').textContent = '📄';
+  });
+
+  // Reset role pills to defaults (buyer/seller)
+  document.querySelectorAll('.role-pill[data-party="a"]').forEach(p => p.classList.remove('selected'));
+  document.querySelector('.role-pill[data-party="a"][data-role="buyer"]').classList.add('selected');
+  document.getElementById('party-a-role').value = 'buyer';
+  document.getElementById('party-b-role').value = 'seller';
+  document.getElementById('party-b-role-pill').textContent = 'Seller';
+
+  showScreen('screen-upload');
+}
+
+document.getElementById('btn-new-reco').addEventListener('click', resetForNewReco);
+
+
 document.getElementById('btn-download').addEventListener('click', async () => {
   if (!state.sessionToken) { showToast('Session expired. Please start again.', 'error'); return; }
 
