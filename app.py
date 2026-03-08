@@ -6,6 +6,7 @@ Main FastAPI application
 import os
 import hmac
 import hashlib
+import logging
 import json
 import secrets
 import threading
@@ -23,6 +24,14 @@ from pydantic import BaseModel
 from parser_tally import parse_tally_xml
 from engine import run_reconciliation
 from excel_generator import generate_excel
+
+# ── Audit logging ────────────────────────────────────────────────────────────
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s  %(levelname)s  %(message)s",
+    datefmt="%Y-%m-%dT%H:%M:%SZ",
+)
+audit = logging.getLogger("easemyreco.audit")
 
 app = FastAPI(title="RecoBot Engine")
 
@@ -188,7 +197,7 @@ async def analyse(
             },
             "period_used":  {"from": overlap_from, "to": overlap_to},
             "results":      None,
-            "paid":         True,
+            "paid":         True,   # TODO: set back to False when Razorpay is live
             "downloaded":   False,
         }
 
@@ -311,6 +320,7 @@ async def confirm_payment(request: Request):
         if order_id in sessions:
             sessions[order_id]["paid"] = True
 
+    audit.info("PAYMENT_SUCCESS | payment_id=%s | session=%s", received_sig[:16] if received_sig else "none", order_id)
     return {"status": "ok"}
 
 
@@ -353,6 +363,8 @@ async def download(token: str):
     with sessions_lock:
         sessions[token]["downloaded"] = True
 
+    audit.info("DOWNLOAD_SUCCESS | session=%s | file=%s", token, filename)
+
     date_str  = datetime.now().strftime("%Y%m%d")
     filename  = (
         f"{session['party_a_name']}_vs_{session['party_b_name']}"
@@ -376,12 +388,26 @@ def serve_frontend():
         raise HTTPException(404, "Frontend not found.")
     return FileResponse(str(html_path), media_type="text/html")
 
-@app.get("/reco_logo_website.png")
-def serve_logo():
-    logo_path = Path(__file__).parent / "reco_logo_website.png"
-    if not logo_path.exists():
-        raise HTTPException(404, "Logo not found.")
-    return FileResponse(str(logo_path), media_type="image/png")
+@app.get("/privacy-policy")
+def serve_privacy_policy():
+    path = Path(__file__).parent / "privacy-policy.html"
+    if not path.exists():
+        raise HTTPException(404, "Page not found.")
+    return FileResponse(str(path), media_type="text/html")
+
+@app.get("/terms")
+def serve_terms():
+    path = Path(__file__).parent / "terms.html"
+    if not path.exists():
+        raise HTTPException(404, "Page not found.")
+    return FileResponse(str(path), media_type="text/html")
+
+@app.get("/refund-policy")
+def serve_refund_policy():
+    path = Path(__file__).parent / "refund-policy.html"
+    if not path.exists():
+        raise HTTPException(404, "Page not found.")
+    return FileResponse(str(path), media_type="text/html")
 
 
 # ─────────────────────────────────────────────
