@@ -133,17 +133,29 @@ def _remove_char_spacing(text: str) -> str:
 
 def _parse_date(raw: str) -> str | None:
     raw = raw.strip()
-    m = re.match(r"(\d{1,2})-([A-Za-z]{3})-(\d{2,4})$", raw)
-    if not m:
-        return None
-    day, mon, yr = m.group(1), m.group(2).lower(), m.group(3)
-    month = _MONTH.get(mon)
-    if not month:
-        return None
-    if len(yr) == 2:
-        yr = "20" + yr
-    return f"{yr}-{month}-{int(day):02d}"
 
+    # Format 1: d-MMM-yy or d-MMM-yyyy  (e.g. 1-Apr-25, 15-Dec-2026)
+    m = re.match(r"(\d{1,2})-([A-Za-z]{3})-(\d{2,4})$", raw)
+    if m:
+        day, mon, yr = m.group(1), m.group(2).lower(), m.group(3)
+        month = _MONTH.get(mon)
+        if not month:
+            return None
+        if len(yr) == 2:
+            yr = "20" + yr
+        return f"{yr}-{month}-{int(day):02d}"
+
+    # Format 2: d-m-yyyy or d-m-yy  (e.g. 1-4-2026, 01-04-26)
+    m = re.match(r"(\d{1,2})-(\d{1,2})-(\d{2,4})$", raw)
+    if m:
+        day, mon_num, yr = m.group(1), m.group(2), m.group(3)
+        if not (1 <= int(mon_num) <= 12):
+            return None
+        if len(yr) == 2:
+            yr = "20" + yr
+        return f"{yr}-{int(mon_num):02d}-{int(day):02d}"
+
+    return None
 
 def _parse_amount(cr: str, dr: str) -> float:
     for val in (cr, dr):
