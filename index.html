@@ -140,17 +140,21 @@
   /* ── Typography ─────────────────────────────────────── */
   .page-title {
     font-family: var(--font-head);
-    font-size: clamp(2.75rem, 6vw, 4rem);
+    font-size: clamp(3rem, 6.5vw, 4.5rem);
     font-weight: 700;
     line-height: 1.1;
     letter-spacing: -0.03em;
     color: #1a2e4a;
     margin-bottom: 0.5rem;
+    text-align: center;
   }
 
   .page-title em {
     font-style: normal;
     color: #1a2e4a;
+    display: block;
+    font-size: 0.72em;
+    white-space: nowrap;
   }
 
   .page-subtitle {
@@ -159,6 +163,7 @@
     max-width: 100%;
     margin-bottom: 2.5rem;
     line-height: 1.7;
+    text-align: center;
   }
 
   .section-label {
@@ -426,6 +431,7 @@
     gap: 0;
     margin-bottom: 2.5rem;
     font-size: 12px;
+    justify-content: center;
   }
 
   .step-item {
@@ -1043,7 +1049,7 @@
 
         <h1 class="page-title">Stop losing hours to reco.<br><em>Find every mismatch in minutes.</em></h1>
 
-        <div style="margin-bottom: 1rem;">
+        <div style="margin-bottom: 1rem; text-align: center;">
           <span style="
             display: inline-flex;
             align-items: center;
