@@ -418,3 +418,5 @@ def serve_refund_policy():
 @app.get("/health")
 def health():
     return {"status": "ok"}
+
+app.mount("/", StaticFiles(directory=str(Path(__file__).parent), html=True), name="static")
