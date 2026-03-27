@@ -1,5 +1,5 @@
 """
-excel_generator.py — RecoBot Excel Report Generator
+excel_generator.py — easemyreco Excel Report Generator
 
 7-Sheet structure:
   Sheet 1 — Summary
@@ -116,7 +116,7 @@ def _build_summary(ws, results: dict, party_a: str, party_b: str, period: dict):
     # Title
     ws.merge_cells("A1:D1")
     title = ws["A1"]
-    title.value     = "RecoBot — Reconciliation Report"
+    title.value     = "easemyreco — Reconciliation Report"
     title.font      = Font(bold=True, size=14, color=WHITE)
     title.fill      = _fill(TEAL)
     title.alignment = _center()
