@@ -1,5 +1,5 @@
 """
-RecoBot — Tally Ledger Reconciliation Engine
+easemybot — Tally Ledger Reconciliation Engine
 Main FastAPI application
 """
 
@@ -16,9 +16,11 @@ from io import BytesIO
 from pathlib import Path
 from typing import Optional
 
+import asyncio
+import razorpay
+
 from fastapi import FastAPI, File, Form, UploadFile, HTTPException, Request
 from fastapi.responses import StreamingResponse, JSONResponse, FileResponse
-from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
@@ -34,11 +36,11 @@ logging.basicConfig(
 )
 audit = logging.getLogger("easemyreco.audit")
 
-app = FastAPI(title="RecoBot Engine")
+app = FastAPI(title="easemybot Engine")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["https://www.easemyreco.com", "https://easemyreco.com"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -48,7 +50,18 @@ app.add_middleware(
 # ─────────────────────────────────────────────
 sessions: dict = {}
 sessions_lock = threading.Lock()
-TTL_SECONDS = 300   # 5 minutes
+TTL_SECONDS   = 3600  # 60 minutes — matches Privacy Policy promise
+MAX_SESSIONS  = 50    # RAM guard: 50 sessions × ~6MB = ~300MB, safe on Railway Hobby (512MB)
+
+# ─────────────────────────────────────────────
+# Razorpay client — keys come from Railway env vars, never hardcoded
+# ─────────────────────────────────────────────
+RAZORPAY_KEY_ID         = os.getenv("RAZORPAY_KEY_ID", "")
+RAZORPAY_KEY_SECRET     = os.getenv("RAZORPAY_KEY_SECRET", "")
+RAZORPAY_WEBHOOK_SECRET = os.getenv("RAZORPAY_WEBHOOK_SECRET", "")
+
+# Client is initialised once at startup — reused for every request
+rzp_client = razorpay.Client(auth=(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET))
 
 
 def _session_gc():
@@ -146,9 +159,21 @@ async def analyse(
     if err:
         return err
 
+    # RAM guard — reject if server is already holding too many sessions
+    # Prevents OOM crash on Railway Hobby when traffic spikes
+    with sessions_lock:
+        if len(sessions) >= MAX_SESSIONS:
+            return JSONResponse({
+                "status":  "error",
+                "error_code": "SERVER_BUSY",
+                "message": "Server is busy. Please try again in a few minutes.",
+            }, status_code=503)
+
     try:
-        parsed_a = parse_tally_xml(bytes_a, label="A")
-        parsed_b = parse_tally_xml(bytes_b, label="B")
+        # asyncio.to_thread moves CPU-heavy parsing off the event loop
+        # so Razorpay webhooks and health checks aren't blocked while files parse
+        parsed_a = await asyncio.to_thread(parse_tally_xml, bytes_a, "A")
+        parsed_b = await asyncio.to_thread(parse_tally_xml, bytes_b, "B")
     except ValueError as e:
         return JSONResponse({
             "status": "error",
@@ -198,7 +223,7 @@ async def analyse(
             },
             "period_used":  {"from": overlap_from, "to": overlap_to},
             "results":      None,
-            "paid":         True,   # TODO: set back to False when Razorpay is live
+            "paid":         False,   # set to True only after Razorpay signature verification
             "downloaded":   False,
         }
 
@@ -247,7 +272,9 @@ async def reconcile(req: ReconcileRequest):
     if req.period_override:
         period = req.period_override
 
-    results = run_reconciliation(
+    # asyncio.to_thread keeps the event loop free during CPU-heavy reconciliation
+    results = await asyncio.to_thread(
+        run_reconciliation,
         parsed_a=session["parsed_a"],
         parsed_b=session["parsed_b"],
         classifications=classifications_map,
@@ -279,46 +306,171 @@ async def reconcile(req: ReconcileRequest):
             "payments":         pay_preview,
             "zero_mismatches":  total_mismatches == 0,
             "payment_required": total_mismatches > 0,
-            "amount":           0.0 if total_mismatches == 0 else 12.0,
+            "amount":           0.0 if total_mismatches == 0 else 20.0,
             "currency":         "INR",
         },
     }
 
 
 # ─────────────────────────────────────────────
-# /confirm-payment  (Razorpay webhook)
+# /create-order  — frontend calls this when user clicks "Pay ₹20"
+# We create a Razorpay Order server-side first (required by Razorpay)
+# The order_id is then passed to the frontend checkout widget
 # ─────────────────────────────────────────────
-RAZORPAY_WEBHOOK_SECRET = os.getenv("RAZORPAY_WEBHOOK_SECRET", "")
-
-
-@app.post("/confirm-payment")
-async def confirm_payment(request: Request):
-    body = await request.body()
-    received_sig = request.headers.get("x-razorpay-signature", "")
-
-    if RAZORPAY_WEBHOOK_SECRET:
-        expected = hmac.new(
-            RAZORPAY_WEBHOOK_SECRET.encode(),
-            body,
-            hashlib.sha256,
-        ).hexdigest()
-        if not hmac.compare_digest(expected, received_sig):
-            raise HTTPException(400, "Invalid webhook signature.")
-
-    payload = json.loads(body)
-    entity   = payload.get("payload", {}).get("payment", {}).get("entity", {})
-    order_id = entity.get("order_id")
-    payment_id = entity.get("id", "unknown")
-
-    if not order_id:
-        raise HTTPException(400, "Missing order_id in payload.")
+@app.post("/create-order")
+async def create_order(request: Request):
+    body = await request.json()
+    session_token = body.get("session_token")
 
     with sessions_lock:
-        if order_id in sessions:
-            sessions[order_id]["paid"]             = True
-            sessions[order_id]["razorpay_payment_id"] = payment_id
+        session = sessions.get(session_token)
 
-    audit.info("PAYMENT_SUCCESS | razorpay_payment_id=%s | session=%s", payment_id, order_id)
+    if not session:
+        raise HTTPException(404, "Session not found or expired.")
+
+    if time.time() - session["created_at"] > TTL_SECONDS:
+        raise HTTPException(410, "Session expired. Please re-upload your files.")
+
+    # Guard: if already paid (e.g. user double-clicked), don't create a duplicate order
+    if session.get("paid"):
+        return {"status": "already_paid"}
+
+    if not RAZORPAY_KEY_ID or not RAZORPAY_KEY_SECRET:
+        audit.error("RAZORPAY_KEYS_MISSING — set RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET in Railway env vars")
+        raise HTTPException(500, "Payment system not configured. Contact support.")
+
+    try:
+        # Amount in paise — ₹20 = 2000 paise
+        order = rzp_client.order.create({
+            "amount":   2000,
+            "currency": "INR",
+            # receipt ties this order back to our session for webhook lookup
+            # max 40 chars — take first 40 of the 32-char hex token (safe)
+            "receipt":  session_token[:40],
+            "notes": {
+                # storing session_token in notes so the webhook can look up the session
+                # even if order_id matching fails
+                "session_token": session_token,
+                "party_a":       session.get("party_a_name", ""),
+                "party_b":       session.get("party_b_name", ""),
+            },
+        })
+    except Exception as e:
+        audit.error("RAZORPAY_ORDER_CREATE_FAILED | session=%s | error=%s", session_token, str(e))
+        raise HTTPException(500, "Could not create payment order. Please try again.")
+
+    audit.info("ORDER_CREATED | razorpay_order_id=%s | session=%s", order["id"], session_token)
+
+    return {
+        "status":   "ok",
+        "order_id": order["id"],
+        "amount":   2000,
+        "currency": "INR",
+        # key_id (NOT key_secret) is safe to send to frontend — it's the public identifier
+        "key_id":   RAZORPAY_KEY_ID,
+    }
+
+
+# ─────────────────────────────────────────────
+# /verify-payment  — frontend calls this after Razorpay checkout succeeds
+# We verify Razorpay's signature to confirm the payment is genuine
+# Only after this check does the session get marked paid
+# ─────────────────────────────────────────────
+class VerifyPaymentRequest(BaseModel):
+    session_token:       str
+    razorpay_order_id:   str
+    razorpay_payment_id: str
+    razorpay_signature:  str
+
+
+@app.post("/verify-payment")
+async def verify_payment(req: VerifyPaymentRequest):
+    with sessions_lock:
+        session = sessions.get(req.session_token)
+
+    if not session:
+        raise HTTPException(404, "Session not found or expired.")
+
+    if time.time() - session["created_at"] > TTL_SECONDS:
+        raise HTTPException(410, "Session expired. Contact support if amount was deducted.")
+
+    # Razorpay signature = HMAC-SHA256(order_id + "|" + payment_id, key_secret)
+    # This proves the payment response came from Razorpay, not a tampered client request
+    try:
+        rzp_client.utility.verify_payment_signature({
+            "razorpay_order_id":   req.razorpay_order_id,
+            "razorpay_payment_id": req.razorpay_payment_id,
+            "razorpay_signature":  req.razorpay_signature,
+        })
+    except razorpay.errors.SignatureVerificationError:
+        audit.warning(
+            "SIGNATURE_MISMATCH | session=%s | payment_id=%s",
+            req.session_token, req.razorpay_payment_id,
+        )
+        raise HTTPException(400, "Payment verification failed. Contact support if amount was deducted.")
+
+    # Signature valid — safe to unlock download
+    with sessions_lock:
+        sessions[req.session_token]["paid"]                = True
+        sessions[req.session_token]["razorpay_payment_id"] = req.razorpay_payment_id
+        sessions[req.session_token]["razorpay_order_id"]   = req.razorpay_order_id
+
+    audit.info(
+        "PAYMENT_VERIFIED | razorpay_payment_id=%s | session=%s",
+        req.razorpay_payment_id, req.session_token,
+    )
+
+    return {"status": "paid"}
+
+
+# ─────────────────────────────────────────────
+# /confirm-payment  — Razorpay webhook (safety net)
+# Razorpay calls this directly on payment.captured events
+# Acts as backup if the frontend /verify-payment call dropped
+# ─────────────────────────────────────────────
+@app.post("/confirm-payment")
+async def confirm_payment(request: Request):
+    body         = await request.body()
+    received_sig = request.headers.get("x-razorpay-signature", "")
+
+    # Hard-fail if webhook secret is not configured — never silently skip auth
+    if not RAZORPAY_WEBHOOK_SECRET:
+        audit.error("RAZORPAY_WEBHOOK_SECRET not set — rejecting webhook to prevent auth bypass")
+        raise HTTPException(500, "Webhook secret not configured.")
+
+    # Verify the request is genuinely from Razorpay
+    expected = hmac.new(
+        RAZORPAY_WEBHOOK_SECRET.encode(),
+        body,
+        hashlib.sha256,
+    ).hexdigest()
+    if not hmac.compare_digest(expected, received_sig):
+        audit.warning("WEBHOOK_SIGNATURE_MISMATCH — possible spoofed request")
+        raise HTTPException(400, "Invalid webhook signature.")
+
+    payload    = json.loads(body)
+    event      = payload.get("event", "")
+    entity     = payload.get("payload", {}).get("payment", {}).get("entity", {})
+    notes      = entity.get("notes", {})
+    payment_id = entity.get("id", "unknown")
+
+    # Only act on captured/authorized events — ignore refunds, failures, etc.
+    if event not in ("payment.captured", "payment.authorized"):
+        return {"status": "ignored", "event": event}
+
+    # Primary lookup: session_token stored in order notes at creation time
+    session_token = notes.get("session_token", "")
+
+    if not session_token:
+        audit.warning("WEBHOOK_NO_SESSION_TOKEN | payment_id=%s", payment_id)
+        raise HTTPException(400, "Could not identify session from webhook payload.")
+
+    with sessions_lock:
+        if session_token in sessions:
+            sessions[session_token]["paid"]                = True
+            sessions[session_token]["razorpay_payment_id"] = payment_id
+
+    audit.info("WEBHOOK_PAYMENT_OK | razorpay_payment_id=%s | session=%s", payment_id, session_token)
     return {"status": "ok"}
 
 
@@ -351,7 +503,9 @@ async def download(token: str):
     if not zero and not session["paid"]:
         raise HTTPException(402, "Payment required before download.")
 
-    excel_bytes = generate_excel(
+    # asyncio.to_thread keeps event loop free during Excel generation (CPU + openpyxl)
+    excel_bytes = await asyncio.to_thread(
+        generate_excel,
         results=session["results"],
         party_a_name=session["party_a_name"],
         party_b_name=session["party_b_name"],
@@ -419,5 +573,3 @@ def serve_refund_policy():
 @app.get("/health")
 def health():
     return {"status": "ok"}
-
-app.mount("/", StaticFiles(directory=str(Path(__file__).parent), html=True), name="static")
