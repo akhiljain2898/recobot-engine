@@ -1,5 +1,5 @@
 """
-engine.py — RecoBot Reconciliation Engine
+engine.py — easemybot Reconciliation Engine
 
 Engine 1: Invoice matching (Purchase↔Sales, Debit↔Credit Notes)
   - Pass 1: Exact invoice number + exact amount
@@ -316,7 +316,7 @@ def _engine2(pay_a: list, rec_b: list, rec_a: list, pay_b: list) -> dict:
                 unmatched_source.append(ea)
 
     _cross_match(pay_a, rec_b, unmatched_a)
-    _cross_match(rec_a, pay_b, unmatched_a)
+    _cross_match(rec_a, pay_b, unmatched_b)  # FIX: was unmatched_a — rec_a mismatches are B's missing payments, not A's
 
     all_used_ids = {id(m["entry_b"]) for m in matched}
     for eb in list(rec_b) + list(pay_b):
