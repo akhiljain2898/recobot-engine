@@ -6,7 +6,7 @@
 <title>easemyreco — Tally Ledger Reconciliation</title>
 
   <!-- ── SEO ───────────────────────────────────────────── -->
-  <meta name="description" content="Reconcile two Tally XML ledgers in minutes. Upload, confirm, download — find every invoice and payment mismatch instantly. Built for Indian SMEs. ₹15 per run." />
+  <meta name="description" content="Reconcile two Tally XML ledgers in minutes. Upload, confirm, download — find every invoice and payment mismatch instantly. Built for Indian SMEs. ₹20 per run." />
   <meta name="keywords" content="Tally reconciliation, ledger reconciliation, invoice mismatch, Tally XML, accounts reconciliation, India SME, vendor reconciliation" />
   <meta name="author" content="Aavishkar Technologies Private Limited" />
   <link rel="canonical" href="https://www.easemyreco.com/" />
@@ -15,7 +15,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.easemyreco.com/" />
   <meta property="og:title" content="easemyreco — Tally Ledger Reconciliation" />
-  <meta property="og:description" content="Stop losing hours to reco. Upload two Tally XML ledgers and find every invoice and payment mismatch in minutes. ₹15 per run. No login needed." />
+  <meta property="og:description" content="Stop losing hours to reco. Upload two Tally XML ledgers and find every invoice and payment mismatch in minutes. ₹20 per run. No login needed." />
   <meta property="og:image" content="https://www.easemyreco.com/og-image.png" />
   <meta property="og:locale" content="en_IN" />
   <meta property="og:site_name" content="easemyreco" />
@@ -24,8 +24,60 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://www.easemyreco.com/" />
   <meta name="twitter:title" content="easemyreco — Tally Ledger Reconciliation" />
-  <meta name="twitter:description" content="Stop losing hours to reco. Upload two Tally XML ledgers and find every invoice and payment mismatch in minutes. ₹15 per run. No login needed." />
+  <meta name="twitter:description" content="Stop losing hours to reco. Upload two Tally XML ledgers and find every invoice and payment mismatch in minutes. ₹20 per run. No login needed." />
   <meta name="twitter:image" content="https://www.easemyreco.com/og-image.png" />
+
+  <!-- ── Schema.org structured data — for Google AI Overviews, Perplexity, rich results ── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "easemyreco",
+    "applicationCategory": "BusinessApplication",
+    "applicationSubCategory": "AccountingApplication",
+    "operatingSystem": "Web",
+    "url": "https://www.easemyreco.com",
+    "description": "Automated Tally ledger reconciliation tool for Indian SMEs. Upload two Tally XML ledger exports and instantly find every invoice and payment mismatch. ₹20 per reconciliation. No login required.",
+    "featureList": [
+      "Tally XML ledger reconciliation",
+      "Invoice mismatch detection",
+      "Payment mismatch detection",
+      "Excel report with 7 detailed sheets",
+      "Supports purchase invoices, sales invoices, debit notes, credit notes",
+      "Auto-excludes TDS and RCM entries"
+    ],
+    "offers": {
+      "@type": "Offer",
+      "price": "20",
+      "priceCurrency": "INR",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "20",
+        "priceCurrency": "INR",
+        "unitText": "per reconciliation with mismatches"
+      },
+      "description": "Free for zero-mismatch reconciliations. ₹20 flat fee when mismatches are detected."
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Aavishkar Technologies Private Limited",
+      "url": "https://www.easemyreco.com",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "admin@verifiedwork.co",
+        "contactType": "customer support"
+      }
+    },
+    "audience": {
+      "@type": "Audience",
+      "audienceType": "Indian SMEs, accountants, Tally ERP users"
+    },
+    "inLanguage": "en-IN",
+    "isAccessibleForFree": "False",
+    "price": "20",
+    "priceCurrency": "INR"
+  }
+  </script>
 
   <!-- ── Favicon placeholder (replace with real asset) ── -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -34,6 +86,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <style>
   /* ── Reset & Variables ─────────────────────────────── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -140,21 +193,17 @@
   /* ── Typography ─────────────────────────────────────── */
   .page-title {
     font-family: var(--font-head);
-    font-size: clamp(3rem, 6.5vw, 4.5rem);
+    font-size: clamp(2.75rem, 6vw, 4rem);
     font-weight: 700;
     line-height: 1.1;
     letter-spacing: -0.03em;
     color: #1a2e4a;
     margin-bottom: 0.5rem;
-    text-align: center;
   }
 
   .page-title em {
     font-style: normal;
     color: #1a2e4a;
-    display: block;
-    font-size: 0.72em;
-    white-space: nowrap;
   }
 
   .page-subtitle {
@@ -163,7 +212,6 @@
     max-width: 100%;
     margin-bottom: 2.5rem;
     line-height: 1.7;
-    text-align: center;
   }
 
   .section-label {
@@ -431,7 +479,6 @@
     gap: 0;
     margin-bottom: 2.5rem;
     font-size: 12px;
-    justify-content: center;
   }
 
   .step-item {
@@ -1049,7 +1096,7 @@
 
         <h1 class="page-title">Stop losing hours to reco.<br><em>Find every mismatch in minutes.</em></h1>
 
-        <div style="margin-bottom: 1rem; text-align: center;">
+        <div style="margin-bottom: 1rem;">
           <span style="
             display: inline-flex;
             align-items: center;
@@ -1079,6 +1126,23 @@
           <span>Both files must be <strong>INR ledgers</strong>. Multi-currency ledgers are not supported in the current version.</span>
         </div>
 
+        <!-- Shown only when MAX_SESSIONS is hit — hidden by default -->
+        <div id="busy-banner" style="
+          display:none;
+          background:#FFF8EC;
+          border:1px solid #F0C060;
+          border-radius:var(--radius);
+          padding:1rem 1.25rem;
+          font-size:13px;
+          color:#7A5010;
+          margin-bottom:1.5rem;
+          line-height:1.6;
+        ">
+          <strong>🕐 Server is currently busy.</strong><br>
+          We're processing several reconciliations right now. Please wait a minute and try again —
+          your files haven't been uploaded yet, so nothing is lost.
+        </div>
+
         <!-- Party A -->
         <div class="card">
           <div class="card-title">
@@ -1088,7 +1152,7 @@
           <div class="form-row">
             <div>
               <label>Your Company Name</label>
-              <input type="text" id="party-a-name" placeholder="e.g. Bite Foods Pvt Ltd" />
+              <input type="text" id="party-a-name" placeholder="e.g. Gada Electronics Private Limited" />
             </div>
             <div>
               <label>Your Role in this Transaction</label>
@@ -1124,7 +1188,7 @@
           <div class="form-row">
             <div>
               <label>Counterparty Company Name</label>
-              <input type="text" id="party-b-name" placeholder="e.g. THF Logistics" />
+              <input type="text" id="party-b-name" placeholder="e.g. Sodhi Garage LLP" />
             </div>
             <div>
               <label>Counterparty's Role</label>
@@ -1296,10 +1360,10 @@
             <p>Download a complete 6-sheet Excel with every matched, mismatched, and varied entry broken down clearly.</p>
           </div>
           <div>
-            <div class="pay-amount"><sup>₹</sup>15</div>
+            <div class="pay-amount"><sup>₹</sup>20</div>
           </div>
           <button class="btn btn-accent" id="btn-pay" style="white-space:nowrap;">
-            Download Report — Pay ₹15
+            Download Report — Pay ₹20
           </button>
         </div>
 
@@ -1340,16 +1404,33 @@
             ⬇ Download Excel Report
           </button>
 
-          <p class="expiry-note">This link is active for 5 minutes · Session data is deleted after download</p>
+          <!-- Payment ID shown here after verify — populated by buildDownloadScreen() -->
+          <div id="payment-id-display" style="
+            display:none;
+            margin-top:1rem;
+            padding:0.6rem 1.25rem;
+            background:var(--paper-warm);
+            border:1px solid var(--rule);
+            border-radius:var(--radius);
+            font-size:12px;
+            color:var(--ink-soft);
+            font-family:var(--font-mono);
+            letter-spacing:0.02em;
+          ">
+            Payment ID: <span id="payment-id-value" style="font-weight:600; color:var(--ink); user-select:all;"></span>
+            <span style="font-size:11px; color:var(--ink-muted); margin-left:0.5rem;">(keep this for any refund requests)</span>
+          </div>
+
+          <p class="expiry-note">Session active for 60 minutes · Data deleted after download</p>
 
           <div style="margin-top:1.75rem; padding-top:1.25rem; border-top:1px solid var(--rule);">
             <button class="btn btn-primary" id="btn-new-reco" style="font-size:14px; padding:0.7rem 2rem; margin-bottom:1.25rem;">
               ↩ Run Another Reconciliation
             </button>
             <br>
-            <a id="whatsapp-link" href="#" target="_blank"
+            <a href="mailto:admin@verifiedwork.co?subject=Refund Request — easemyreco&body=Hi,%0A%0AI made a payment but could not download my report.%0A%0APlease find my payment screenshot attached.%0A%0APayment details:%0ARazorpay Payment ID (starts with pay_):%0ADate and time of payment:%0A%0AThank you"
                style="font-size:12px; color:var(--ink-muted); text-decoration:none; font-family:var(--font-mono);">
-              Payment deducted but no access? Contact support on WhatsApp →
+              Payment deducted but no access? Email us at admin@verifiedwork.co →
             </a>
           </div>
         </div>
@@ -1417,6 +1498,7 @@ let state = {
   voucherTypes:   [],
   resultsPreview: null,
   analysisData:   null,
+  paymentId:      null,   // Razorpay payment ID — stored after verification, shown on download screen
 };
 
 // ── Utilities ────────────────────────────────────────
@@ -1658,9 +1740,18 @@ document.getElementById('btn-analyse').addEventListener('click', async () => {
 
     if (data.status === 'error') {
       hideLoading();
-      showToast(data.message || 'Analysis failed. Please check your files.', 'error');
+      if (data.error_code === 'SERVER_BUSY') {
+        // Persistent banner — a toast disappears too fast for this message
+        document.getElementById('busy-banner').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        document.getElementById('busy-banner').style.display = 'none';
+        showToast(data.message || 'Analysis failed. Please check your files.', 'error');
+      }
       return;
     }
+    // Clear any previous busy banner on success
+    document.getElementById('busy-banner').style.display = 'none';
 
     state.sessionToken = data.session_token;
     state.period       = data.period;
@@ -1863,33 +1954,105 @@ function buildResultsScreen() {
   }
 }
 
-// ── Pay button (placeholder — wire to Stripe/Razorpay later) ──
-document.getElementById('btn-pay').addEventListener('click', () => {
-  // ── PAYMENT INTEGRATION POINT ──────────────────────
-  // Replace the alert below with your Stripe or Razorpay checkout call.
-  //
-  // STRIPE example:
-  //   const stripe = Stripe('pk_live_xxx');
-  //   const { error } = await stripe.redirectToCheckout({ sessionId: ... });
-  //
-  // RAZORPAY example:
-  //   const rzp = new Razorpay({ key: 'rzp_live_xxx', amount: 1500,
-  //     currency: 'INR', order_id: state.sessionToken, ... });
-  //   rzp.open();
-  // ────────────────────────────────────────────────────
+// ── Pay button — opens Razorpay checkout ─────────────────────────────────
+document.getElementById('btn-pay').addEventListener('click', async () => {
+  const btn = document.getElementById('btn-pay');
+  btn.disabled    = true;
+  btn.textContent = 'Opening payment…';
 
-  alert('💳 Payment gateway not yet configured.\n\nThis button will open Stripe or Razorpay checkout once you connect a payment provider.\n\nFor now, use the direct download below to test.');
+  try {
+    // Step 1: Ask backend to create a Razorpay Order
+    // Razorpay requires an order to be created server-side before checkout opens
+    const res  = await fetch(`${API_BASE}/create-order`, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ session_token: state.sessionToken }),
+    });
+    const data = await res.json();
 
-  // TEMP: for local testing, go straight to download
-  // Remove this line once payment is wired up:
-  simulatePaymentSuccess();
+    // Handle edge case: user somehow already paid (double-click, back button)
+    if (data.status === 'already_paid') {
+      buildDownloadScreen();
+      showScreen('screen-download');
+      return;
+    }
+
+    if (!data.order_id) {
+      showToast('Could not initiate payment. Please try again.', 'error');
+      btn.disabled    = false;
+      btn.textContent = 'Download Report — Pay ₹20';
+      return;
+    }
+
+    // Step 2: Open the Razorpay checkout modal
+    const options = {
+      key:         data.key_id,     // rzp_test_xxx or rzp_live_xxx — never the secret
+      amount:      data.amount,     // 2000 paise = ₹20
+      currency:    data.currency,
+      name:        'easemyreco',
+      description: 'Ledger Reconciliation Report',
+      order_id:    data.order_id,   // ties this payment to the server-side order
+      theme:       { color: '#6B9FE4' },
+      modal: {
+        // Re-enable the button if user closes checkout without paying
+        ondismiss: () => {
+          btn.disabled    = false;
+          btn.textContent = 'Download Report — Pay ₹20';
+        },
+      },
+
+      // Step 3: On successful payment Razorpay returns 3 IDs
+      // We send them to our backend for signature verification before unlocking download
+      handler: async (response) => {
+        try {
+          const verifyRes = await fetch(`${API_BASE}/verify-payment`, {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              session_token:       state.sessionToken,
+              razorpay_order_id:   response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature:  response.razorpay_signature,
+            }),
+          });
+          const verifyData = await verifyRes.json();
+
+          if (verifyData.status === 'paid') {
+            state.paymentId = response.razorpay_payment_id; // store for display on download screen
+            buildDownloadScreen();
+            showScreen('screen-download');
+          } else {
+            showToast('Payment verification failed. Contact support at admin@verifiedwork.co', 'error');
+            btn.disabled    = false;
+            btn.textContent = 'Download Report — Pay ₹20';
+          }
+        } catch (err) {
+          showToast('Verification error. Contact admin@verifiedwork.co if ₹20 was deducted.', 'error');
+          btn.disabled    = false;
+          btn.textContent = 'Download Report — Pay ₹20';
+          console.error(err);
+        }
+      },
+    };
+
+    const rzp = new Razorpay(options);
+
+    // Handle payment failure inside the modal (wrong card, bank decline, etc.)
+    rzp.on('payment.failed', (response) => {
+      showToast(`Payment failed: ${response.error.description}`, 'error');
+      btn.disabled    = false;
+      btn.textContent = 'Download Report — Pay ₹20';
+    });
+
+    rzp.open();
+
+  } catch (err) {
+    showToast('Could not reach payment server. Please try again.', 'error');
+    btn.disabled    = false;
+    btn.textContent = 'Download Report — Pay ₹20';
+    console.error(err);
+  }
 });
-
-// ── Simulate payment success (testing only) ───────────
-function simulatePaymentSuccess() {
-  buildDownloadScreen();
-  showScreen('screen-download');
-}
 
 // ── Free download (zero mismatches) ──────────────────
 document.getElementById('btn-free-download').addEventListener('click', () => {
@@ -1904,12 +2067,14 @@ function buildDownloadScreen() {
   const date    = new Date().toISOString().slice(0, 10).replace(/-/g, '');
   const filename = `${partyA}_vs_${partyB}_Reconciliation_${date}.xlsx`.replace(/\s+/g, '_');
 
-  // Set WhatsApp support link
-  const msg = encodeURIComponent(
-    `Refund request | Session: ${state.sessionToken} | Amount: ₹15 | Time: ${new Date().toISOString()}`
-  );
-  document.getElementById('whatsapp-link').href =
-    `https://wa.me/91XXXXXXXXXX?text=${msg}`;  // ← replace with your WhatsApp number
+  // Show Razorpay payment ID if available (paid flow)
+  // Not shown for zero-mismatch free downloads
+  if (state.paymentId) {
+    document.getElementById('payment-id-value').textContent   = state.paymentId;
+    document.getElementById('payment-id-display').style.display = 'block';
+  } else {
+    document.getElementById('payment-id-display').style.display = 'none';
+  }
 }
 
 // ── Run Another Reco — full state + form reset ────────
@@ -1920,6 +2085,7 @@ function resetForNewReco() {
   state.voucherTypes   = [];
   state.resultsPreview = null;
   state.analysisData   = null;
+  state.paymentId      = null;
 
   // Clear form fields
   document.getElementById('party-a-name').value = '';
