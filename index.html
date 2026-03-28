@@ -193,12 +193,25 @@
   /* ── Typography ─────────────────────────────────────── */
   .page-title {
     font-family: var(--font-head);
-    font-size: clamp(2.75rem, 6vw, 4rem);
     font-weight: 700;
     line-height: 1.1;
     letter-spacing: -0.03em;
     color: #1a2e4a;
     margin-bottom: 0.5rem;
+    text-align: center;
+  }
+
+  .page-title .line-big {
+    display: block;
+    font-size: clamp(2.75rem, 6.5vw, 4.25rem);
+  }
+
+  .page-title .line-small {
+    display: block;
+    font-size: clamp(2.1rem, 5vw, 3.25rem);
+    font-weight: 600;
+    color: #1a2e4a;
+    letter-spacing: -0.02em;
   }
 
   .page-title em {
@@ -208,10 +221,11 @@
 
   .page-subtitle {
     color: var(--ink-muted);
-    font-size: 1rem;
+    font-size: 0.875rem;
     max-width: 100%;
     margin-bottom: 2.5rem;
     line-height: 1.7;
+    text-align: center;
   }
 
   .section-label {
@@ -476,6 +490,7 @@
   .steps-bar {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0;
     margin-bottom: 2.5rem;
     font-size: 12px;
@@ -1094,9 +1109,12 @@
       <!-- ════════════════════════════════════════════ -->
       <div id="screen-upload" class="screen active">
 
-        <h1 class="page-title">Stop losing hours to reco.<br><em>Find every mismatch in minutes.</em></h1>
+        <h1 class="page-title">
+          <span class="line-big">Stop losing hours to reco.</span>
+          <span class="line-small"><em>Find every mismatch in minutes.</em></span>
+        </h1>
 
-        <div style="margin-bottom: 1rem;">
+        <div style="margin-bottom: 1rem; text-align: center;">
           <span style="
             display: inline-flex;
             align-items: center;
@@ -1298,7 +1316,7 @@
           </table>
         </div>
 
-        <div class="btn-row">
+        <div class="btn-row" style="justify-content:center;">
           <button class="btn btn-primary" id="btn-reconcile">
             Confirm &amp; Run Reconciliation →
           </button>
@@ -1428,9 +1446,8 @@
               ↩ Run Another Reconciliation
             </button>
             <br>
-            <a href="mailto:admin@verifiedwork.co?subject=Refund Request — easemyreco&body=Hi,%0A%0AI made a payment but could not download my report.%0A%0APlease find my payment screenshot attached.%0A%0APayment details:%0ARazorpay Payment ID (starts with pay_):%0ADate and time of payment:%0A%0AThank you"
-               style="font-size:12px; color:var(--ink-muted); text-decoration:none; font-family:var(--font-mono);">
-              Payment deducted but no access? Email us at admin@verifiedwork.co →
+            <a href="/cdn-cgi/l/email-protection#4120252c282f013724332827282425362e332a6f222e7e3234232b2422357c132427342f25611324303424323561a3c1d561242032242c383324222e67232e25387c09286d64710064710008612c2025246120613120382c242f356123343561222e342d25612f2e3561252e362f2d2e2025612c38613324312e33356f647100647100112d242032246127282f25612c38613120382c242f356132223324242f32292e356120353520222924256f6471006471001120382c242f356125243520282d327b64710013203b2e33312038611120382c242f3561080561693235203335326136283529613120381e687b6471000520352461202f256135282c24612e27613120382c242f357b6471006471001529202f2a61382e34" style="font-size:12px; color:var(--ink-muted); text-decoration:none; font-family:var(--font-mono);">
+              Payment deducted but no access? Email us at <span class="__cf_email__" data-cfemail="6c0d080105022c1a091e050a0509081b031e07420f03">[email&#160;protected]</span> →
             </a>
           </div>
         </div>
@@ -1485,7 +1502,7 @@
 <!-- ════════════════════════════════════════════════ -->
 <!-- JavaScript                                      -->
 <!-- ════════════════════════════════════════════════ -->
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ── Config ──────────────────────────────────────────
 // Change this to your Railway URL when deployed.
 // During local dev, use http://localhost:8000
@@ -2142,23 +2159,4 @@ document.getElementById('btn-download').addEventListener('click', async () => {
     const a        = document.createElement('a');
     const partyA   = document.getElementById('party-a-name').value.trim() || 'PartyA';
     const partyB   = document.getElementById('party-b-name').value.trim() || 'PartyB';
-    const date     = new Date().toISOString().slice(0, 10).replace(/-/g, '');
-    a.href         = url;
-    a.download     = `${partyA}_vs_${partyB}_Reconciliation_${date}.xlsx`.replace(/\s+/g, '_');
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-
-    hideLoading();
-    showToast('Report downloaded successfully!');
-
-  } catch (err) {
-    hideLoading();
-    showToast('Download failed. Please try again.', 'error');
-    console.error(err);
-  }
-});
-</script>
-</body>
-</html>
+    const date     = new Date().toISOString().slic
