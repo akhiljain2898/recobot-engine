@@ -356,6 +356,7 @@
     z-index: 2;
   }
 
+  /* Siblings must not intercept clicks — let them fall through to the file input */
   .upload-zone .upload-icon,
   .upload-zone .upload-label,
   .upload-zone .upload-filename {
@@ -1711,14 +1712,18 @@ function setupFileInput(inputId, zoneId, filenameId) {
   const zone     = document.getElementById(zoneId);
   const filename = document.getElementById(filenameId);
 
-  input.addEventListener('change', () => {
+  function onFileSelected() {
     if (input.files[0]) {
       filename.textContent = '✓ ' + input.files[0].name;
       zone.classList.add('has-file');
       zone.querySelector('.upload-icon').textContent = '✅';
       updateAnalyseBtn();
     }
-  });
+  }
+
+  // Both 'change' and 'input' bound — some browsers fire one, some the other
+  input.addEventListener('change', onFileSelected);
+  input.addEventListener('input',  onFileSelected);
 
   zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
   zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
