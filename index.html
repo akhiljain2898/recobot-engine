@@ -353,6 +353,15 @@
     cursor: pointer;
     width: 100%;
     height: 100%;
+    z-index: 2;
+  }
+
+  .upload-zone .upload-icon,
+  .upload-zone .upload-label,
+  .upload-zone .upload-filename {
+    pointer-events: none;
+    position: relative;
+    z-index: 1;
   }
 
   .upload-icon {
@@ -2159,4 +2168,23 @@ document.getElementById('btn-download').addEventListener('click', async () => {
     const a        = document.createElement('a');
     const partyA   = document.getElementById('party-a-name').value.trim() || 'PartyA';
     const partyB   = document.getElementById('party-b-name').value.trim() || 'PartyB';
-    const date     = new Date().toISOString().slic
+    const date     = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+    a.href         = url;
+    a.download     = `${partyA}_vs_${partyB}_Reconciliation_${date}.xlsx`.replace(/\s+/g, '_');
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    hideLoading();
+    showToast('Report downloaded successfully!');
+
+  } catch (err) {
+    hideLoading();
+    showToast('Download failed. Please try again.', 'error');
+    console.error(err);
+  }
+});
+</script>
+</body>
+</html>
