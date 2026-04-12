@@ -58,7 +58,7 @@ MAX_SESSIONS  = 50    # RAM guard: 50 sessions × ~6MB = ~300MB, safe on Railway
 # ─────────────────────────────────────────────
 RAZORPAY_KEY_ID         = os.getenv("RAZORPAY_KEY_ID", "")
 RAZORPAY_KEY_SECRET     = os.getenv("RAZORPAY_KEY_SECRET", "")
-RAZORPAY_WEBHOOK_SECRET = os.getenv("RAZORPAY_WEBHOOK_SECRET", "")
+RAZORPAY_WEBHOOK_SECRET = os.getenv("RAZORPAY_WEBHOOK_SECRET", "").strip()
 
 # Client is initialised once at startup — reused for every request
 rzp_client = razorpay.Client(auth=(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET))
