@@ -566,6 +566,29 @@ def serve_refund_policy():
         raise HTTPException(404, "Page not found.")
     return FileResponse(str(path), media_type="text/html")
 
+# ─────────────────────────────────────────────
+# Favicon & PWA assets
+# ─────────────────────────────────────────────
+FAVICON_FILES = [
+    ("favicon.ico",                "image/x-icon"),
+    ("favicon-16x16.png",          "image/png"),
+    ("favicon-32x32.png",          "image/png"),
+    ("apple-touch-icon.png",       "image/png"),
+    ("android-chrome-192x192.png", "image/png"),
+    ("android-chrome-512x512.png", "image/png"),
+    ("site.webmanifest",           "application/manifest+json"),
+]
+
+for _fname, _mtype in FAVICON_FILES:
+    def _make_handler(fname=_fname, mtype=_mtype):
+        async def handler():
+            path = Path(__file__).parent / fname
+            if not path.exists():
+                raise HTTPException(404, f"{fname} not found.")
+            return FileResponse(str(path), media_type=mtype)
+        return handler
+    app.add_api_route(f"/{_fname}", _make_handler(), methods=["GET"])
+
 
 # ─────────────────────────────────────────────
 # Health
