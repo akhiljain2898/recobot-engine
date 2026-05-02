@@ -1,1315 +1,1384 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>easemyreco - Tally Ledger Reconciliation</title>
 
-  <!-- ── SEO ───────────────────────────────────────────── -->
-  <meta name="description" content="Reconcile two Tally XML ledgers in minutes. Upload, confirm, download — find every invoice and payment mismatch instantly. Built for Indian SMEs. ₹20 per run." />
-  <meta name="keywords" content="Tally reconciliation, ledger reconciliation, invoice mismatch, Tally XML, accounts reconciliation, India SME, vendor reconciliation" />
-  <meta name="author" content="Aavishkar Technologies Private Limited" />
-  <link rel="canonical" href="https://www.easemyreco.com/" />
+<!-- ── SEO ───────────────────────────────────────────── -->
+<meta name="description" content="Reconcile two Tally XML ledgers in minutes. Upload, confirm, download · find every invoice and payment mismatch instantly. Built for Indian SMEs. ₹20 per run."/>
+<meta name="keywords" content="Tally reconciliation, ledger reconciliation, invoice mismatch, Tally XML, accounts reconciliation, India SME, vendor reconciliation"/>
+<meta name="author" content="Aavishkar Technologies Private Limited"/>
+<link rel="canonical" href="https://www.easemyreco.com/"/>
 
-  <!-- ── Open Graph (WhatsApp, LinkedIn, Facebook) ────── -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.easemyreco.com/" />
-  <meta property="og:title" content="easemyreco — Tally Ledger Reconciliation" />
-  <meta property="og:description" content="Stop losing hours to reco. Upload two Tally XML ledgers and find every invoice and payment mismatch in minutes. ₹20 per run. No login needed." />
-  <meta property="og:image" content="https://www.easemyreco.com/og-image.png" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="og:site_name" content="easemyreco" />
+<!-- ── Open Graph ────────────────────────────────────── -->
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://www.easemyreco.com/"/>
+<meta property="og:title" content="easemyreco · Tally Ledger Reconciliation"/>
+<meta property="og:description" content="Stop losing hours to reco. Upload two Tally XML ledgers and find every invoice and payment mismatch in minutes. ₹20 per run. No login needed."/>
+<meta property="og:image" content="https://www.easemyreco.com/og-image.png"/>
+<meta property="og:locale" content="en_IN"/>
+<meta property="og:site_name" content="easemyreco"/>
 
-  <!-- ── Twitter / X card ─────────────────────────────── -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:url" content="https://www.easemyreco.com/" />
-  <meta name="twitter:title" content="easemyreco — Tally Ledger Reconciliation" />
-  <meta name="twitter:description" content="Stop losing hours to reco. Upload two Tally XML ledgers and find every invoice and payment mismatch in minutes. ₹20 per run. No login needed." />
-  <meta name="twitter:image" content="https://www.easemyreco.com/og-image.png" />
+<!-- ── Twitter / X ───────────────────────────────────── -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:url" content="https://www.easemyreco.com/"/>
+<meta name="twitter:title" content="easemyreco · Tally Ledger Reconciliation"/>
+<meta name="twitter:description" content="Stop losing hours to reco. Upload two Tally XML ledgers and find every invoice and payment mismatch in minutes. ₹20 per run. No login needed."/>
+<meta name="twitter:image" content="https://www.easemyreco.com/og-image.png"/>
 
-  <!-- ── Schema.org structured data — for Google AI Overviews, Perplexity, rich results ── -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "easemyreco",
-    "applicationCategory": "BusinessApplication",
-    "applicationSubCategory": "AccountingApplication",
-    "operatingSystem": "Web",
-    "url": "https://www.easemyreco.com",
-    "description": "Automated Tally ledger reconciliation tool for Indian SMEs. Upload two Tally XML ledger exports and instantly find every invoice and payment mismatch. ₹20 per reconciliation. No login required.",
-    "featureList": [
-      "Tally XML ledger reconciliation",
-      "Invoice mismatch detection",
-      "Payment mismatch detection",
-      "Excel report with 7 detailed sheets",
-      "Supports purchase invoices, sales invoices, debit notes, credit notes",
-      "Auto-excludes TDS and RCM entries"
-    ],
-    "offers": {
-      "@type": "Offer",
+<!-- ── Schema.org ────────────────────────────────────── -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "easemyreco",
+  "applicationCategory": "BusinessApplication",
+  "applicationSubCategory": "AccountingApplication",
+  "operatingSystem": "Web",
+  "url": "https://www.easemyreco.com",
+  "description": "Automated Tally ledger reconciliation tool for Indian SMEs. Upload two Tally XML ledger exports and instantly find every invoice and payment mismatch. ₹20 per reconciliation. No login required.",
+  "featureList": [
+    "Tally XML ledger reconciliation",
+    "Invoice mismatch detection",
+    "Payment mismatch detection",
+    "Excel report with 7 detailed sheets",
+    "Supports purchase invoices, sales invoices, debit notes, credit notes",
+    "Auto-excludes TDS and RCM entries"
+  ],
+  "offers": {
+    "@type": "Offer",
+    "price": "20",
+    "priceCurrency": "INR",
+    "priceSpecification": {
+      "@type": "UnitPriceSpecification",
       "price": "20",
       "priceCurrency": "INR",
-      "priceSpecification": {
-        "@type": "UnitPriceSpecification",
-        "price": "20",
-        "priceCurrency": "INR",
-        "unitText": "per reconciliation with mismatches"
-      },
-      "description": "Free for zero-mismatch reconciliations. ₹20 flat fee when mismatches are detected."
+      "unitText": "per reconciliation with mismatches"
     },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Aavishkar Technologies Private Limited",
-      "url": "https://www.easemyreco.com",
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "email": "admin@verifiedwork.co",
-        "contactType": "customer support"
-      }
-    },
-    "audience": {
-      "@type": "Audience",
-      "audienceType": "Indian SMEs, accountants, Tally ERP users"
-    },
-    "inLanguage": "en-IN",
-    "isAccessibleForFree": "False",
-    "price": "20",
-    "priceCurrency": "INR"
-  }
-  </script>
+    "description": "Free for zero-mismatch reconciliations. ₹20 flat fee when mismatches are detected."
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Aavishkar Technologies Private Limited",
+    "url": "https://www.easemyreco.com",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "email": "admin@verifiedwork.co",
+      "contactType": "customer support"
+    }
+  },
+  "audience": {
+    "@type": "Audience",
+    "audienceType": "Indian SMEs, accountants, Tally ERP users"
+  },
+  "inLanguage": "en-IN",
+  "isAccessibleForFree": "False",
+  "price": "20",
+  "priceCurrency": "INR"
+}
+</script>
 
-  <!-- ── Favicon placeholder (replace with real asset) ── -->
-  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-<link rel="manifest" href="/site.webmanifest" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<!-- ── Favicons ───────────────────────────────────────── -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+<link rel="manifest" href="/site.webmanifest"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
 <style>
-  /* ── Reset & Variables ─────────────────────────────── */
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --ink:        #1a2e4a;
-    --ink-soft:   #4a5e74;
-    --ink-muted:  #8a9ab0;
-    --paper:      #ffffff;
-    --paper-warm: #f0f6ff;
-    --rule:       #e8eef6;
-    --blue:       #6B9FE4;
-    --blue-dark:  #4A80D4;
-    --blue-light: #e8f0fc;
-    --accent:     #C8410B;
-    --accent-2:   #1A6B4A;
-    --gold:       #C4882A;
-    --warning:    #E8A020;
-    --danger:     #C8410B;
-    --success:    #1A6B4A;
-    --font-head:  'Inter', Arial, sans-serif;
-    --font-body:  'Inter', Arial, sans-serif;
-    --font-mono:  'Inter', Arial, sans-serif;
-    --radius:     8px;
-    --radius-lg:  14px;
-    --shadow:     0 1px 4px rgba(107,159,228,0.08), 0 4px 20px rgba(107,159,228,0.08);
-    --shadow-lg:  0 8px 40px rgba(107,159,228,0.14);
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: var(--font-body);
-    background: var(--paper);
-    color: var(--ink);
-    min-height: 100vh;
-    font-size: 15px;
-    line-height: 1.6;
-  }
-
-  /* ── Layout ─────────────────────────────────────────── */
-  .shell {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-
-  header {
-    background: var(--paper);
-    border-bottom: 1px solid var(--rule);
-    padding: 0 2rem;
-    height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 1px 8px rgba(107,159,228,0.08);
-  }
-
-  .logo {
-    font-family: var(--font-head);
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--ink);
-    letter-spacing: -0.02em;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .logo-dot {
-    width: 8px; height: 8px;
-    background: var(--blue);
-    border-radius: 50%;
-    display: inline-block;
-  }
-
-  .trust-tag {
-    font-size: 11px;
-    color: var(--ink-muted);
-    font-family: var(--font-body);
-    letter-spacing: 0.04em;
-  }
-
-  main {
-    flex: 1;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 3rem 1.5rem 5rem;
-  }
-
-  .container {
-    width: 100%;
-    max-width: 860px;
-  }
-
-  /* ── Screen switching ───────────────────────────────── */
-  .screen { display: none; }
-  .screen.active { display: block; }
-
-  /* ── Typography ─────────────────────────────────────── */
-  .page-title {
-    font-family: var(--font-head);
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -0.03em;
-    color: #1a2e4a;
-    margin-bottom: 0.5rem;
-    text-align: center;
-  }
-
-  .page-title .line-big {
-    display: block;
-    font-size: clamp(2.75rem, 6.5vw, 4.25rem);
-  }
-
-  .page-title .line-small {
-    display: block;
-    font-size: clamp(2.1rem, 5vw, 3.25rem);
-    font-weight: 600;
-    color: #1a2e4a;
-    letter-spacing: -0.02em;
-  }
-
-  .page-title em {
-    font-style: normal;
-    color: #1a2e4a;
-  }
-
-  .page-subtitle {
-    color: var(--ink-muted);
-    font-size: 0.875rem;
-    max-width: 100%;
-    margin-bottom: 2.5rem;
-    line-height: 1.7;
-    text-align: center;
-  }
-
-  .section-label {
-    font-family: var(--font-body);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--blue);
-    margin-bottom: 0.75rem;
-  }
-
-  /* ── Cards ──────────────────────────────────────────── */
-  .card {
-    background: #fff;
-    border: 1px solid var(--rule);
-    border-radius: var(--radius-lg);
-    padding: 2rem;
-    box-shadow: var(--shadow);
-  }
-
-  .card + .card { margin-top: 1.25rem; }
-
-  .card-title {
-    font-family: var(--font-head);
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--ink);
-    margin-bottom: 1.25rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid var(--rule);
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-  }
-
-  .card-title .num {
-    font-family: var(--font-body);
-    font-size: 0.65rem;
-    font-weight: 600;
-    background: var(--blue);
-    color: #fff;
-    border-radius: 6px;
-    padding: 2px 7px;
-    letter-spacing: 0.04em;
-  }
-
-  /* ── Form Elements ──────────────────────────────────── */
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.25rem;
-    margin-bottom: 1.25rem;
-  }
-
-  .form-row.single { grid-template-columns: 1fr; }
-
-  label {
-    display: block;
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--ink-soft);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    margin-bottom: 0.4rem;
-  }
-
-  input[type="text"],
-  select {
-    width: 100%;
-    padding: 0.6rem 0.85rem;
-    border: 1.5px solid var(--rule);
-    border-radius: var(--radius);
-    font-family: var(--font-body);
-    font-size: 14px;
-    color: var(--ink);
-    background: #fff;
-    transition: border-color 0.15s, box-shadow 0.15s;
-    outline: none;
-    appearance: none;
-  }
-
-  input[type="text"]:focus,
-  select:focus {
-    border-color: var(--blue);
-    box-shadow: 0 0 0 3px rgba(107,159,228,0.15);
-    background: #fff;
-  }
-
-  select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a9ab0' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 0.75rem center;
-    padding-right: 2rem;
-    cursor: pointer;
-  }
-
-  /* ── File Upload ────────────────────────────────────── */
-  .upload-zone {
-    border: 2px dashed var(--rule);
-    border-radius: var(--radius-lg);
-    padding: 1.75rem 1.5rem;
-    text-align: center;
-    cursor: pointer;
-    transition: border-color 0.2s, background 0.2s;
-    position: relative;
-    background: #fff;
-  }
-
-  .upload-zone:hover, .upload-zone.drag-over {
-    border-color: var(--blue);
-    background: var(--paper-warm);
-  }
-
-  .upload-zone.has-file {
-    border-color: var(--accent-2);
-    background: #f0f9f4;
-    border-style: solid;
-  }
-
-  .upload-zone input[type="file"] {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    cursor: pointer;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-  }
-
-  /* Siblings must not intercept clicks — let them fall through to the file input */
-  .upload-zone .upload-icon,
-  .upload-zone .upload-label,
-  .upload-zone .upload-filename {
-    pointer-events: none;
-    position: relative;
-    z-index: 1;
-  }
-
-  .upload-icon {
-    font-size: 1.75rem;
-    margin-bottom: 0.5rem;
-    display: block;
-  }
-
-  .upload-label {
-    font-size: 13px;
-    color: var(--ink-muted);
-    line-height: 1.5;
-  }
-
-  .upload-label strong { color: var(--blue); }
-
-  .upload-filename {
-    font-family: var(--font-body);
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--accent-2);
-    margin-top: 0.4rem;
-  }
-
-  /* ── Role Pill Selector ─────────────────────────────── */
-  .role-selector {
-    display: flex;
-    gap: 0.5rem;
-    margin-top: 0.4rem;
-  }
-
-  .role-pill {
-    flex: 1;
-    padding: 0.45rem 0.75rem;
-    border: 1.5px solid var(--rule);
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 500;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.15s;
-    color: var(--ink-soft);
-    background: #fff;
-    user-select: none;
-  }
-
-  .role-pill:hover { border-color: var(--blue); color: var(--blue); }
-  .role-pill.locked { cursor: default; pointer-events: none; opacity: 0.75; }
-
-  .role-pill.selected {
-    background: var(--blue);
-    border-color: var(--blue);
-    color: #fff;
-  }
-
-  /* ── Warning Banner ─────────────────────────────────── */
-  .warning-banner {
-    background: #FFF8EC;
-    border: 1px solid #F0C060;
-    border-radius: var(--radius);
-    padding: 0.75rem 1rem;
-    font-size: 13px;
-    color: #7A5010;
-    display: flex;
-    gap: 0.6rem;
-    align-items: flex-start;
-    margin-bottom: 1.5rem;
-  }
-
-  .warning-banner .icon { flex-shrink: 0; margin-top: 1px; }
-
-  /* ── Buttons ────────────────────────────────────────── */
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.7rem 1.75rem;
-    border-radius: 10px;
-    font-family: var(--font-body);
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    border: none;
-    transition: all 0.15s;
-    letter-spacing: 0.01em;
-    text-decoration: none;
-  }
-
-  .btn-primary {
-    background: var(--blue);
-    color: #fff;
-  }
-
-  .btn-primary:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: var(--shadow); }
-  .btn-primary:active { transform: translateY(0); }
-
-  .btn-accent {
-    background: var(--accent);
-    color: #fff;
-  }
-
-  .btn-accent:hover { background: #a8340a; transform: translateY(-1px); box-shadow: var(--shadow); }
-
-  .btn-success {
-    background: var(--accent-2);
-    color: #fff;
-  }
-
-  .btn-success:hover { background: #145a3d; transform: translateY(-1px); }
-
-  .btn-outline {
-    background: transparent;
-    color: var(--ink);
-    border: 1.5px solid var(--rule);
-  }
-
-  .btn-outline:hover { border-color: var(--blue); color: var(--blue); }
-
-  .btn:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-    transform: none !important;
-    box-shadow: none !important;
-  }
-
-  .btn-row {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 2rem;
-    flex-wrap: wrap;
-  }
-
-  /* ── Progress / Steps ───────────────────────────────── */
-  .steps-bar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-    margin-bottom: 2.5rem;
-    font-size: 12px;
-  }
-
-  .step-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--ink-muted);
-    font-weight: 500;
-  }
-
-  .step-item.active { color: var(--ink); }
-  .step-item.done { color: var(--accent-2); }
-
-  .step-num {
-    width: 22px; height: 22px;
-    border-radius: 50%;
-    border: 1.5px solid currentColor;
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-body);
-    font-size: 10px;
-    font-weight: 600;
-    flex-shrink: 0;
-  }
-
-  .step-item.active .step-num {
-    background: var(--blue);
-    border-color: var(--blue);
-    color: #fff;
-  }
-
-  .step-item.done .step-num {
-    background: var(--accent-2);
-    border-color: var(--accent-2);
-    color: #fff;
-  }
-
-  .step-sep {
-    flex: 1;
-    height: 1px;
-    background: var(--rule);
-    margin: 0 0.75rem;
-    min-width: 24px;
-    max-width: 60px;
-  }
-
-  /* ── Period Info ────────────────────────────────────── */
-  .period-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 1px;
-    background: var(--rule);
-    border-radius: var(--radius);
-    overflow: hidden;
-    margin-bottom: 1.5rem;
-    font-size: 13px;
-  }
-
-  .period-cell {
-    background: #fff;
-    padding: 0.85rem 1rem;
-  }
-
-  .period-cell .p-label {
-    font-size: 10px;
-    font-family: var(--font-body);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--ink-muted);
-    margin-bottom: 0.3rem;
-  }
-
-  .period-cell .p-val {
-    font-weight: 600;
-    color: var(--ink);
-  }
-
-  .period-cell.highlight { background: #f0f9f4; }
-  .period-cell.highlight .p-label { color: var(--accent-2); }
-  .period-cell.highlight .p-val { color: var(--accent-2); }
-
-  /* ── Voucher Table ──────────────────────────────────── */
-  .voucher-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13.5px;
-  }
-
-  .voucher-table th {
-    text-align: left;
-    padding: 0.6rem 0.85rem;
-    font-size: 10px;
-    font-family: var(--font-body);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--ink-muted);
-    border-bottom: 1px solid var(--rule);
-    background: var(--paper-warm);
-  }
-
-  .voucher-table td {
-    padding: 0.7rem 0.85rem;
-    border-bottom: 1px solid var(--rule);
-    vertical-align: middle;
-  }
-
-  .voucher-table tr:last-child td { border-bottom: none; }
-  .voucher-table tr:hover td { background: var(--paper-warm); }
-
-  .vt-name {
-    font-family: var(--font-body);
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--ink);
-  }
-
-  .vt-source {
-    display: inline-block;
-    font-size: 10px;
-    font-family: var(--font-body);
-    background: var(--blue-light);
-    border: 1px solid var(--rule);
-    border-radius: 6px;
-    padding: 1px 6px;
-    color: var(--blue-dark);
-    margin-left: 0.4rem;
-    font-weight: 500;
-  }
-
-  .vt-count {
-    color: var(--ink-muted);
-    font-size: 12px;
-    font-family: var(--font-body);
-  }
-
-  .confidence-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    font-size: 10px;
-    font-weight: 600;
-    padding: 2px 7px;
-    border-radius: 6px;
-    font-family: var(--font-body);
-    letter-spacing: 0.02em;
-  }
-
-  .confidence-high {
-    background: #e8f5e9;
-    color: var(--accent-2);
-  }
-
-  .confidence-medium {
-    background: #fff3e0;
-    color: #b05010;
-  }
-
-  .auto-ignore-badge {
-    background: var(--paper-warm);
-    color: var(--ink-muted);
-    font-size: 10px;
-    font-family: var(--font-body);
-    font-weight: 500;
-    padding: 2px 7px;
-    border-radius: 6px;
-    font-style: italic;
-  }
-
-  /* ── Results Screen ─────────────────────────────────── */
-  .results-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.25rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .result-card {
-    background: #fff;
-    border: 1px solid var(--rule);
-    border-radius: var(--radius-lg);
-    padding: 1.5rem;
-    box-shadow: var(--shadow);
-  }
-
-  .result-card .rc-label {
-    font-size: 10px;
-    font-family: var(--font-body);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--ink-muted);
-    margin-bottom: 0.75rem;
-  }
-
-  .result-card .rc-count {
-    font-family: var(--font-head);
-    font-size: 2.5rem;
-    font-weight: 700;
-    line-height: 1;
-    margin-bottom: 0.25rem;
-    color: var(--ink);
-  }
-
-  .result-card.has-issues .rc-count { color: var(--danger); }
-  .result-card.no-issues .rc-count { color: var(--accent-2); }
-
-  .result-card .rc-value {
-    font-size: 13px;
-    color: var(--ink-soft);
-    font-family: var(--font-body);
-  }
-
-  .result-card .rc-breakdown {
-    margin-top: 0.75rem;
-    padding-top: 0.75rem;
-    border-top: 1px solid var(--rule);
-    font-size: 12px;
-    color: var(--ink-soft);
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-  }
-
-  .result-card .rc-breakdown span {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .pay-box {
-    background: var(--ink);
-    color: #fff;
-    border-radius: var(--radius-lg);
-    padding: 1.75rem 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-  }
-
-  .pay-box .pay-copy h3 {
-    font-family: var(--font-head);
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-bottom: 0.25rem;
-  }
-
-  .pay-box .pay-copy p {
-    font-size: 12px;
-    color: rgba(255,255,255,0.6);
-    max-width: 360px;
-  }
-
-  .pay-amount {
-    font-family: var(--font-head);
-    font-size: 2.25rem;
-    font-weight: 700;
-    color: var(--gold);
-    white-space: nowrap;
-  }
-
-  .pay-amount sup {
-    font-size: 1rem;
-    vertical-align: super;
-  }
-
-  .zero-mismatch-box {
-    background: #f0f9f4;
-    border: 1px solid #a8d8b8;
-    border-radius: var(--radius-lg);
-    padding: 1.75rem;
-    text-align: center;
-  }
-
-  .zero-mismatch-box h3 {
-    font-family: var(--font-head);
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--accent-2);
-    margin-bottom: 0.5rem;
-  }
-
-  .zero-mismatch-box p {
-    color: var(--ink-soft);
-    font-size: 13px;
-  }
-
-  /* ── Download Screen ────────────────────────────────── */
-  .download-hero {
-    text-align: center;
-    padding: 3rem 2rem;
-    background: #fff;
-    border: 1px solid var(--rule);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
-  }
-
-  .download-hero .check {
-    width: 64px; height: 64px;
-    background: #e8f5e9;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 1.25rem;
-    font-size: 1.75rem;
-  }
-
-  .download-hero h2 {
-    font-family: var(--font-head);
-    font-size: 1.75rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-  }
-
-  .download-hero p {
-    color: var(--ink-soft);
-    font-size: 13px;
-    margin-bottom: 2rem;
-  }
-
-  .expiry-note {
-    margin-top: 1.25rem;
-    font-size: 11px;
-    color: var(--ink-muted);
-    font-family: var(--font-body);
-  }
-
-  /* ── Loading Overlay ────────────────────────────────── */
-  .loading-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(255,255,255,0.92);
-    z-index: 1000;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(6px);
-  }
-  .loading-overlay.active { display: flex; }
-
-  /* ── Shared card ── */
-  .progress-card {
-    background: #fff;
-    border: 1px solid var(--rule);
-    border-radius: 16px;
-    padding: 2.5rem 2.75rem;
-    width: min(400px, 90vw);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-    box-shadow: var(--shadow-lg);
-  }
-  .progress-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--ink);
-    text-align: center;
-  }
-  .progress-sub {
-    font-family: var(--font-body);
-    font-size: 0.72rem;
-    color: var(--ink-soft);
-    text-align: center;
-    letter-spacing: 0.04em;
-    min-height: 1rem;
-    transition: opacity 0.3s;
-  }
-
-  /* ── Mode A: animated circle ── */
-  .circle-wrap {
-    position: relative;
-    width: 110px;
-    height: 110px;
-  }
-  .circle-wrap svg {
-    transform: rotate(-90deg);
-    width: 110px;
-    height: 110px;
-  }
-  .circle-bg   { fill: none; stroke: var(--rule); stroke-width: 5; }
-  .circle-spin {
-    fill: none;
-    stroke: var(--blue);
-    stroke-width: 5;
-    stroke-linecap: round;
-    stroke-dasharray: 310;
-    stroke-dashoffset: 230;
-    animation: circle-rotate 1.4s ease-in-out infinite;
-    transform-origin: center;
-    transform-box: fill-box;
-  }
-  @keyframes circle-rotate {
-    0%   { stroke-dashoffset: 280; transform: rotate(0deg); }
-    50%  { stroke-dashoffset: 80;  transform: rotate(180deg); }
-    100% { stroke-dashoffset: 280; transform: rotate(360deg); }
-  }
-  .circle-inner {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-  }
-  .circle-icon { font-size: 1.5rem; line-height: 1; }
-  .circle-label {
-    font-family: var(--font-body);
-    font-size: 0.6rem;
-    font-weight: 600;
-    color: var(--ink-soft);
-    letter-spacing: 0.08em;
-  }
-
-  /* ── Mode B: progress bar ── */
-  .pbar-wrap { width: 100%; display: flex; flex-direction: column; gap: 0.5rem; }
-  .pbar-row  { display: flex; justify-content: space-between; align-items: baseline; }
-  .pbar-label { font-size: 0.8rem; color: var(--ink-soft); }
-  .pbar-pct   { font-family: var(--font-body); font-size: 0.85rem; font-weight: 600; color: var(--ink); }
-  .pbar-track {
-    width: 100%;
-    height: 6px;
-    background: var(--rule);
-    border-radius: 99px;
-    overflow: hidden;
-  }
-  .pbar-fill {
-    height: 100%;
-    width: 0%;
-    background: var(--blue);
-    border-radius: 99px;
-    transition: width 0.5s ease;
-  }
-  .pbar-steps {
-    display: flex;
-    flex-direction: column;
-    gap: 0.45rem;
-    width: 100%;
-    margin-top: 0.25rem;
-  }
-  .pbar-step {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-size: 0.8rem;
-    color: var(--ink-soft);
-    transition: color 0.3s;
-  }
-  .pbar-step.done   { color: var(--accent-2); }
-  .pbar-step.active { color: var(--ink); font-weight: 500; }
-  .pbar-step-dot {
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: var(--rule);
-    flex-shrink: 0;
-    transition: background 0.3s;
-  }
-  .pbar-step.done   .pbar-step-dot { background: var(--accent-2); }
-  .pbar-step.active .pbar-step-dot { background: var(--blue); }
-
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* ── Toast ──────────────────────────────────────────── */
-  .toast {
-    position: fixed;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%) translateY(100px);
-    background: var(--ink);
-    color: #fff;
-    padding: 0.75rem 1.5rem;
-    border-radius: 10px;
-    font-size: 13px;
-    font-family: var(--font-body);
-    z-index: 2000;
-    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
-    max-width: 90vw;
-    text-align: center;
-  }
-
-  .toast.error { background: var(--danger); }
-  .toast.show { transform: translateX(-50%) translateY(0); }
-
-  /* ── Footer ─────────────────────────────────────────── */
-  footer {
-    background: var(--paper);
-    border-top: 1px solid var(--rule);
-    color: var(--ink-soft);
-    font-size: 13px;
-    font-family: var(--font-body);
-    font-weight: 500;
-    text-align: center;
-    padding: 1.5rem;
-    letter-spacing: 0.02em;
-  }
-
-  /* ── Responsive ─────────────────────────────────────── */
-  @media (max-width: 640px) {
-    .form-row { grid-template-columns: 1fr; }
-    .results-grid { grid-template-columns: 1fr; }
-    .period-grid { grid-template-columns: 1fr; }
-    .pay-box { flex-direction: column; text-align: center; }
-    header { padding: 0 1rem; }
-    main { padding: 2rem 1rem 4rem; }
-  }
-
-  /* ── Terms Checkbox ─────────────────────────────────── */
-  .terms-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    padding: 1rem 1.25rem;
-    background: var(--paper-warm);
-    border: 1.5px solid var(--rule);
-    border-radius: var(--radius);
-    margin-bottom: 0.75rem;
-    cursor: pointer;
-    transition: border-color 0.15s;
-  }
-
-  .terms-row:hover { border-color: var(--blue); }
-
-  .terms-row.checked {
-    border-color: var(--accent-2);
-    background: #f0f9f4;
-  }
-
-  .terms-checkbox {
-    width: 18px;
-    height: 18px;
-    border: 2px solid var(--ink-muted);
-    border-radius: 4px;
-    flex-shrink: 0;
-    margin-top: 1px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s;
-    background: #fff;
-  }
-
-  .terms-row.checked .terms-checkbox {
-    background: var(--accent-2);
-    border-color: var(--accent-2);
-    color: #fff;
-  }
-
-  .terms-checkbox-tick {
-    display: none;
-    font-size: 11px;
-    line-height: 1;
-    color: #fff;
-    font-weight: 700;
-  }
-
-  .terms-row.checked .terms-checkbox-tick { display: block; }
-
-  .terms-text {
-    font-size: 13px;
-    color: var(--ink-soft);
-    line-height: 1.55;
-    user-select: none;
-  }
-
-  .terms-text a {
-    color: var(--blue-dark);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    font-weight: 500;
-  }
-
-  .terms-text a:hover { color: var(--blue); }
-
-  /* Grey-out disabled analyse button */
-  .btn-primary.disabled-terms {
-    background: #b0bec5;
-    cursor: not-allowed;
-    transform: none !important;
-    box-shadow: none !important;
-    opacity: 1;
-  }
-
-  /* ── Fade in animation ──────────────────────────────── */
-  .screen.active {
-    animation: fadeUp 0.35s ease both;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(12px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+/* ── Reset ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Design tokens · vendordhundo system ───────────────── */
+:root {
+  --navy:          #1a2340;
+  --navy-mid:      #2c3e6b;
+  --blue-accent:   #4a6cf7;
+  --blue-light:    #e8eeff;
+  --blue-soft:     #f0f4ff;
+  --blue-dim:      rgba(74,108,247,0.10);
+  --green:         #22c55e;
+  --green-dim:     rgba(34,197,94,0.10);
+  --text-body:     #475569;
+  --text-muted:    #94a3b8;
+  --white:         #ffffff;
+  --bg2:           #f8f9fb;
+  --bg3:           #f0f2f5;
+  --border:        rgba(26,35,64,0.08);
+  --border-subtle: rgba(26,35,64,0.05);
+  --shadow-md:     0 4px 24px rgba(26,35,64,0.10);
+  --shadow-lg:     0 20px 64px rgba(26,35,64,0.13);
+
+  /* App-level tokens kept for inner screens */
+  --ink:           #1a2340;
+  --ink-soft:      #475569;
+  --ink-muted:     #94a3b8;
+  --paper:         #ffffff;
+  --paper-warm:    #f0f4ff;
+  --rule:          rgba(26,35,64,0.08);
+  --blue:          #4a6cf7;
+  --blue-dark:     #3555d4;
+  --accent:        #C8410B;
+  --accent-2:      #1A6B4A;
+  --danger:        #C8410B;
+  --success:       #1A6B4A;
+  --radius:        8px;
+  --radius-lg:     14px;
+  --shadow:        0 4px 24px rgba(26,35,64,0.10);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--white);
+  color: var(--navy);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/* NAV                                                     */
+/* ═══════════════════════════════════════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  max-width: 1100px; margin: 0 auto; padding: 0 24px;
+  height: 56px; display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  font-size: 17px; font-weight: 700;
+  color: var(--navy); text-decoration: none; letter-spacing: -0.03em;
+}
+.nav-logo span { color: var(--blue-accent); }
+.nav-badge {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11px; color: var(--text-muted); letter-spacing: 0.05em; text-transform: uppercase;
+  background: var(--bg3); border: 1px solid var(--border);
+  padding: 4px 12px; border-radius: 20px;
+}
+.live-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--green); box-shadow: 0 0 6px var(--green);
+  animation: blink 2s infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.35} }
+
+/* ═══════════════════════════════════════════════════════ */
+/* LANDING · HERO                                          */
+/* ═══════════════════════════════════════════════════════ */
+#landing {
+  display: block;
+}
+
+#hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 120px 24px 80px;
+  position: relative; overflow: hidden;
+}
+#hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 55% at 50% 25%, rgba(74,108,247,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.grid-bg {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(74,108,247,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(74,108,247,0.035) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 75% 65% at 50% 25%, black 20%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 25%, black 20%, transparent 80%);
+}
+
+.hero-content {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; width: 100%; max-width: 860px;
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--text-muted);
+  background: var(--bg3); border: 1px solid var(--border);
+  padding: 5px 14px; border-radius: 20px; margin-bottom: 28px;
+  opacity: 0; animation: rise 0.6s 0.1s ease-out forwards;
+}
+
+.hero-headline {
+  font-size: clamp(44px, 8vw, 84px);
+  font-weight: 700; line-height: 1.0; letter-spacing: -0.035em;
+  color: var(--navy); margin-bottom: 22px;
+  opacity: 0; animation: rise 0.7s 0.2s ease-out forwards;
+}
+.hero-headline .accent { color: var(--blue-accent); }
+
+.hero-sub {
+  font-size: clamp(15px, 2.2vw, 18px); color: var(--text-body);
+  max-width: 520px; line-height: 1.7; margin-bottom: 36px;
+  opacity: 0; animation: rise 0.7s 0.32s ease-out forwards;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* price strip */
+.vs-strip {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  justify-content: center; margin-bottom: 44px;
+  opacity: 0; animation: rise 0.7s 0.44s ease-out forwards;
+}
+.vs-label { font-size: 10px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--text-muted); }
+.vs-item {
+  font-size: 11.5px; color: var(--text-muted);
+  background: var(--bg3); border: 1px solid var(--border);
+  padding: 3px 9px; border-radius: 5px;
+  text-decoration: line-through; text-decoration-color: #cbd5e1;
+}
+.vs-arrow { color: var(--text-muted); font-size: 14px; }
+.vs-us {
+  font-size: 12px; font-weight: 700; color: #166534;
+  background: #dcfce7; border: 1px solid #bbf7d0;
+  padding: 4px 12px; border-radius: 5px;
+}
+
+/* upload action card */
+.upload-wrap {
+  width: 100%; max-width: 580px;
+  opacity: 0; animation: rise 0.7s 0.52s ease-out forwards;
+}
+.upload-action-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 14px; padding: 28px;
+  box-shadow: var(--shadow-lg);
+}
+.upload-action-card .card-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 16px;
+}
+
+/* Upload zones */
+.upload-pair {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  margin-bottom: 14px;
+}
+.upload-zone {
+  border: 2px dashed var(--border);
+  border-radius: 10px; padding: 18px 12px;
+  text-align: center; cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  position: relative; background: var(--white);
+}
+.upload-zone:hover, .upload-zone.drag-over {
+  border-color: var(--blue-accent);
+  background: var(--blue-soft);
+}
+.upload-zone.has-file {
+  border-color: var(--green);
+  background: rgba(34,197,94,0.05);
+  border-style: solid;
+}
+.upload-zone input[type="file"] {
+  position: absolute; inset: 0; opacity: 0; cursor: pointer;
+  width: 100%; height: 100%; z-index: 2;
+}
+.upload-zone .upload-icon,
+.upload-zone .upload-label,
+.upload-zone .upload-filename { pointer-events: none; position: relative; z-index: 1; }
+.upload-icon { font-size: 1.5rem; margin-bottom: 6px; display: block; }
+.upload-label { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
+.upload-label strong { color: var(--blue-accent); }
+.upload-filename { font-size: 10px; font-weight: 600; color: #15803d; margin-top: 4px; }
+.zone-party-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 6px;
+}
+
+/* name fields */
+.name-pair {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  margin-bottom: 14px;
+}
+.name-pair label {
+  display: block; font-size: 10px; font-weight: 600;
+  letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 5px;
+}
+input[type="text"] {
+  width: 100%; border: 1.5px solid var(--border);
+  border-radius: 8px; padding: 10px 13px;
+  font-family: 'Inter', sans-serif; font-size: 13px; color: var(--navy);
+  background: var(--white); outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+input[type="text"]:focus {
+  border-color: var(--blue-accent);
+  box-shadow: 0 0 0 3px rgba(74,108,247,0.1);
+}
+input[type="text"]::placeholder { color: var(--text-muted); }
+
+/* role pills */
+.role-selector { display: flex; gap: 6px; }
+.role-pill {
+  flex: 1; padding: 6px 10px;
+  border: 1.5px solid var(--border);
+  border-radius: 20px; font-size: 11px; font-weight: 500;
+  text-align: center; cursor: pointer;
+  transition: all 0.15s; color: var(--text-body);
+  background: var(--white); user-select: none;
+}
+.role-pill:hover { border-color: var(--blue-accent); color: var(--blue-accent); }
+.role-pill.locked { cursor: default; pointer-events: none; opacity: 0.75; }
+.role-pill.selected {
+  background: var(--blue-accent); border-color: var(--blue-accent); color: #fff;
+}
+
+/* terms row */
+.terms-row-landing {
+  display: flex; gap: 10px; align-items: flex-start;
+  font-size: 12.5px; color: var(--text-body); cursor: pointer;
+  margin: 14px 0 18px;
+}
+.terms-row-landing input[type="checkbox"] {
+  margin-top: 1px; accent-color: var(--blue-accent);
+  width: 14px; height: 14px; flex-shrink: 0; cursor: pointer;
+}
+.terms-row-landing a { color: var(--blue-accent); text-decoration: none; }
+.terms-row-landing a:hover { text-decoration: underline; }
+
+/* warning */
+.warning-banner {
+  background: #FFF8EC; border: 1px solid #F0C060;
+  border-radius: var(--radius); padding: 10px 14px;
+  font-size: 12.5px; color: #7A5010;
+  display: flex; gap: 8px; align-items: flex-start;
+  margin-bottom: 14px;
+}
+.warning-banner .icon { flex-shrink: 0; margin-top: 1px; }
+
+/* CTA */
+.cta-btn {
+  width: 100%; padding: 13px 24px; border-radius: 10px;
+  font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
+  border: none; cursor: pointer; transition: all 0.15s; letter-spacing: 0.01em;
+}
+.cta-btn.active {
+  background: var(--blue-accent); color: var(--white);
+  box-shadow: 0 4px 18px rgba(74,108,247,0.35);
+}
+.cta-btn.active:hover { transform: translateY(-1px); box-shadow: 0 6px 22px rgba(74,108,247,0.42); }
+.cta-btn.active:active { transform: scale(0.99); }
+.cta-btn.inactive {
+  background: #cbd5e1; color: var(--white);
+  cursor: not-allowed; pointer-events: none;
+}
+.cta-meta {
+  text-align: center; font-size: 11.5px; color: var(--text-muted); margin-top: 8px;
+}
+
+/* busy banner */
+#busy-banner {
+  display: none;
+  background: #FFF8EC; border: 1px solid #F0C060;
+  border-radius: var(--radius); padding: 12px 16px;
+  font-size: 13px; color: #7A5010; margin-bottom: 14px; line-height: 1.6;
+}
+
+/* trust strip */
+.trust-strip {
+  display: flex; align-items: center; justify-content: center;
+  flex-wrap: wrap; gap: 6px 20px;
+  margin-top: 16px; padding: 14px 20px;
+  background: var(--bg3); border: 1px solid var(--border); border-radius: 10px;
+}
+.trust-item {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; color: var(--text-body);
+}
+.trust-item::before { content: '✓'; color: var(--green); font-size: 10px; font-weight: 700; }
+
+/* ANIMATED RESULT WIDGET */
+.result-widget-wrap {
+  width: 100%; max-width: 580px; margin-top: 20px;
+  opacity: 0; animation: rise 0.7s 0.7s ease-out forwards;
+}
+.result-widget {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden;
+  box-shadow: 0 16px 48px rgba(26,35,64,0.10);
+}
+.widget-bar {
+  display: flex; align-items: center; gap: 7px;
+  padding: 10px 16px; background: var(--bg3);
+  border-bottom: 1px solid var(--border);
+}
+.wb-dot { width: 10px; height: 10px; border-radius: 50%; }
+.wb-dot.r { background: #ff5f57; }
+.wb-dot.y { background: #febc2e; }
+.wb-dot.g { background: #28c840; }
+.wb-label {
+  margin-left: 6px; font-size: 11px; color: var(--text-muted);
+  letter-spacing: 0.03em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1;
+}
+.wb-tag {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.05em;
+  color: var(--blue-accent); background: var(--blue-dim);
+  padding: 2px 8px; border-radius: 4px; white-space: nowrap;
+}
+.widget-body { padding: 14px 16px; }
+.result-row {
+  display: grid; grid-template-columns: 24px 1fr 90px 80px;
+  gap: 10px; align-items: center;
+  padding: 10px 0; border-bottom: 1px solid var(--border-subtle);
+  opacity: 0; animation: rowIn 0.4s ease-out forwards;
+}
+.result-row:last-child { border-bottom: none; }
+.result-row:nth-child(1) { animation-delay: 0.85s; }
+.result-row:nth-child(2) { animation-delay: 1.2s; }
+.result-row:nth-child(3) { animation-delay: 1.55s; }
+.result-row:nth-child(4) { animation-delay: 1.9s; }
+@keyframes rowIn {
+  from { opacity: 0; transform: translateX(-6px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.row-num { font-size: 10px; color: var(--text-muted); font-weight: 600; text-align: right; }
+.row-name { font-size: 12px; font-weight: 600; color: var(--navy); }
+.row-city { font-size: 10px; color: var(--text-muted); margin-top: 1px; }
+.row-tag {
+  font-size: 10px; padding: 2px 7px; border-radius: 4px;
+  font-weight: 600; letter-spacing: 0.04em; text-align: center; justify-self: start;
+}
+.tag-m { background: rgba(220,38,38,0.08); color: #dc2626; }
+.tag-ok { background: var(--green-dim); color: #15803d; }
+.row-amt { font-size: 10.5px; color: var(--text-muted); font-family: monospace; }
+.widget-footer {
+  padding: 9px 16px; border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between;
+  font-size: 10px; color: var(--text-muted); letter-spacing: 0.03em;
+}
+.widget-footer .hl { color: #dc2626; font-weight: 600; }
+.scan-bar {
+  height: 2px; background: linear-gradient(90deg, var(--blue-soft), var(--blue-accent), var(--blue-soft));
+  background-size: 200% 100%; animation: shimmer 2s linear infinite;
+}
+@keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+/* ═══════════════════════════════════════════════════════ */
+/* HOW IT WORKS                                           */
+/* ═══════════════════════════════════════════════════════ */
+#how {
+  padding: 96px 24px;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+}
+.section-inner { max-width: 1100px; margin: 0 auto; }
+.section-label {
+  font-size: 11px; color: var(--text-muted); letter-spacing: 0.1em;
+  text-transform: uppercase; margin-bottom: 14px; text-align: center;
+}
+.section-title {
+  font-size: clamp(26px, 4vw, 42px); font-weight: 700;
+  letter-spacing: -0.03em; line-height: 1.1;
+  margin-bottom: 10px; color: var(--navy); text-align: center;
+}
+.section-sub {
+  font-size: 15px; color: var(--text-body); max-width: 480px;
+  line-height: 1.65; text-align: center; margin: 0 auto 52px;
+}
+.steps-list {
+  display: flex; flex-direction: column;
+  border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+  max-width: 760px; margin: 0 auto;
+}
+.step {
+  display: flex; align-items: flex-start; gap: 28px;
+  padding: 32px 36px; border-bottom: 1px solid var(--border);
+  background: var(--bg2); transition: background 0.2s;
+}
+.step:last-child { border-bottom: none; }
+.step:hover { background: var(--bg3); }
+.step-num-label {
+  font-size: 11px; color: var(--text-muted); letter-spacing: 0.08em;
+  min-width: 50px; padding-top: 4px; font-weight: 500;
+}
+.step-content h3 {
+  font-size: 17px; font-weight: 600; letter-spacing: -0.02em;
+  margin-bottom: 6px; color: var(--navy);
+}
+.step-content p { font-size: 14px; color: var(--text-body); line-height: 1.65; }
+
+/* ═══════════════════════════════════════════════════════ */
+/* WHAT YOU GET                                           */
+/* ═══════════════════════════════════════════════════════ */
+#output {
+  padding: 96px 24px;
+  background: var(--white);
+  border-top: 1px solid var(--border);
+}
+.output-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 12px;
+  overflow: hidden; margin-top: 52px;
+}
+.output-card {
+  background: var(--white); padding: 32px 28px; transition: background 0.2s;
+}
+.output-card:hover { background: var(--bg2); }
+.output-card-num {
+  font-size: 10px; color: var(--text-muted); letter-spacing: 0.09em;
+  text-transform: uppercase; margin-bottom: 16px;
+}
+.output-card h3 {
+  font-size: 16px; font-weight: 600; letter-spacing: -0.015em;
+  margin-bottom: 8px; color: var(--navy);
+}
+.output-card p { font-size: 13px; color: var(--text-body); line-height: 1.6; }
+
+/* ═══════════════════════════════════════════════════════ */
+/* COMPARE                                                */
+/* ═══════════════════════════════════════════════════════ */
+#compare {
+  padding: 96px 24px;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+}
+.compare-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 20px; margin-top: 52px; max-width: 820px; margin-left: auto; margin-right: auto;
+}
+.cmp-col { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+.cmp-head {
+  padding: 14px 22px; background: var(--bg3);
+  border-bottom: 1px solid var(--border);
+  font-size: 11px; font-weight: 600; letter-spacing: 0.07em;
+  text-transform: uppercase; color: var(--text-muted);
+}
+.cmp-row {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 13px 22px; border-bottom: 1px solid var(--border-subtle);
+  font-size: 13px; color: var(--text-body); line-height: 1.5;
+}
+.cmp-row:last-child { border-bottom: none; }
+.cmp-row::before { flex-shrink: 0; margin-top: 2px; }
+.cmp-row.no::before { content: '✕'; font-size: 11px; color: #dc2626; min-width: 14px; }
+.cmp-row.yes::before { content: '✓'; font-size: 11px; color: var(--green); min-width: 14px; font-weight: 700; }
+
+/* ═══════════════════════════════════════════════════════ */
+/* FOOTER                                                 */
+/* ═══════════════════════════════════════════════════════ */
+footer {
+  padding: 24px; border-top: 1px solid var(--border);
+  background: var(--white);
+}
+.footer-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 12px;
+}
+.footer-logo {
+  font-size: 17px; font-weight: 700; color: var(--navy); text-decoration: none;
+  letter-spacing: -0.03em;
+}
+.footer-logo span { color: var(--blue-accent); }
+.footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+.footer-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; }
+.footer-links a:hover { color: var(--navy); }
+.footer-copy { font-size: 13px; color: var(--text-muted); }
+
+/* ═══════════════════════════════════════════════════════ */
+/* APP SCREENS (screens 2–4 & loading overlay, toast)     */
+/* ═══════════════════════════════════════════════════════ */
+#app-shell {
+  display: none;
+  min-height: 100vh;
+  flex-direction: column;
+}
+#app-shell.active { display: flex; }
+
+#app-main {
+  flex: 1;
+  display: flex; align-items: flex-start; justify-content: center;
+  padding: 88px 1.5rem 5rem;
+}
+.container { width: 100%; max-width: 860px; }
+
+.screen { display: none; }
+.screen.active { display: block; animation: fadeUp 0.35s ease both; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* typography */
+.page-title {
+  font-weight: 700; line-height: 1.1; letter-spacing: -0.03em;
+  color: var(--navy); margin-bottom: 0.5rem; text-align: center;
+}
+.page-title .line-big { display: block; font-size: clamp(1.6rem, 4vw, 2.5rem); }
+.page-title .line-small {
+  display: block; font-size: clamp(1.3rem, 3vw, 2rem);
+  font-weight: 600; letter-spacing: -0.02em;
+}
+.page-subtitle {
+  color: var(--text-muted); font-size: 0.875rem;
+  max-width: 100%; margin-bottom: 2rem;
+  line-height: 1.7; text-align: center;
+}
+.section-label-app {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--blue-accent); margin-bottom: 0.75rem;
+}
+
+/* cards in app */
+.card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow);
+}
+.card + .card { margin-top: 1.25rem; }
+.card-title {
+  font-size: 1.1rem; font-weight: 700; color: var(--navy);
+  margin-bottom: 1.25rem; padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.card-title .num {
+  font-size: 0.65rem; font-weight: 600;
+  background: var(--blue-accent); color: #fff;
+  border-radius: 6px; padding: 2px 7px; letter-spacing: 0.04em;
+}
+
+/* form elements in app */
+.form-row {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.25rem; margin-bottom: 1.25rem;
+}
+.form-row.single { grid-template-columns: 1fr; }
+label {
+  display: block; font-size: 11px; font-weight: 600;
+  color: var(--text-body); letter-spacing: 0.06em; text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+input[type="text"],
+select {
+  width: 100%; padding: 0.6rem 0.85rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius); font-family: 'Inter', sans-serif;
+  font-size: 14px; color: var(--navy); background: #fff;
+  transition: border-color 0.15s, box-shadow 0.15s; outline: none; appearance: none;
+}
+input[type="text"]:focus, select:focus {
+  border-color: var(--blue-accent);
+  box-shadow: 0 0 0 3px rgba(74,108,247,0.15);
+}
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394a3b8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 0.75rem center;
+  padding-right: 2rem; cursor: pointer;
+}
+
+/* upload zone in app screens */
+.upload-zone-app {
+  border: 2px dashed var(--border); border-radius: var(--radius-lg);
+  padding: 1.75rem 1.5rem; text-align: center; cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  position: relative; background: #fff;
+}
+.upload-zone-app:hover, .upload-zone-app.drag-over {
+  border-color: var(--blue-accent); background: var(--blue-soft);
+}
+.upload-zone-app.has-file {
+  border-color: var(--green); background: rgba(34,197,94,0.04); border-style: solid;
+}
+.upload-zone-app input[type="file"] {
+  position: absolute; inset: 0; opacity: 0; cursor: pointer;
+  width: 100%; height: 100%; z-index: 2;
+}
+.upload-zone-app .upload-icon,
+.upload-zone-app .upload-label,
+.upload-zone-app .upload-filename { pointer-events: none; position: relative; z-index: 1; }
+.upload-icon { font-size: 1.75rem; margin-bottom: 0.5rem; display: block; }
+.upload-label { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+.upload-label strong { color: var(--blue-accent); }
+.upload-filename { font-size: 11px; font-weight: 600; color: #15803d; margin-top: 0.4rem; }
+
+/* buttons in app */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.7rem 1.75rem; border-radius: 10px;
+  font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
+  cursor: pointer; border: none; transition: all 0.15s;
+  letter-spacing: 0.01em; text-decoration: none;
+}
+.btn-primary { background: var(--blue-accent); color: #fff; }
+.btn-primary:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: var(--shadow); }
+.btn-primary:active { transform: translateY(0); }
+.btn-accent { background: var(--accent); color: #fff; }
+.btn-accent:hover { background: #a8340a; transform: translateY(-1px); box-shadow: var(--shadow); }
+.btn-success { background: var(--success); color: #fff; }
+.btn-success:hover { background: #145a3d; transform: translateY(-1px); }
+.btn-outline { background: transparent; color: var(--navy); border: 1.5px solid var(--border); }
+.btn-outline:hover { border-color: var(--blue-accent); color: var(--blue-accent); }
+.btn:disabled {
+  opacity: 0.45; cursor: not-allowed;
+  transform: none !important; box-shadow: none !important;
+}
+.btn-row {
+  display: flex; align-items: center; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;
+}
+
+/* steps bar */
+.steps-bar {
+  display: flex; align-items: center; justify-content: center;
+  gap: 0; margin-bottom: 2.5rem; font-size: 12px;
+}
+.step-item { display: flex; align-items: center; gap: 0.5rem; color: var(--text-muted); font-weight: 500; }
+.step-item.active { color: var(--navy); }
+.step-item.done { color: var(--success); }
+.step-num-circle {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 1.5px solid currentColor;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 600; flex-shrink: 0;
+}
+.step-item.active .step-num-circle { background: var(--blue-accent); border-color: var(--blue-accent); color: #fff; }
+.step-item.done .step-num-circle { background: var(--success); border-color: var(--success); color: #fff; }
+.step-sep {
+  flex: 1; height: 1px; background: var(--border);
+  margin: 0 0.75rem; min-width: 24px; max-width: 60px;
+}
+
+/* period grid */
+.period-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px; background: var(--border); border-radius: var(--radius);
+  overflow: hidden; margin-bottom: 1.5rem; font-size: 13px;
+}
+.period-cell { background: #fff; padding: 0.85rem 1rem; }
+.period-cell .p-label {
+  font-size: 10px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 0.3rem;
+}
+.period-cell .p-val { font-weight: 600; color: var(--navy); }
+.period-cell.highlight { background: #f0f9f4; }
+.period-cell.highlight .p-label { color: var(--success); }
+.period-cell.highlight .p-val { color: var(--success); }
+
+/* voucher table */
+.voucher-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.voucher-table th {
+  text-align: left; padding: 0.6rem 0.85rem; font-size: 10px;
+  font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text-muted); border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+}
+.voucher-table td { padding: 0.7rem 0.85rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.voucher-table tr:last-child td { border-bottom: none; }
+.voucher-table tr:hover td { background: var(--bg2); }
+.vt-name { font-size: 13px; font-weight: 600; color: var(--navy); }
+.vt-source {
+  display: inline-block; font-size: 10px;
+  background: var(--blue-soft); border: 1px solid var(--border);
+  border-radius: 6px; padding: 1px 6px; color: var(--blue-dark); margin-left: 0.4rem; font-weight: 500;
+}
+.vt-count { color: var(--text-muted); font-size: 12px; }
+.confidence-badge {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  font-size: 10px; font-weight: 600; padding: 2px 7px;
+  border-radius: 6px; letter-spacing: 0.02em;
+}
+.confidence-high { background: #e8f5e9; color: var(--success); }
+.confidence-medium { background: #fff3e0; color: #b05010; }
+.auto-ignore-badge {
+  background: var(--bg2); color: var(--text-muted); font-size: 10px;
+  font-weight: 500; padding: 2px 7px; border-radius: 6px; font-style: italic;
+}
+
+/* results screen */
+.results-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.25rem; margin-bottom: 1.5rem;
+}
+.result-card {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow);
+}
+.result-card .rc-label {
+  font-size: 10px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 0.5rem;
+}
+.result-card .rc-count {
+  font-size: 2rem; font-weight: 700; letter-spacing: -0.03em;
+  color: var(--navy); line-height: 1;
+}
+.result-card .rc-value {
+  font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;
+}
+.result-card .rc-breakdown { margin-top: 0.75rem; font-size: 12px; color: var(--text-muted); line-height: 1.7; }
+
+/* zero mismatch box */
+.zero-mismatch-box {
+  background: #f0f9f4; border: 1px solid #a8d8b8;
+  border-radius: var(--radius-lg); padding: 2rem; text-align: center;
+  margin-bottom: 1.5rem;
+}
+.zero-mismatch-box h3 { font-size: 1.3rem; font-weight: 700; color: var(--success); margin-bottom: 0.5rem; }
+.zero-mismatch-box p { font-size: 14px; color: var(--text-body); }
+
+/* pay box */
+.pay-box {
+  background: var(--blue-soft); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 1.5rem 2rem;
+  display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+  box-shadow: var(--shadow);
+}
+.pay-copy h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 0.3rem; }
+.pay-copy p { font-size: 13px; color: var(--text-body); line-height: 1.55; }
+.pay-amount {
+  font-size: 2.25rem; font-weight: 800; color: var(--blue-accent);
+  letter-spacing: -0.04em; white-space: nowrap; flex-shrink: 0;
+}
+.pay-amount sup { font-size: 1rem; vertical-align: super; }
+
+/* download hero */
+.download-hero {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 3rem 2rem;
+  text-align: center; box-shadow: var(--shadow);
+}
+.download-hero .check {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: var(--green-dim); color: var(--green);
+  font-size: 1.75rem; display: flex; align-items: center;
+  justify-content: center; margin: 0 auto 1.25rem;
+}
+.download-hero h2 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.5rem; color: var(--navy); }
+.download-hero p { font-size: 14px; color: var(--text-body); margin-bottom: 1.75rem; }
+.expiry-note { font-size: 11px; color: var(--text-muted); margin-top: 0.75rem; font-family: monospace; }
+
+/* terms checkbox in app */
+.terms-row-app {
+  display: flex; align-items: flex-start; gap: 0.75rem;
+  padding: 1rem 1.25rem; background: var(--blue-soft);
+  border: 1.5px solid var(--border); border-radius: var(--radius);
+  margin-bottom: 0.75rem; cursor: pointer; transition: border-color 0.15s;
+}
+.terms-row-app:hover { border-color: var(--blue-accent); }
+.terms-row-app.checked { border-color: var(--success); background: #f0f9f4; }
+.terms-checkbox {
+  width: 18px; height: 18px; border: 2px solid var(--text-muted); border-radius: 4px;
+  flex-shrink: 0; margin-top: 1px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s; background: #fff;
+}
+.terms-row-app.checked .terms-checkbox { background: var(--success); border-color: var(--success); color: #fff; }
+.terms-checkbox-tick { display: none; font-size: 11px; line-height: 1; color: #fff; font-weight: 700; }
+.terms-row-app.checked .terms-checkbox-tick { display: block; }
+.terms-text { font-size: 13px; color: var(--text-body); line-height: 1.55; user-select: none; }
+.terms-text a { color: var(--blue-dark); text-decoration: underline; text-underline-offset: 2px; font-weight: 500; }
+.terms-text a:hover { color: var(--blue-accent); }
+.btn-primary.disabled-terms {
+  background: #b0bec5; cursor: not-allowed; transform: none !important; box-shadow: none !important; opacity: 1;
+}
+
+/* loading overlay */
+.loading-overlay {
+  display: none; position: fixed; inset: 0; z-index: 200;
+  background: rgba(26,35,64,0.45); backdrop-filter: blur(4px);
+  align-items: center; justify-content: center;
+}
+.loading-overlay.active { display: flex; }
+.progress-card {
+  background: var(--white); border-radius: 16px; padding: 2.5rem;
+  width: 340px; max-width: 90vw; text-align: center;
+  box-shadow: var(--shadow-lg); border: 1px solid var(--border);
+}
+.progress-title { font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-bottom: 1.5rem; }
+.progress-sub { font-size: 12px; color: var(--text-muted); min-height: 18px; margin-top: 1rem; line-height: 1.5; }
+/* circle animation */
+.circle-wrap { width: 110px; height: 110px; margin: 0 auto 0.5rem; position: relative; }
+.circle-wrap svg { transform: rotate(-90deg); }
+.circle-bg { fill: none; stroke: var(--border); stroke-width: 6; }
+.circle-spin {
+  fill: none; stroke: var(--blue-accent); stroke-width: 6;
+  stroke-linecap: round; stroke-dasharray: 307.87; stroke-dashoffset: 307.87;
+  animation: spin-dash 1.4s ease-in-out infinite;
+}
+@keyframes spin-dash {
+  0%  { stroke-dashoffset: 307.87; }
+  50% { stroke-dashoffset: 77; }
+  100%{ stroke-dashoffset: 307.87; }
+}
+.circle-inner {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+}
+.circle-icon { font-size: 1.5rem; }
+.circle-label { font-size: 9px; font-weight: 600; letter-spacing: 0.1em; color: var(--text-muted); margin-top: 2px; }
+/* progress bar */
+.pbar-wrap { padding: 0 0.25rem; }
+.pbar-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; font-size: 12px; }
+.pbar-label { color: var(--text-body); font-weight: 500; text-align: left; flex: 1; }
+.pbar-pct { color: var(--blue-accent); font-weight: 700; min-width: 34px; text-align: right; }
+.pbar-track { height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+.pbar-fill { height: 100%; background: var(--blue-accent); border-radius: 3px; transition: width 0.5s ease; width: 0; }
+.pbar-steps { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.35rem; text-align: left; }
+.pbar-step { font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 0.4rem; }
+.pbar-step.done { color: var(--success); }
+.pbar-step.current { color: var(--navy); font-weight: 600; }
+.pbar-step-dot {
+  width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+  background: var(--border);
+}
+.pbar-step.done .pbar-step-dot { background: var(--success); }
+.pbar-step.current .pbar-step-dot { background: var(--blue-accent); }
+
+/* toast */
+.toast {
+  display: none; position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  z-index: 300; padding: 10px 20px; border-radius: 10px;
+  font-size: 13px; font-weight: 500; color: #fff;
+  background: var(--navy); box-shadow: var(--shadow-md);
+  white-space: nowrap; max-width: 90vw; overflow: hidden; text-overflow: ellipsis;
+}
+.toast.active { display: block; animation: fadeUp 0.25s ease; }
+.toast.success { background: var(--success); }
+.toast.error { background: var(--danger); }
+
+/* warning in app */
+.warning-app {
+  background: #FFF8EC; border: 1px solid #F0C060;
+  border-radius: var(--radius); padding: 0.75rem 1rem;
+  font-size: 13px; color: #7A5010;
+  display: flex; gap: 0.6rem; align-items: flex-start; margin-bottom: 1.5rem;
+}
+.warning-app .icon { flex-shrink: 0; margin-top: 1px; }
+
+/* app header */
+.app-header {
+  background: rgba(255,255,255,0.92); backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px; height: 56px;
+  display: flex; align-items: center; justify-content: center;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+}
+.app-header-logo {
+  font-size: 17px; font-weight: 700; color: var(--navy);
+  text-decoration: none; letter-spacing: -0.03em;
+}
+.app-header-logo span { color: var(--blue-accent); }
+
+/* app footer */
+.app-footer {
+  padding: 16px 24px; border-top: 1px solid var(--border);
+  background: var(--white);
+}
+.app-footer-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: center;
+  gap: 0.75rem; flex-wrap: wrap; font-size: 13px;
+}
+.app-footer-inner a { color: var(--text-muted); text-decoration: none; }
+.app-footer-inner a:hover { color: var(--navy); }
+
+/* ═══════════════════════════════════════════════════════ */
+/* RESPONSIVE                                             */
+/* ═══════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  #hero { padding: 100px 16px 60px; }
+  .hero-headline { font-size: 44px; letter-spacing: -0.03em; }
+  .upload-pair { grid-template-columns: 1fr; }
+  .name-pair { grid-template-columns: 1fr; }
+  .compare-grid { grid-template-columns: 1fr; }
+  .step { padding: 24px 20px; gap: 16px; }
+  .result-row { grid-template-columns: 22px 1fr 90px; }
+  .row-amt { display: none; }
+  .nav-badge { display: none; }
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+  .form-row { grid-template-columns: 1fr; }
+  .results-grid { grid-template-columns: 1fr; }
+  .period-grid { grid-template-columns: 1fr; }
+  .pay-box { flex-direction: column; text-align: center; }
+}
 </style>
 </head>
-
 <body>
-<div class="shell">
 
-  <!-- ── Header ─────────────────────────────────────── -->
-  <header>
-    <div class="logo">
-      easemyreco
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- LANDING PAGE                                       -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="landing">
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">easemyreco<span>.com</span></a>
+      <div class="nav-badge">
+        <span class="live-dot"></span>
+        Built for Tally ERP &nbsp;&#183;&nbsp; No login needed
+      </div>
     </div>
-  </header>
+  </nav>
 
-  <!-- ── Main ───────────────────────────────────────── -->
-  <main>
-    <div class="container">
+  <!-- HERO -->
+  <section id="hero">
+    <div class="grid-bg"></div>
+    <div class="hero-content">
 
-      <!-- ════════════════════════════════════════════ -->
-      <!-- SCREEN 1 — Upload                           -->
-      <!-- ════════════════════════════════════════════ -->
-      <div id="screen-upload" class="screen active">
+      <div class="hero-eyebrow">
+        <span class="live-dot"></span>
+        Tally XML only &nbsp;&#183;&nbsp; ₹20 per reconciliation &nbsp;&#183;&nbsp; Results in minutes
+      </div>
 
-        <h1 class="page-title">
-          <span class="line-big">Stop losing hours to reco.</span>
-          <span class="line-small"><em>Find every mismatch in minutes.</em></span>
-        </h1>
+      <h1 class="hero-headline">
+        Stop losing hours<br/>to <span class="accent">reco.</span>
+      </h1>
 
-        <div style="margin-bottom: 1rem; text-align: center;">
-          <span style="
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            background: #f0f9f4;
-            border: 1px solid #a8d8b8;
-            border-radius: 20px;
-            padding: 5px 14px;
-            font-size: 13px;
-            font-weight: 600;
-            color: #1A6B4A;
-            font-family: 'Inter', Arial, sans-serif;
-            letter-spacing: 0.01em;
-          ">
-            <span style="width:8px;height:8px;background:#1A6B4A;border-radius:50%;display:inline-block;"></span>
-            Built for Tally.ERP · INR ledgers only
-          </span>
-        </div>
+      <p class="hero-sub">
+        Upload two Tally XML ledger exports, yours and your counterparty's,
+        and easemyreco instantly pinpoints every invoice and payment discrepancy.
+      </p>
 
-        <p class="page-subtitle">
-          Upload two Tally XML ledger exports - yours and your counterparty's -
-          and easemyreco instantly pinpoints every invoice and payment discrepancy.
-        </p>
+      <div class="vs-strip">
+        <span class="vs-label">vs manual reco</span>
+        <span class="vs-item">Excel + pivot tables: hours</span>
+        <span class="vs-item">Accountant review: days</span>
+        <span class="vs-arrow">&#8594;</span>
+        <span class="vs-us">easemyreco: under 3 minutes · ₹20</span>
+      </div>
 
-        <div class="warning-banner">
-          <span class="icon">⚠️</span>
-          <span>Both files must be <strong>INR ledgers</strong>. Multi-currency ledgers are not supported in the current version.</span>
-        </div>
+      <!-- UPLOAD ACTION CARD -->
+      <div class="upload-wrap">
+        <div class="upload-action-card">
+          <div class="card-label">Upload Tally XML Ledgers</div>
 
-        <!-- Shown only when MAX_SESSIONS is hit — hidden by default -->
-        <div id="busy-banner" style="
-          display:none;
-          background:#FFF8EC;
-          border:1px solid #F0C060;
-          border-radius:var(--radius);
-          padding:1rem 1.25rem;
-          font-size:13px;
-          color:#7A5010;
-          margin-bottom:1.5rem;
-          line-height:1.6;
-        ">
-          <strong>🕐 Server is currently busy.</strong><br>
-          We're processing several reconciliations right now. Please wait a minute and try again —
-          your files haven't been uploaded yet, so nothing is lost.
-        </div>
-
-        <!-- Party A -->
-        <div class="card">
-          <div class="card-title">
-            <span class="num">01</span> Your Details
+          <div id="busy-banner">
+            <strong>🕐 Server is currently busy.</strong><br/>
+            We're processing several reconciliations right now. Please wait a minute and try again.
+            your files haven't been uploaded yet, so nothing is lost.
           </div>
 
-          <div class="form-row">
+          <div class="warning-banner">
+            <span class="icon">⚠️</span>
+            <span>Both files must be <strong>INR ledgers</strong>. Multi-currency ledgers are not supported.</span>
+          </div>
+
+          <div class="name-pair">
             <div>
               <label>Your Company Name</label>
-              <input type="text" id="party-a-name" placeholder="e.g. Gada Electronics Private Limited" />
+              <input type="text" id="landing-party-a-name" placeholder="e.g. Gada Electronics Pvt. Ltd." autocomplete="off"/>
             </div>
             <div>
-              <label>Your Role in this Transaction</label>
-              <div class="role-selector">
-                <div class="role-pill selected" data-party="a" data-role="buyer">Buyer</div>
-                <div class="role-pill" data-party="a" data-role="seller">Seller</div>
-              </div>
-              <input type="hidden" id="party-a-role" value="buyer" />
+              <label>Counterparty Name</label>
+              <input type="text" id="landing-party-b-name" placeholder="e.g. Sodhi Garage LLP" autocomplete="off"/>
             </div>
           </div>
 
-          <div class="form-row single">
+          <div class="upload-pair">
             <div>
-              <label>Your Tally XML Export</label>
-              <div class="upload-zone" id="zone-a">
-                <input type="file" id="file-a" accept=".xml" />
+              <div class="zone-party-label">Your Tally XML</div>
+              <div class="upload-zone" id="landing-zone-a">
+                <input type="file" id="landing-file-a" accept=".xml"/>
                 <span class="upload-icon">📄</span>
-                <div class="upload-label">
-                  <strong>Click to choose</strong> or drag your XML file here
-                </div>
-                <div class="upload-filename" id="filename-a"></div>
+                <div class="upload-label"><strong>Click to choose</strong> or drag here</div>
+                <div class="upload-filename" id="landing-filename-a"></div>
               </div>
             </div>
-          </div>
-        </div>
-
-        <!-- Party B -->
-        <div class="card">
-          <div class="card-title">
-            <span class="num">02</span> Counterparty Details
-          </div>
-
-          <div class="form-row">
             <div>
-              <label>Counterparty Company Name</label>
-              <input type="text" id="party-b-name" placeholder="e.g. Sodhi Garage LLP" />
-            </div>
-            <div>
-              <label>Counterparty's Role</label>
-              <div class="role-selector">
-                <div class="role-pill selected locked" id="party-b-role-pill">Seller</div>
-              </div>
-              <input type="hidden" id="party-b-role" value="seller" />
-              <div style="font-size:0.75rem;color:var(--ink-soft);margin-top:0.35rem;">Auto-set - opposite of your role</div>
-            </div>
-          </div>
-
-          <div class="form-row single">
-            <div>
-              <label>Counterparty's Tally XML Export</label>
-              <div class="upload-zone" id="zone-b">
-                <input type="file" id="file-b" accept=".xml" />
+              <div class="zone-party-label">Their Tally XML</div>
+              <div class="upload-zone" id="landing-zone-b">
+                <input type="file" id="landing-file-b" accept=".xml"/>
                 <span class="upload-icon">📄</span>
-                <div class="upload-label">
-                  <strong>Click to choose</strong> or drag their XML file here
-                </div>
-                <div class="upload-filename" id="filename-b"></div>
+                <div class="upload-label"><strong>Click to choose</strong> or drag here</div>
+                <div class="upload-filename" id="landing-filename-b"></div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="btn-row" style="flex-direction:column; align-items:center; gap:0.6rem;">
-
-          <!-- Terms checkbox -->
-          <div class="terms-row" id="terms-row" style="width:100%; max-width:480px;">
-            <div class="terms-checkbox" id="terms-checkbox">
-              <span class="terms-checkbox-tick">✓</span>
-            </div>
-            <span class="terms-text">
-              I have read and agree to the
-              <a href="/terms" target="_blank" onclick="event.stopPropagation()">Terms of Service</a>,
-              <a href="/refund-policy" target="_blank" onclick="event.stopPropagation()">Refund Policy</a>
+          <label class="terms-row-landing" for="landing-consent">
+            <input type="checkbox" id="landing-consent"/>
+            <span>
+              I agree to the
+              <a href="/terms" target="_blank">Terms</a>,
+              <a href="/refund-policy" target="_blank">Refund Policy</a>
               and
-              <a href="/privacy-policy" target="_blank" onclick="event.stopPropagation()">Privacy Policy</a>
+              <a href="/privacy-policy" target="_blank">Privacy Policy</a>
             </span>
-          </div>
+          </label>
 
-          <button class="btn btn-primary disabled-terms" id="btn-analyse" disabled>
+          <button class="cta-btn inactive" id="landing-analyse-btn" disabled>
             Analyse Files →
           </button>
-          <span style="font-size:12px; color:var(--ink-muted);">
-            Files are processed in memory and discarded immediately.
-          </span>
+          <p class="cta-meta">Free to analyse &nbsp;&#183;&nbsp; ₹20 only if mismatches are found</p>
         </div>
 
-      </div><!-- /screen-upload -->
+        <div class="trust-strip">
+          <div class="trust-item">Tally XML processed in memory</div>
+          <div class="trust-item">No account needed</div>
+          <div class="trust-item">Free for zero mismatches</div>
+          <div class="trust-item">7-sheet Excel report</div>
+        </div>
+      </div>
+
+      <!-- ANIMATED RESULT WIDGET -->
+      <div class="result-widget-wrap">
+        <div class="result-widget">
+          <div class="scan-bar"></div>
+          <div class="widget-bar">
+            <span class="wb-dot r"></span>
+            <span class="wb-dot y"></span>
+            <span class="wb-dot g"></span>
+            <span class="wb-label">easemyreco &middot; Gada Electronics vs Sodhi Garage</span>
+            <span class="wb-tag">COMPLETE</span>
+          </div>
+          <div class="widget-body">
+            <div class="result-row">
+              <div class="row-num">01</div>
+              <div>
+                <div class="row-name">INV/2024-25/00482</div>
+                <div class="row-city">Invoice · 14 Nov 2024</div>
+              </div>
+              <div class="row-tag tag-m">Mismatch</div>
+              <div class="row-amt">₹1,48,500</div>
+            </div>
+            <div class="result-row">
+              <div class="row-num">02</div>
+              <div>
+                <div class="row-name">PMT/2024-25/00219</div>
+                <div class="row-city">Payment · 22 Nov 2024</div>
+              </div>
+              <div class="row-tag tag-ok">Matched</div>
+              <div class="row-amt">₹75,000</div>
+            </div>
+            <div class="result-row">
+              <div class="row-num">03</div>
+              <div>
+                <div class="row-name">INV/2024-25/00521</div>
+                <div class="row-city">Invoice · 3 Dec 2024</div>
+              </div>
+              <div class="row-tag tag-m">Mismatch</div>
+              <div class="row-amt">₹2,31,000</div>
+            </div>
+            <div class="result-row">
+              <div class="row-num">04</div>
+              <div>
+                <div class="row-name">CN/2024-25/00088</div>
+                <div class="row-city">Credit Note · 10 Dec 2024</div>
+              </div>
+              <div class="row-tag tag-ok">Matched</div>
+              <div class="row-amt">₹18,200</div>
+            </div>
+          </div>
+          <div class="widget-footer">
+            <span>4 of 47 entries &middot; 12 mismatches detected</span>
+            <span class="hl">₹3,79,500 at risk</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="section-inner">
+      <p class="section-label">How it works</p>
+      <h2 class="section-title">Four steps, that's it.</h2>
+      <p class="section-sub">No consultant to call, no spreadsheet to build, no waiting for callbacks. Just upload and get answers.</p>
+
+      <div class="steps-list">
+        <div class="step">
+          <span class="step-num-label">01</span>
+          <div class="step-content">
+            <h3>Upload two Tally XML files</h3>
+            <p>Export your ledger and ask your counterparty for theirs. Drop both here. Only INR ledgers are supported · if your books are in multiple currencies, export each individually.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num-label">02</span>
+          <div class="step-content">
+            <h3>Confirm voucher types</h3>
+            <p>easemyreco reads your Tally voucher names and asks you to confirm what each one is · purchase invoice, sales invoice, payment, receipt. Takes 30 seconds. TDS and RCM entries are auto-excluded.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num-label">03</span>
+          <div class="step-content">
+            <h3>Review mismatches instantly</h3>
+            <p>The engine runs three matching passes on invoices and exact matching on payments. You see a live count of every discrepancy across both ledgers, with amounts at risk.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num-label">04</span>
+          <div class="step-content">
+            <h3>Download the Excel report for ₹20</h3>
+            <p>If mismatches are found, pay ₹20 and download a clean 7-sheet workbook. If your books match perfectly, it's free. Session data is deleted immediately after download.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT YOU GET -->
+  <section id="output">
+    <div class="section-inner">
+      <p class="section-label">What's in the report</p>
+      <h2 class="section-title">A 7-sheet Excel, not a summary.</h2>
+      <p class="section-sub">Every entry categorised, every discrepancy explained. Enough detail to take straight to your accountant or your counterparty.</p>
+
+      <div class="output-grid">
+        <div class="output-card">
+          <div class="output-card-num">Sheet 01</div>
+          <h3>Invoice Mismatches</h3>
+          <p>Every invoice where amounts, dates, or voucher numbers don't agree, with both sides shown side by side.</p>
+        </div>
+        <div class="output-card">
+          <div class="output-card-num">Sheet 02</div>
+          <h3>Payment Mismatches</h3>
+          <p>Payments that appear in one ledger but not the other, or where amounts differ between the two files.</p>
+        </div>
+        <div class="output-card">
+          <div class="output-card-num">Sheet 03</div>
+          <h3>Invoices in Your File Only</h3>
+          <p>Entries recorded by you that your counterparty hasn't booked yet. Common source of closing differences.</p>
+        </div>
+        <div class="output-card">
+          <div class="output-card-num">Sheet 04</div>
+          <h3>Invoices in Their File Only</h3>
+          <p>Entries their side has booked that aren't in your ledger. Often reveals missed purchase or sales bookings.</p>
+        </div>
+        <div class="output-card">
+          <div class="output-card-num">Sheet 05</div>
+          <h3>Perfectly Matched Entries</h3>
+          <p>All invoices and payments that reconcile exactly, so you know what's already clean.</p>
+        </div>
+        <div class="output-card">
+          <div class="output-card-num">Sheet 06</div>
+          <h3>Auto-Excluded Entries</h3>
+          <p>TDS and RCM vouchers that were excluded from matching, listed for your records and audit trail.</p>
+        </div>
+        <div class="output-card">
+          <div class="output-card-num">Sheet 07</div>
+          <h3>Summary Dashboard</h3>
+          <p>Period, counterparty names, mismatch counts and total amounts · the one-page view for sign-off.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARE -->
+  <section id="compare">
+    <div class="section-inner">
+      <p class="section-label">Honest comparison</p>
+      <h2 class="section-title">Why not just do it manually in Excel?</h2>
+      <p class="section-sub">Good question. Here's the straight answer.</p>
+
+      <div class="compare-grid">
+        <div class="cmp-col">
+          <div class="cmp-head">Manual reco in Excel</div>
+          <div class="cmp-row no">2–4 hours per counterparty</div>
+          <div class="cmp-row no">Prone to VLOOKUP errors on long voucher names</div>
+          <div class="cmp-row no">Tally encoding issues break copy-paste</div>
+          <div class="cmp-row no">TDS / RCM must be filtered out manually every time</div>
+          <div class="cmp-row no">No audit trail of what was matched and how</div>
+        </div>
+        <div class="cmp-col">
+          <div class="cmp-head">easemyreco</div>
+          <div class="cmp-row yes">Under 3 minutes end to end</div>
+          <div class="cmp-row yes">Three-pass matching engine handles Tally quirks</div>
+          <div class="cmp-row yes">Reads XML directly · no copy-paste encoding errors</div>
+          <div class="cmp-row yes">TDS and RCM auto-excluded, listed separately</div>
+          <div class="cmp-row yes">Full Excel with matched, mismatched, and excluded entries</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <a href="/" class="footer-logo">easemyreco<span>.com</span></a>
+      <div class="footer-links">
+        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/terms">Terms</a>
+        <a href="/refund-policy">Refund Policy</a>
+      </div>
+      <span class="footer-copy">&#169; 2026 Aavishkar Technologies Private Limited</span>
+    </div>
+  </footer>
+
+</div><!-- /landing -->
 
 
-      <!-- ════════════════════════════════════════════ -->
-      <!-- SCREEN 2 — Voucher Confirmation             -->
-      <!-- ════════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- APP SHELL (screens 2–4)                           -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="app-shell">
+
+  <!-- APP HEADER -->
+  <header class="app-header">
+    <a href="/" class="app-header-logo" id="app-logo-link">easemyreco<span>.com</span></a>
+  </header>
+
+  <!-- APP MAIN -->
+  <main id="app-main">
+    <div class="container">
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- SCREEN 2 · Voucher Confirmation               -->
+      <!-- ═══════════════════════════════════════════════ -->
       <div id="screen-vouchers" class="screen">
 
         <div class="steps-bar">
-          <div class="step-item done"><div class="step-num">✓</div> Upload</div>
+          <div class="step-item done"><div class="step-num-circle">✓</div>&nbsp;Upload</div>
           <div class="step-sep"></div>
-          <div class="step-item active"><div class="step-num">2</div> Confirm Vouchers</div>
+          <div class="step-item active"><div class="step-num-circle">2</div>&nbsp;Confirm Vouchers</div>
           <div class="step-sep"></div>
-          <div class="step-item"><div class="step-num">3</div> Results</div>
+          <div class="step-item"><div class="step-num-circle">3</div>&nbsp;Results</div>
           <div class="step-sep"></div>
-          <div class="step-item"><div class="step-num">4</div> Download</div>
+          <div class="step-item"><div class="step-num-circle">4</div>&nbsp;Download</div>
         </div>
 
-        <p class="section-label">Step 2 of 4</p>
+        <p class="section-label-app">Step 2 of 4</p>
         <h1 class="page-title" style="font-size:2rem; margin-bottom:0.5rem;">
           Confirm Voucher Types
         </h1>
         <p class="page-subtitle" style="margin-bottom:1.5rem;">
           easemyreco found the voucher types below in your files. Confirm or correct
-          each classification — this tells the engine what to match against what.
-          <br>⚠️ entries marked with a warning need your attention.
+          each classification · this tells the engine what to match against what.
+          <br/>⚠️ Entries marked with a warning need your attention.
         </p>
 
         <!-- Period info -->
         <div class="period-grid" id="period-display">
           <div class="period-cell">
             <div class="p-label">Your File</div>
-            <div class="p-val" id="period-a">—</div>
+            <div class="p-val" id="period-a">·</div>
           </div>
           <div class="period-cell">
             <div class="p-label">Counterparty File</div>
-            <div class="p-val" id="period-b">—</div>
+            <div class="p-val" id="period-b">·</div>
           </div>
           <div class="period-cell highlight">
             <div class="p-label">Reconciliation Period</div>
-            <div class="p-val" id="period-overlap">—</div>
+            <div class="p-val" id="period-overlap">·</div>
           </div>
         </div>
 
@@ -1338,91 +1407,87 @@
       </div><!-- /screen-vouchers -->
 
 
-      <!-- ════════════════════════════════════════════ -->
-      <!-- SCREEN 3 — Results                         -->
-      <!-- ════════════════════════════════════════════ -->
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- SCREEN 3 · Results                            -->
+      <!-- ═══════════════════════════════════════════════ -->
       <div id="screen-results" class="screen">
 
         <div class="steps-bar">
-          <div class="step-item done"><div class="step-num">✓</div> Upload</div>
+          <div class="step-item done"><div class="step-num-circle">✓</div>&nbsp;Upload</div>
           <div class="step-sep"></div>
-          <div class="step-item done"><div class="step-num">✓</div> Confirm Vouchers</div>
+          <div class="step-item done"><div class="step-num-circle">✓</div>&nbsp;Confirm Vouchers</div>
           <div class="step-sep"></div>
-          <div class="step-item active"><div class="step-num">3</div> Results</div>
+          <div class="step-item active"><div class="step-num-circle">3</div>&nbsp;Results</div>
           <div class="step-sep"></div>
-          <div class="step-item"><div class="step-num">4</div> Download</div>
+          <div class="step-item"><div class="step-num-circle">4</div>&nbsp;Download</div>
         </div>
 
-        <p class="section-label">Reconciliation Complete</p>
+        <p class="section-label-app">Reconciliation Complete</p>
         <h1 class="page-title" style="font-size:2rem; margin-bottom:0.4rem;">
           Here's what we found.
         </h1>
-        <p style="color:var(--ink-soft); font-size:13px; margin-bottom:1.75rem;">
-          Period: <span id="results-period" style="font-family:var(--font-mono); color:var(--ink);"></span>
+        <p style="color:var(--text-muted); font-size:13px; margin-bottom:1.75rem; text-align:center;">
+          Period: <span id="results-period" style="color:var(--navy);"></span>
         </p>
 
-        <!-- Results cards -->
         <div class="results-grid" id="results-grid">
           <div class="result-card" id="rc-invoices">
             <div class="rc-label">Invoice Mismatches</div>
-            <div class="rc-count" id="rc-inv-count">—</div>
-            <div class="rc-value" id="rc-inv-value">—</div>
+            <div class="rc-count" id="rc-inv-count">·</div>
+            <div class="rc-value" id="rc-inv-value">·</div>
             <div class="rc-breakdown" id="rc-inv-breakdown"></div>
           </div>
           <div class="result-card" id="rc-payments">
             <div class="rc-label">Payment Mismatches</div>
-            <div class="rc-count" id="rc-pay-count">—</div>
-            <div class="rc-value" id="rc-pay-value">—</div>
+            <div class="rc-count" id="rc-pay-count">·</div>
+            <div class="rc-value" id="rc-pay-value">·</div>
             <div class="rc-breakdown" id="rc-pay-breakdown"></div>
           </div>
         </div>
 
-        <!-- Zero mismatch state -->
         <div class="zero-mismatch-box" id="zero-box" style="display:none;">
           <h3>✓ Your books are in perfect sync.</h3>
-          <p>0 invoice mismatches · 0 payment mismatches — your records agree completely.</p>
+          <p>0 invoice mismatches · 0 payment mismatches · your records agree completely.</p>
         </div>
 
-        <!-- Pay box -->
         <div class="pay-box" id="pay-box">
           <div class="pay-copy">
             <h3>Get the full detailed report</h3>
-            <p>Download a complete 6-sheet Excel with every matched, mismatched, and varied entry broken down clearly.</p>
+            <p>Download a complete 7-sheet Excel with every matched, mismatched, and varied entry broken down clearly.</p>
           </div>
           <div>
             <div class="pay-amount"><sup>₹</sup>20</div>
           </div>
           <button class="btn btn-accent" id="btn-pay" style="white-space:nowrap;">
-            Download Report — Pay ₹20
+            Download Report · Pay ₹20
           </button>
         </div>
 
-        <!-- Free download (zero mismatches) -->
         <div id="free-download-box" style="display:none; margin-top:1.25rem; text-align:center;">
           <button class="btn btn-success" id="btn-free-download">
             ⬇ Download Free Report
           </button>
-          <p style="font-size:11px; color:var(--ink-muted); margin-top:0.75rem; font-family:var(--font-mono);">
-            No payment required — zero mismatches detected.
+          <p style="font-size:11px; color:var(--text-muted); margin-top:0.75rem; font-family:monospace;">
+            No payment required · zero mismatches detected.
           </p>
         </div>
 
       </div><!-- /screen-results -->
 
 
-      <!-- ════════════════════════════════════════════ -->
-      <!-- SCREEN 4 — Download                        -->
-      <!-- ════════════════════════════════════════════ -->
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- SCREEN 4 · Download                           -->
+      <!-- ═══════════════════════════════════════════════ -->
       <div id="screen-download" class="screen">
 
         <div class="steps-bar">
-          <div class="step-item done"><div class="step-num">✓</div> Upload</div>
+          <div class="step-item done"><div class="step-num-circle">✓</div>&nbsp;Upload</div>
           <div class="step-sep"></div>
-          <div class="step-item done"><div class="step-num">✓</div> Confirm Vouchers</div>
+          <div class="step-item done"><div class="step-num-circle">✓</div>&nbsp;Confirm Vouchers</div>
           <div class="step-sep"></div>
-          <div class="step-item done"><div class="step-num">✓</div> Results</div>
+          <div class="step-item done"><div class="step-num-circle">✓</div>&nbsp;Results</div>
           <div class="step-sep"></div>
-          <div class="step-item active"><div class="step-num">4</div> Download</div>
+          <div class="step-item active"><div class="step-num-circle">4</div>&nbsp;Download</div>
         </div>
 
         <div class="download-hero">
@@ -1434,32 +1499,24 @@
             ⬇ Download Excel Report
           </button>
 
-          <!-- Payment ID shown here after verify — populated by buildDownloadScreen() -->
           <div id="payment-id-display" style="
-            display:none;
-            margin-top:1rem;
-            padding:0.6rem 1.25rem;
-            background:var(--paper-warm);
-            border:1px solid var(--rule);
-            border-radius:var(--radius);
-            font-size:12px;
-            color:var(--ink-soft);
-            font-family:var(--font-mono);
-            letter-spacing:0.02em;
+            display:none; margin-top:1rem; padding:0.6rem 1.25rem;
+            background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius);
+            font-size:12px; color:var(--text-body); font-family:monospace; letter-spacing:0.02em;
           ">
-            Payment ID: <span id="payment-id-value" style="font-weight:600; color:var(--ink); user-select:all;"></span>
-            <span style="font-size:11px; color:var(--ink-muted); margin-left:0.5rem;">(keep this for any refund requests)</span>
+            Payment ID: <span id="payment-id-value" style="font-weight:600; color:var(--navy); user-select:all;"></span>
+            <span style="font-size:11px; color:var(--text-muted); margin-left:0.5rem;">(keep this for any refund requests)</span>
           </div>
 
           <p class="expiry-note">Session active for 60 minutes · Data deleted after download</p>
 
-          <div style="margin-top:1.75rem; padding-top:1.25rem; border-top:1px solid var(--rule);">
+          <div style="margin-top:1.75rem; padding-top:1.25rem; border-top:1px solid var(--border);">
             <button class="btn btn-primary" id="btn-new-reco" style="font-size:14px; padding:0.7rem 2rem; margin-bottom:1.25rem;">
               ↩ Run Another Reconciliation
             </button>
-            <br>
-            <a href="/cdn-cgi/l/email-protection#4120252c282f013724332827282425362e332a6f222e7e3234232b2422357c132427342f25611324303424323561a3c1d561242032242c383324222e67232e25387c09286d64710064710008612c2025246120613120382c242f356123343561222e342d25612f2e3561252e362f2d2e2025612c38613324312e33356f647100647100112d242032246127282f25612c38613120382c242f356132223324242f32292e356120353520222924256f6471006471001120382c242f356125243520282d327b64710013203b2e33312038611120382c242f3561080561693235203335326136283529613120381e687b6471000520352461202f256135282c24612e27613120382c242f357b6471006471001529202f2a61382e34" style="font-size:12px; color:var(--ink-muted); text-decoration:none; font-family:var(--font-mono);">
-              Payment deducted but no access? Email us at <span class="__cf_email__" data-cfemail="6c0d080105022c1a091e050a0509081b031e07420f03">[email&#160;protected]</span> →
+            <br/>
+            <a href="mailto:admin@verifiedwork.co" style="font-size:12px; color:var(--text-muted); text-decoration:none; font-family:monospace;">
+              Payment deducted but no access? Email admin@verifiedwork.co →
             </a>
           </div>
         </div>
@@ -1469,20 +1526,26 @@
     </div><!-- /container -->
   </main>
 
-  <footer>
-    <div style="display:flex; align-items:center; justify-content:center; gap:0.75rem; flex-wrap:wrap;">
-      <span style="font-weight:700;">easemyreco</span>
-      <span>© 2026 Aavishkar Technologies Private Limited · <a href="/privacy-policy" style="color:inherit;">Privacy Policy</a> · <a href="/terms" style="color:inherit;">Terms</a> · <a href="/refund-policy" style="color:inherit;">Refund Policy</a></span>
+  <!-- APP FOOTER -->
+  <footer class="app-footer">
+    <div class="app-footer-inner">
+      <span style="font-weight:700; color:var(--navy);">easemyreco</span>
+      <span style="color:var(--text-muted);">© 2026 Aavishkar Technologies Private Limited</span>
+      <a href="/privacy-policy">Privacy Policy</a>
+      <a href="/terms">Terms</a>
+      <a href="/refund-policy">Refund Policy</a>
     </div>
   </footer>
-</div><!-- /shell -->
 
-<!-- ── Progress overlay ───────────────────────────── -->
+</div><!-- /app-shell -->
+
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- LOADING OVERLAY & TOAST                           -->
+<!-- ═══════════════════════════════════════════════════ -->
 <div class="loading-overlay" id="loading">
   <div class="progress-card">
     <div class="progress-title" id="progress-title">Analysing files…</div>
-
-    <!-- Mode A: animated circle (analyse) -->
     <div class="circle-wrap" id="mode-circle">
       <svg viewBox="0 0 110 110">
         <circle class="circle-bg"   cx="55" cy="55" r="49"/>
@@ -1493,8 +1556,6 @@
         <div class="circle-label">READING</div>
       </div>
     </div>
-
-    <!-- Mode B: progress bar (reconcile) -->
     <div class="pbar-wrap" id="mode-pbar" style="display:none">
       <div class="pbar-row">
         <span class="pbar-label" id="pbar-step-label">Filtering entries…</span>
@@ -1503,42 +1564,61 @@
       <div class="pbar-track"><div class="pbar-fill" id="pbar-fill"></div></div>
       <div class="pbar-steps" id="pbar-steps"></div>
     </div>
-
     <div class="progress-sub" id="progress-sub"></div>
   </div>
 </div>
 
-<!-- ── Toast ─────────────────────────────────────── -->
 <div class="toast" id="toast"></div>
 
-<!-- ════════════════════════════════════════════════ -->
-<!-- JavaScript                                      -->
-<!-- ════════════════════════════════════════════════ -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// ── Config ──────────────────────────────────────────
-// Change this to your Railway URL when deployed.
-// During local dev, use http://localhost:8000
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- JAVASCRIPT                                        -->
+<!-- ═══════════════════════════════════════════════════ -->
+<script>
+// ── Config ─────────────────────────────────────────────
 const API_BASE = window.location.origin;
 
-// ── State ────────────────────────────────────────────
+// ── State ──────────────────────────────────────────────
 let state = {
   sessionToken:   null,
   period:         null,
   voucherTypes:   [],
   resultsPreview: null,
   analysisData:   null,
-  paymentId:      null,   // Razorpay payment ID — stored after verification, shown on download screen
+  paymentId:      null,
 };
 
-// ── Utilities ────────────────────────────────────────
+let termsAccepted = false;
+
+// ── Utilities ──────────────────────────────────────────
+function fmtDate(iso) {
+  if (!iso) return '·';
+  const [y, m, d] = iso.split('-');
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${d}-${months[parseInt(m,10)-1]}-${y}`;
+}
+function fmtPeriod(from, to) { return `${fmtDate(from)} to ${fmtDate(to)}`; }
+function fmtAmount(n) {
+  if (n === undefined || n === null) return '·';
+  return '₹' + Number(n).toLocaleString('en-IN', { minimumFractionDigits: 2 });
+}
+
+// ── Shell switcher ─────────────────────────────────────
+function showLanding() {
+  document.getElementById('landing').style.display = 'block';
+  document.getElementById('app-shell').classList.remove('active');
+}
+function showApp() {
+  document.getElementById('landing').style.display = 'none';
+  document.getElementById('app-shell').classList.add('active');
+}
 function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('#app-shell .screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ── Progress overlay ─────────────────────────────────
-
+// ── Progress overlay ───────────────────────────────────
 let _progressTimer = null;
 
 function _setMode(mode) {
@@ -1546,12 +1626,10 @@ function _setMode(mode) {
   document.getElementById('mode-pbar').style.display   = mode === 'pbar'   ? 'block' : 'none';
 }
 
-// ── Mode A: animated circle for /analyse ─────────────
 function showAnalyseProgress() {
   _setMode('circle');
   document.getElementById('progress-title').textContent = 'Reading your files…';
   document.getElementById('loading').classList.add('active');
-
   const subs = [
     'Detecting file encoding…',
     'Cleaning Tally character spacing…',
@@ -1567,25 +1645,21 @@ function showAnalyseProgress() {
   }, 900);
 }
 
-// ── Mode B: progress bar for /reconcile ──────────────
 function showReconcileProgress() {
   _setMode('pbar');
   document.getElementById('progress-title').textContent = 'Running reconciliation…';
   document.getElementById('progress-sub').textContent   = '';
   document.getElementById('loading').classList.add('active');
-
   const steps = [
     { label: 'Filtering entries to overlap period', pct: 15 },
     { label: 'Classifying voucher types',           pct: 35 },
-    { label: 'Invoice Engine — 3 matching passes',  pct: 62 },
-    { label: 'Payment Engine — exact matching',     pct: 82 },
+    { label: 'Invoice Engine · 3 matching passes',  pct: 62 },
+    { label: 'Payment Engine · exact matching',     pct: 82 },
     { label: 'Compiling mismatch report',           pct: 96 },
   ];
-
   let current = 0;
   _renderPbarSteps(steps, current);
   _setPbar(steps[0].pct, steps[0].label);
-
   _progressTimer = setInterval(() => {
     if (current >= steps.length - 1) { clearInterval(_progressTimer); return; }
     current++;
@@ -1595,25 +1669,20 @@ function showReconcileProgress() {
 }
 
 function _setPbar(pct, label) {
-  document.getElementById('pbar-fill').style.width        = pct + '%';
-  document.getElementById('pbar-pct').textContent         = pct + '%';
-  document.getElementById('pbar-step-label').textContent  = label;
+  document.getElementById('pbar-fill').style.width       = pct + '%';
+  document.getElementById('pbar-pct').textContent        = pct + '%';
+  document.getElementById('pbar-step-label').textContent = label;
 }
 
 function _renderPbarSteps(steps, activeIdx) {
   document.getElementById('pbar-steps').innerHTML = steps.map((s, i) => {
-    const cls = i < activeIdx ? 'done' : i === activeIdx ? 'active' : '';
-    return `<div class="pbar-step ${cls}">
-      <div class="pbar-step-dot"></div>
-      <span>${s.label}</span>
-    </div>`;
+    const cls = i < activeIdx ? 'done' : i === activeIdx ? 'current' : '';
+    return `<div class="pbar-step ${cls}"><div class="pbar-step-dot"></div><span>${s.label}</span></div>`;
   }).join('');
 }
 
-// ── Finish (shared) ───────────────────────────────────
 function finishProgress(callback) {
   clearInterval(_progressTimer);
-  // Snap to 100%
   _setPbar(100, 'Complete');
   document.getElementById('pbar-fill').style.width = '100%';
   document.getElementById('pbar-pct').textContent  = '100%';
@@ -1628,87 +1697,37 @@ function hideLoading() {
   document.getElementById('loading').classList.remove('active');
 }
 
-function shortDate(iso) {
-  if (!iso) return '?';
-  const [y, m] = iso.split('-');
-  const months = ['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  return months[+m] + ' ' + y.slice(2);
-}
-
+// ── Toast ──────────────────────────────────────────────
 function showToast(msg, type = '') {
   const el = document.getElementById('toast');
   el.textContent = msg;
-  el.className = 'toast' + (type ? ' ' + type : '');
-  el.classList.add('show');
-  setTimeout(() => el.classList.remove('show'), 4000);
+  el.className   = 'toast' + (type ? ' ' + type : '');
+  el.classList.add('active');
+  setTimeout(() => el.classList.remove('active'), 4000);
 }
 
-function fmtDate(iso) {
-  if (!iso) return '—';
-  const [y, m, d] = iso.split('-');
-  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  return `${d}-${months[parseInt(m)-1]}-${y}`;
+// ── Landing: terms + button sync ──────────────────────
+function syncLandingBtn() {
+  const nameA   = document.getElementById('landing-party-a-name').value.trim();
+  const nameB   = document.getElementById('landing-party-b-name').value.trim();
+  const fileA   = document.getElementById('landing-file-a').files[0];
+  const fileB   = document.getElementById('landing-file-b').files[0];
+  const consent = document.getElementById('landing-consent').checked;
+  const ready   = termsAccepted && nameA && nameB && fileA && fileB;
+  const btn     = document.getElementById('landing-analyse-btn');
+  btn.disabled  = !ready;
+  btn.className = 'cta-btn ' + (ready ? 'active' : 'inactive');
 }
 
-function fmtAmount(n) {
-  if (n === undefined || n === null) return '—';
-  return '₹' + Number(n).toLocaleString('en-IN', { minimumFractionDigits: 2 });
-}
-
-function fmtPeriod(from, to) {
-  return `${fmtDate(from)} to ${fmtDate(to)}`;
-}
-
-// ── Terms checkbox ────────────────────────────────────
-let termsAccepted = false;
-
-function updateAnalyseBtn() {
-  const partyAName = document.getElementById('party-a-name').value.trim();
-  const partyBName = document.getElementById('party-b-name').value.trim();
-  const fileA      = document.getElementById('file-a').files[0];
-  const fileB      = document.getElementById('file-b').files[0];
-  const btn        = document.getElementById('btn-analyse');
-
-  const allReady = termsAccepted && partyAName && partyBName && fileA && fileB;
-
-  if (allReady) {
-    btn.disabled = false;
-    btn.classList.remove('disabled-terms');
-  } else {
-    btn.disabled = true;
-    btn.classList.add('disabled-terms');
-  }
-}
-
-document.getElementById('terms-row').addEventListener('click', () => {
-  termsAccepted = !termsAccepted;
-  document.getElementById('terms-row').classList.toggle('checked', termsAccepted);
-  updateAnalyseBtn();
+// Terms toggle · mirrors original termsAccepted toggle
+document.getElementById('landing-consent').addEventListener('change', () => {
+  termsAccepted = document.getElementById('landing-consent').checked;
+  syncLandingBtn();
 });
+document.getElementById('landing-party-a-name').addEventListener('input', syncLandingBtn);
+document.getElementById('landing-party-b-name').addEventListener('input', syncLandingBtn);
 
-// Also re-check on name input and file upload changes
-document.getElementById('party-a-name').addEventListener('input', updateAnalyseBtn);
-document.getElementById('party-b-name').addEventListener('input', updateAnalyseBtn);
-
-// ── Role pills ───────────────────────────────────────
-document.querySelectorAll('.role-pill[data-party="a"]').forEach(pill => {
-  pill.addEventListener('click', () => {
-    // Update Party A selection
-    document.querySelectorAll('.role-pill[data-party="a"]')
-      .forEach(p => p.classList.remove('selected'));
-    pill.classList.add('selected');
-    const roleA = pill.dataset.role;
-    document.getElementById('party-a-role').value = roleA;
-
-    // Auto-set Party B to the opposite role (locked)
-    const roleB = roleA === 'buyer' ? 'seller' : 'buyer';
-    document.getElementById('party-b-role').value = roleB;
-    const bPill = document.getElementById('party-b-role-pill');
-    bPill.textContent = roleB.charAt(0).toUpperCase() + roleB.slice(1);
-  });
-});
-
-// ── File upload display ──────────────────────────────
+// ── Landing: file upload zones ─────────────────────────
 function setupFileInput(inputId, zoneId, filenameId) {
   const input    = document.getElementById(inputId);
   const zone     = document.getElementById(zoneId);
@@ -1719,62 +1738,60 @@ function setupFileInput(inputId, zoneId, filenameId) {
       filename.textContent = '✓ ' + input.files[0].name;
       zone.classList.add('has-file');
       zone.querySelector('.upload-icon').textContent = '✅';
-      updateAnalyseBtn();
+      syncLandingBtn();
     }
   }
-
-  // Both 'change' and 'input' bound — some browsers fire one, some the other
   input.addEventListener('change', onFileSelected);
   input.addEventListener('input',  onFileSelected);
 
-  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+  zone.addEventListener('dragover',  e => { e.preventDefault(); zone.classList.add('drag-over'); });
   zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
   zone.addEventListener('drop', e => {
-    e.preventDefault();
-    zone.classList.remove('drag-over');
+    e.preventDefault(); zone.classList.remove('drag-over');
     if (e.dataTransfer.files[0]) {
-      input.files = e.dataTransfer.files;
+      // Assign dropped file to the hidden input via DataTransfer
+      try { input.files = e.dataTransfer.files; } catch(ex) { /* Safari fallback */ }
       filename.textContent = '✓ ' + e.dataTransfer.files[0].name;
       zone.classList.add('has-file');
       zone.querySelector('.upload-icon').textContent = '✅';
-      updateAnalyseBtn();
+      syncLandingBtn();
     }
   });
 }
 
-setupFileInput('file-a', 'zone-a', 'filename-a');
-setupFileInput('file-b', 'zone-b', 'filename-b');
+setupFileInput('landing-file-a', 'landing-zone-a', 'landing-filename-a');
+setupFileInput('landing-file-b', 'landing-zone-b', 'landing-filename-b');
 
-// ── Screen 1 → /analyse ──────────────────────────────
-document.getElementById('btn-analyse').addEventListener('click', async () => {
-  const partyAName = document.getElementById('party-a-name').value.trim();
-  const partyARole = document.getElementById('party-a-role').value;
-  const partyBName = document.getElementById('party-b-name').value.trim();
-  const partyBRole = document.getElementById('party-b-role').value;
-  const fileA      = document.getElementById('file-a').files[0];
-  const fileB      = document.getElementById('file-b').files[0];
+// ── Landing: kick off analyse ──────────────────────────
+document.getElementById('landing-analyse-btn').addEventListener('click', async () => {
+  const partyAName = document.getElementById('landing-party-a-name').value.trim();
+  const partyBName = document.getElementById('landing-party-b-name').value.trim();
+  const fileA      = document.getElementById('landing-file-a').files[0];
+  const fileB      = document.getElementById('landing-file-b').files[0];
 
   if (!partyAName || !partyBName) { showToast('Please enter both company names.', 'error'); return; }
-  if (!fileA)  { showToast('Please upload your Tally XML file.', 'error'); return; }
-  if (!fileB)  { showToast('Please upload the counterparty XML file.', 'error'); return; }
+  if (!fileA) { showToast('Please upload your Tally XML file.', 'error'); return; }
+  if (!fileB) { showToast('Please upload the counterparty XML file.', 'error'); return; }
 
   const fd = new FormData();
   fd.append('party_a_name', partyAName);
-  fd.append('party_a_role', partyARole);
+  fd.append('party_a_role', 'buyer');
   fd.append('party_b_name', partyBName);
-  fd.append('party_b_role', partyBRole);
+  fd.append('party_b_role', 'seller');
   fd.append('file_a', fileA);
   fd.append('file_b', fileB);
 
+  showApp();
   showAnalyseProgress();
+
   try {
     const res  = await fetch(`${API_BASE}/analyse`, { method: 'POST', body: fd });
     const data = await res.json();
 
     if (data.status === 'error') {
       hideLoading();
+      showLanding();
       if (data.error_code === 'SERVER_BUSY') {
-        // Persistent banner — a toast disappears too fast for this message
         document.getElementById('busy-banner').style.display = 'block';
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
@@ -1783,9 +1800,8 @@ document.getElementById('btn-analyse').addEventListener('click', async () => {
       }
       return;
     }
-    // Clear any previous busy banner on success
-    document.getElementById('busy-banner').style.display = 'none';
 
+    document.getElementById('busy-banner').style.display = 'none';
     state.sessionToken = data.session_token;
     state.period       = data.period;
     state.voucherTypes = data.voucher_types;
@@ -1798,15 +1814,25 @@ document.getElementById('btn-analyse').addEventListener('click', async () => {
 
   } catch (err) {
     hideLoading();
+    showLanding();
     showToast('Could not reach the server. Please try again.', 'error');
     console.error(err);
   }
 });
 
-// ── Build voucher confirmation screen ────────────────
+// ── Back to landing ────────────────────────────────────
+document.getElementById('btn-back-upload').addEventListener('click', () => {
+  showLanding();
+});
+
+document.getElementById('app-logo-link').addEventListener('click', e => {
+  e.preventDefault();
+  showLanding();
+});
+
+// ── Build voucher screen ───────────────────────────────
 function buildVoucherScreen() {
   const p = state.period;
-
   document.getElementById('period-a').textContent       = fmtPeriod(p.file_a.from, p.file_a.to);
   document.getElementById('period-b').textContent       = fmtPeriod(p.file_b.from, p.file_b.to);
   document.getElementById('period-overlap').textContent = fmtPeriod(p.overlap.from, p.overlap.to);
@@ -1831,15 +1857,14 @@ function buildVoucherScreen() {
     const tdName = document.createElement('td');
     tdName.innerHTML = `<span class="vt-name">${vt.name}</span>
       <span class="vt-source">${vt.found_in === 'A' ?
-        document.getElementById('party-a-name').value.trim() || 'Party A' :
-        document.getElementById('party-b-name').value.trim() || 'Party B'
+        document.getElementById('landing-party-a-name').value.trim() || 'Party A' :
+        document.getElementById('landing-party-b-name').value.trim() || 'Party B'
       }</span>`;
 
     // Found in
     const tdIn = document.createElement('td');
-    tdIn.style.color = 'var(--ink-muted)';
-    tdIn.style.fontSize = '12px';
-    tdIn.textContent = vt.found_in === 'A' ? 'Your File' : 'Counterparty File';
+    tdIn.style.cssText = 'color:var(--text-muted); font-size:12px;';
+    tdIn.textContent   = vt.found_in === 'A' ? 'Your File' : 'Counterparty File';
 
     // Count
     const tdCount = document.createElement('td');
@@ -1852,12 +1877,12 @@ function buildVoucherScreen() {
         <input type="hidden" class="cls-input" data-idx="${idx}" value="ignore" />`;
     } else {
       const sel = document.createElement('select');
-      sel.className = 'cls-input';
+      sel.className  = 'cls-input';
       sel.dataset.idx = idx;
+      sel.style.cssText = 'font-size:12px; padding:4px 8px; width:auto;';
       classOptions.forEach(([val, label]) => {
         const opt = document.createElement('option');
-        opt.value = val;
-        opt.textContent = label;
+        opt.value = val; opt.textContent = label;
         if (val === vt.suggested_classification) opt.selected = true;
         sel.appendChild(opt);
       });
@@ -1883,21 +1908,16 @@ function buildVoucherScreen() {
   });
 }
 
-// ── Back to upload ────────────────────────────────────
-document.getElementById('btn-back-upload').addEventListener('click', () => {
-  showScreen('screen-upload');
-});
-
-// ── Screen 2 → /reconcile ────────────────────────────
+// ── Reconcile ──────────────────────────────────────────
 document.getElementById('btn-reconcile').addEventListener('click', async () => {
-  // Collect classifications
+  if (!state.sessionToken) { showToast('Session expired. Please start again.', 'error'); return; }
+
   const inputs = document.querySelectorAll('.cls-input');
   const classifications = [];
-
   inputs.forEach(inp => {
-    const idx = parseInt(inp.dataset.idx);
+    const idx = parseInt(inp.dataset.idx, 10);
     const vt  = state.voucherTypes[idx];
-    classifications.push({ name: vt.name, classification: inp.value || inp.dataset.value || 'ignore' });
+    classifications.push({ name: vt.name, classification: inp.value || 'ignore' });
   });
 
   const payload = {
@@ -1907,6 +1927,7 @@ document.getElementById('btn-reconcile').addEventListener('click', async () => {
   };
 
   showReconcileProgress();
+
   try {
     const res  = await fetch(`${API_BASE}/reconcile`, {
       method:  'POST',
@@ -1934,7 +1955,7 @@ document.getElementById('btn-reconcile').addEventListener('click', async () => {
   }
 });
 
-// ── Build results screen ──────────────────────────────
+// ── Build results screen ───────────────────────────────
 function buildResultsScreen() {
   const r   = state.resultsPreview;
   const inv = r.invoices;
@@ -1948,7 +1969,6 @@ function buildResultsScreen() {
   const invValue = inv.a_not_in_b_value + inv.b_not_in_a_value;
   const payValue = pay.a_not_in_b_value + pay.b_not_in_a_value;
 
-  // Invoice card
   const rcInv = document.getElementById('rc-invoices');
   document.getElementById('rc-inv-count').textContent = invTotal;
   document.getElementById('rc-inv-value').textContent = invTotal > 0 ? fmtAmount(invValue) : 'No issues';
@@ -1956,46 +1976,40 @@ function buildResultsScreen() {
     <span><span>In your file, not in theirs</span><span>${inv.a_not_in_b_count} · ${fmtAmount(inv.a_not_in_b_value)}</span></span>
     <span><span>In their file, not in yours</span><span>${inv.b_not_in_a_count} · ${fmtAmount(inv.b_not_in_a_value)}</span></span>
     <span><span>Matched exactly</span><span>${inv.matched_exact}</span></span>
-    <span><span>Matched with variation</span><span>${inv.matched_variation}</span></span>
-  `;
+    <span><span>Matched with variation</span><span>${inv.matched_variation}</span></span>`;
   rcInv.classList.toggle('has-issues', invTotal > 0);
   rcInv.classList.toggle('no-issues',  invTotal === 0);
 
-  // Payment card
   const rcPay = document.getElementById('rc-payments');
   document.getElementById('rc-pay-count').textContent = payTotal;
   document.getElementById('rc-pay-value').textContent = payTotal > 0 ? fmtAmount(payValue) : 'No issues';
   document.getElementById('rc-pay-breakdown').innerHTML = `
     <span><span>In your file, not in theirs</span><span>${pay.a_not_in_b_count} · ${fmtAmount(pay.a_not_in_b_value)}</span></span>
     <span><span>In their file, not in yours</span><span>${pay.b_not_in_a_count} · ${fmtAmount(pay.b_not_in_a_value)}</span></span>
-    <span><span>Matched</span><span>${pay.matched}</span></span>
-  `;
+    <span><span>Matched</span><span>${pay.matched}</span></span>`;
   rcPay.classList.toggle('has-issues', payTotal > 0);
   rcPay.classList.toggle('no-issues',  payTotal === 0);
 
-  // Zero mismatch vs pay flow
   if (r.zero_mismatches) {
-    document.getElementById('results-grid').style.display   = 'none';
-    document.getElementById('pay-box').style.display        = 'none';
-    document.getElementById('zero-box').style.display       = 'block';
+    document.getElementById('results-grid').style.display      = 'none';
+    document.getElementById('pay-box').style.display           = 'none';
+    document.getElementById('zero-box').style.display          = 'block';
     document.getElementById('free-download-box').style.display = 'block';
   } else {
-    document.getElementById('results-grid').style.display   = 'grid';
-    document.getElementById('pay-box').style.display        = 'flex';
-    document.getElementById('zero-box').style.display       = 'none';
+    document.getElementById('results-grid').style.display      = 'grid';
+    document.getElementById('pay-box').style.display           = 'flex';
+    document.getElementById('zero-box').style.display          = 'none';
     document.getElementById('free-download-box').style.display = 'none';
   }
 }
 
-// ── Pay button — opens Razorpay checkout ─────────────────────────────────
+// ── Pay ────────────────────────────────────────────────
 document.getElementById('btn-pay').addEventListener('click', async () => {
   const btn = document.getElementById('btn-pay');
   btn.disabled    = true;
   btn.textContent = 'Opening payment…';
 
   try {
-    // Step 1: Ask backend to create a Razorpay Order
-    // Razorpay requires an order to be created server-side before checkout opens
     const res  = await fetch(`${API_BASE}/create-order`, {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -2003,7 +2017,6 @@ document.getElementById('btn-pay').addEventListener('click', async () => {
     });
     const data = await res.json();
 
-    // Handle edge case: user somehow already paid (double-click, back button)
     if (data.status === 'already_paid') {
       buildDownloadScreen();
       showScreen('screen-download');
@@ -2013,32 +2026,27 @@ document.getElementById('btn-pay').addEventListener('click', async () => {
     if (!data.order_id) {
       showToast('Could not initiate payment. Please try again.', 'error');
       btn.disabled    = false;
-      btn.textContent = 'Download Report — Pay ₹20';
+      btn.textContent = 'Download Report · Pay ₹20';
       return;
     }
 
-    // Step 2: Open the Razorpay checkout modal
     const options = {
-      key:         data.key_id,     // rzp_test_xxx or rzp_live_xxx — never the secret
-      amount:      data.amount,     // 2000 paise = ₹20
+      key:         data.key_id,
+      amount:      data.amount,
       currency:    data.currency,
       name:        'easemyreco',
       description: 'Ledger Reconciliation Report',
-      order_id:    data.order_id,   // ties this payment to the server-side order
-      theme:       { color: '#6B9FE4' },
+      order_id:    data.order_id,
+      theme:       { color: '#4a6cf7' },
       modal: {
-        // Re-enable the button if user closes checkout without paying
         ondismiss: () => {
           btn.disabled    = false;
-          btn.textContent = 'Download Report — Pay ₹20';
+          btn.textContent = 'Download Report · Pay ₹20';
         },
       },
-
-      // Step 3: On successful payment Razorpay returns 3 IDs
-      // We send them to our backend for signature verification before unlocking download
       handler: async (response) => {
         try {
-          const verifyRes = await fetch(`${API_BASE}/verify-payment`, {
+          const verifyRes  = await fetch(`${API_BASE}/verify-payment`, {
             method:  'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -2051,68 +2059,95 @@ document.getElementById('btn-pay').addEventListener('click', async () => {
           const verifyData = await verifyRes.json();
 
           if (verifyData.status === 'paid') {
-            state.paymentId = response.razorpay_payment_id; // store for display on download screen
+            state.paymentId = response.razorpay_payment_id;
             buildDownloadScreen();
             showScreen('screen-download');
           } else {
             showToast('Payment verification failed. Contact support at admin@verifiedwork.co', 'error');
             btn.disabled    = false;
-            btn.textContent = 'Download Report — Pay ₹20';
+            btn.textContent = 'Download Report · Pay ₹20';
           }
         } catch (err) {
           showToast('Verification error. Contact admin@verifiedwork.co if ₹20 was deducted.', 'error');
           btn.disabled    = false;
-          btn.textContent = 'Download Report — Pay ₹20';
+          btn.textContent = 'Download Report · Pay ₹20';
           console.error(err);
         }
       },
     };
 
     const rzp = new Razorpay(options);
-
-    // Handle payment failure inside the modal (wrong card, bank decline, etc.)
-    rzp.on('payment.failed', (response) => {
+    rzp.on('payment.failed', response => {
       showToast(`Payment failed: ${response.error.description}`, 'error');
       btn.disabled    = false;
-      btn.textContent = 'Download Report — Pay ₹20';
+      btn.textContent = 'Download Report · Pay ₹20';
     });
-
     rzp.open();
 
   } catch (err) {
     showToast('Could not reach payment server. Please try again.', 'error');
     btn.disabled    = false;
-    btn.textContent = 'Download Report — Pay ₹20';
+    btn.textContent = 'Download Report · Pay ₹20';
     console.error(err);
   }
 });
 
-// ── Free download (zero mismatches) ──────────────────
+// ── Free download ──────────────────────────────────────
 document.getElementById('btn-free-download').addEventListener('click', () => {
   buildDownloadScreen();
   showScreen('screen-download');
 });
 
-// ── Build download screen ─────────────────────────────
+// ── Build download screen ──────────────────────────────
 function buildDownloadScreen() {
-  const partyA  = document.getElementById('party-a-name').value.trim() || 'PartyA';
-  const partyB  = document.getElementById('party-b-name').value.trim() || 'PartyB';
-  const date    = new Date().toISOString().slice(0, 10).replace(/-/g, '');
-  const filename = `${partyA}_vs_${partyB}_Reconciliation_${date}.xlsx`.replace(/\s+/g, '_');
-
-  // Show Razorpay payment ID if available (paid flow)
-  // Not shown for zero-mismatch free downloads
   if (state.paymentId) {
-    document.getElementById('payment-id-value').textContent   = state.paymentId;
+    document.getElementById('payment-id-value').textContent     = state.paymentId;
     document.getElementById('payment-id-display').style.display = 'block';
   } else {
     document.getElementById('payment-id-display').style.display = 'none';
   }
 }
 
-// ── Run Another Reco — full state + form reset ────────
+// ── Download Excel ─────────────────────────────────────
+document.getElementById('btn-download').addEventListener('click', async () => {
+  if (!state.sessionToken) { showToast('Session expired. Please start again.', 'error'); return; }
+
+  document.getElementById('progress-title').textContent = 'Preparing your Excel report…';
+  document.getElementById('progress-sub').textContent   = 'This usually takes a few seconds…';
+  _setMode('circle');
+  document.getElementById('loading').classList.add('active');
+
+  try {
+    const res = await fetch(`${API_BASE}/download?token=${state.sessionToken}`);
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      hideLoading();
+      showToast(err.detail || 'Download failed. Please try again.', 'error');
+      return;
+    }
+    const blob  = await res.blob();
+    const url   = URL.createObjectURL(blob);
+    const a     = document.createElement('a');
+    const nameA = document.getElementById('landing-party-a-name').value.trim() || 'PartyA';
+    const nameB = document.getElementById('landing-party-b-name').value.trim() || 'PartyB';
+    const date  = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+    a.href      = url;
+    a.download  = `${nameA}_vs_${nameB}_Reconciliation_${date}.xlsx`.replace(/\s+/g, '_');
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    hideLoading();
+    showToast('Report downloaded successfully!');
+  } catch (err) {
+    hideLoading();
+    showToast('Download failed. Please try again.', 'error');
+    console.error(err);
+  }
+});
+
+// ── Run another reco ───────────────────────────────────
 function resetForNewReco() {
-  // Clear state
   state.sessionToken   = null;
   state.period         = null;
   state.voucherTypes   = [];
@@ -2120,78 +2155,28 @@ function resetForNewReco() {
   state.analysisData   = null;
   state.paymentId      = null;
 
-  // Clear form fields
-  document.getElementById('party-a-name').value = '';
-  document.getElementById('party-b-name').value = '';
-
-  // Reset file inputs and upload zones
   ['a', 'b'].forEach(p => {
-    const input    = document.getElementById(`file-${p}`);
-    const zone     = document.getElementById(`zone-${p}`);
-    const filename = document.getElementById(`filename-${p}`);
-    input.value = '';
-    filename.textContent = '';
-    zone.classList.remove('has-file');
-    zone.querySelector('.upload-icon').textContent = '📄';
+    const inp      = document.getElementById('landing-file-' + p);
+    const zone     = document.getElementById('landing-zone-' + p);
+    const filename = document.getElementById('landing-filename-' + p);
+    if (inp)      inp.value = '';
+    if (filename) filename.textContent = '';
+    if (zone) {
+      zone.classList.remove('has-file');
+      zone.querySelector('.upload-icon').textContent = '📄';
+    }
   });
 
-  // Reset role pills to defaults (buyer/seller)
-  document.querySelectorAll('.role-pill[data-party="a"]').forEach(p => p.classList.remove('selected'));
-  document.querySelector('.role-pill[data-party="a"][data-role="buyer"]').classList.add('selected');
-  document.getElementById('party-a-role').value = 'buyer';
-  document.getElementById('party-b-role').value = 'seller';
-  document.getElementById('party-b-role-pill').textContent = 'Seller';
-
-  // Reset terms checkbox
+  document.getElementById('landing-party-a-name').value = '';
+  document.getElementById('landing-party-b-name').value = '';
   termsAccepted = false;
-  document.getElementById('terms-row').classList.remove('checked');
-  updateAnalyseBtn();
-
-  showScreen('screen-upload');
+  document.getElementById('landing-consent').checked   = false;
+  document.getElementById('busy-banner').style.display = 'none';
+  syncLandingBtn();
+  showLanding();
 }
 
 document.getElementById('btn-new-reco').addEventListener('click', resetForNewReco);
-
-
-document.getElementById('btn-download').addEventListener('click', async () => {
-  if (!state.sessionToken) { showToast('Session expired. Please start again.', 'error'); return; }
-
-  document.getElementById('progress-title').textContent = 'Preparing your Excel report…';
-  document.getElementById('progress-sub').textContent = 'This usually takes a few seconds…';
-  _setMode('circle');
-  document.getElementById('loading').classList.add('active');
-  try {
-    const res = await fetch(`${API_BASE}/download?token=${state.sessionToken}`);
-
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      hideLoading();
-      showToast(err.detail || 'Download failed. Please try again.', 'error');
-      return;
-    }
-
-    const blob     = await res.blob();
-    const url      = URL.createObjectURL(blob);
-    const a        = document.createElement('a');
-    const partyA   = document.getElementById('party-a-name').value.trim() || 'PartyA';
-    const partyB   = document.getElementById('party-b-name').value.trim() || 'PartyB';
-    const date     = new Date().toISOString().slice(0, 10).replace(/-/g, '');
-    a.href         = url;
-    a.download     = `${partyA}_vs_${partyB}_Reconciliation_${date}.xlsx`.replace(/\s+/g, '_');
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-
-    hideLoading();
-    showToast('Report downloaded successfully!');
-
-  } catch (err) {
-    hideLoading();
-    showToast('Download failed. Please try again.', 'error');
-    console.error(err);
-  }
-});
 </script>
 </body>
 </html>
