@@ -6,6 +6,9 @@ Engine 1: Invoice matching (Purchase↔Sales, Debit↔Credit Notes)
   - Pass 2: Exact invoice number + ±1% amount tolerance
   - Pass 3: Fuzzy invoice number + exact amount (common prefixes / substrings)
   - D/C Note matching: date + amount (±1%), no invoice number
+    Rule: Debit Note from A matches Credit Note from B (and vice versa).
+    If both sides record the same entry as a Debit Note, it will appear
+    as unmatched — this is correct, as it represents a genuine dispute.
 
 Engine 2: Payment matching (Payment↔Receipt)
   - Exact date + exact amount
@@ -22,6 +25,12 @@ Changes (v2):
   [6] Unmatched credit notes — reported symmetrically alongside debit notes
   [7] Blank invoice entries — sidelined before matching, reported separately
   [8] Reason tags — every unmatched entry carries a human-readable reason
+
+Changes (v3):
+  [9]  _engine2 double-count fix — _cross_match now returns used target IDs;
+       final unmatched_b loop only adds entries not already consumed by either
+       _cross_match call, preventing B-side entries from appearing twice in
+       "B Not in A" when rec_a is non-empty.
 """
 
 from collections import defaultdict
@@ -210,6 +219,9 @@ def _engine1(inv_a: list, inv_b: list, dn_a: list, dn_b: list,
     b_not_in_a.extend(ub)
 
     # ── D/C Note matching: date + amount ±1%, NO invoice number ──────────────
+    # Rule: Debit Note from A matches Credit Note from B (and vice versa).
+    # If both sides have a Debit Note for the same entry, it appears as
+    # unmatched — this represents a genuine dispute and is shown to the user.
     dn_matched_exact     = []
     dn_matched_variation = []
     dn_a_not_in_b        = []
@@ -298,7 +310,13 @@ def _engine2(pay_a: list, rec_b: list, rec_a: list, pay_b: list) -> dict:
     unmatched_a: list = []
     unmatched_b: list = []
 
-    def _cross_match(source: list, target: list, unmatched_source: list):
+    # FIX [9]: _cross_match now returns the set of used target IDs so the
+    # final unmatched-B sweep knows which entries are already consumed.
+    def _cross_match(source: list, target: list, unmatched_source: list) -> set:
+        """Match source entries against target by (date, amount).
+        Appends unmatched source entries to unmatched_source.
+        Returns the set of id()s of target entries that were successfully matched.
+        """
         target_pool: dict = defaultdict(list)
         for e in target:
             key = (e.get("date"), round(_amount(e), 2))
@@ -315,12 +333,23 @@ def _engine2(pay_a: list, rec_b: list, rec_a: list, pay_b: list) -> dict:
             else:
                 unmatched_source.append(ea)
 
-    _cross_match(pay_a, rec_b, unmatched_a)
-    _cross_match(rec_a, pay_b, unmatched_b)  # FIX: was unmatched_a — rec_a mismatches are B's missing payments, not A's
+        return used_ids  # FIX [9]: return consumed target IDs
 
-    all_used_ids = {id(m["entry_b"]) for m in matched}
+    used_by_first  = _cross_match(pay_a, rec_b, unmatched_a)
+    used_by_second = _cross_match(rec_a, pay_b, unmatched_b)
+
+    # FIX [9]: build a single set of all consumed B-side entry IDs,
+    # covering both _cross_match calls.  The final sweep only adds entries
+    # that are genuinely untouched — not already matched AND not already
+    # sitting in unmatched_b from the second _cross_match call.
+    all_consumed_b = used_by_first | used_by_second
+
+    # Entries that appear in unmatched_b were already added by _cross_match;
+    # track their IDs so we don't add them a second time.
+    already_in_unmatched_b = {id(e) for e in unmatched_b}
+
     for eb in list(rec_b) + list(pay_b):
-        if id(eb) not in all_used_ids:
+        if id(eb) not in all_consumed_b and id(eb) not in already_in_unmatched_b:
             unmatched_b.append(eb)
 
     return {
