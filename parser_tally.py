@@ -21,6 +21,12 @@ Changes (v3):
       when tag order differs from expected sequence
   [4] 45-second hard timeout on parse_tally_xml — kills runaway parses
       and returns a clean error to the user instead of hanging forever
+
+Changes (v4):
+  [5] _normalise_invoice regex fixed — the "(No. :..." pattern (dot-space-colon)
+      was not being stripped; regex updated to handle the space between dot and
+      colon. Dots also stripped from the invoice number body for robustness
+      (some Tally versions export "INV.001" format).
 """
 
 import re
@@ -157,6 +163,7 @@ def _parse_date(raw: str) -> str | None:
 
     return None
 
+
 def _parse_amount(cr: str, dr: str) -> float:
     for val in (cr, dr):
         val = val.strip()
@@ -169,11 +176,23 @@ def _parse_amount(cr: str, dr: str) -> float:
 
 
 def _normalise_invoice(raw: str) -> str:
+    """
+    Strip Tally's "(No. :...)" wrapper and normalise to uppercase
+    with spaces, dashes, slashes, and dots removed.
+
+    FIX [5]: Original regex did not match the standard Tally format
+    "(No. :..." because the dot comes BEFORE the colon with a space in
+    between (dot-space-colon). Updated to handle all variants:
+      "(No. :G/001)"  — standard Tally with space before colon
+      "(No.:G/001)"   — no space before colon
+      "(No :G/001)"   — no dot
+    Dots are also stripped from the body so "INV.001" matches "INV001".
+    """
     raw = raw.strip()
-    raw = re.sub(r"^\(No\.?:\s*", "", raw, flags=re.I)
+    raw = re.sub(r"^\(No\.?\s*:\s*", "", raw, flags=re.I)  # FIX [5]
     raw = re.sub(r"\)$", "", raw)
     raw = raw.upper()
-    raw = raw.replace(" ", "").replace("-", "").replace("/", "")
+    raw = raw.replace(" ", "").replace("-", "").replace("/", "").replace(".", "")  # FIX [5]: dots
     return raw
 
 
