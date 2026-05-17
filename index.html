@@ -114,7 +114,6 @@
   --shadow-md:     0 4px 24px rgba(26,35,64,0.10);
   --shadow-lg:     0 20px 64px rgba(26,35,64,0.13);
 
-  /* App-level tokens kept for inner screens */
   --ink:           #1a2340;
   --ink-soft:      #475569;
   --ink-muted:     #94a3b8;
@@ -178,9 +177,7 @@ nav {
 /* ═══════════════════════════════════════════════════════ */
 /* LANDING · HERO                                          */
 /* ═══════════════════════════════════════════════════════ */
-#landing {
-  display: block;
-}
+#landing { display: block; }
 
 #hero {
   min-height: 100vh;
@@ -239,7 +236,6 @@ nav {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* price strip */
 .vs-strip {
   display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
   justify-content: center; margin-bottom: 44px;
@@ -259,7 +255,6 @@ nav {
   padding: 4px 12px; border-radius: 5px;
 }
 
-/* upload action card */
 .upload-wrap {
   width: 100%; max-width: 580px;
   opacity: 0; animation: rise 0.7s 0.52s ease-out forwards;
@@ -274,7 +269,6 @@ nav {
   color: var(--text-muted); margin-bottom: 16px;
 }
 
-/* Upload zones */
 .upload-pair {
   display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
   margin-bottom: 14px;
@@ -311,7 +305,6 @@ nav {
   color: var(--text-muted); margin-bottom: 6px;
 }
 
-/* name fields */
 .name-pair {
   display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
   margin-bottom: 14px;
@@ -334,7 +327,6 @@ input[type="text"]:focus {
 }
 input[type="text"]::placeholder { color: var(--text-muted); }
 
-/* role pills */
 .role-selector { display: flex; gap: 6px; }
 .role-pill {
   flex: 1; padding: 6px 10px;
@@ -350,7 +342,6 @@ input[type="text"]::placeholder { color: var(--text-muted); }
   background: var(--blue-accent); border-color: var(--blue-accent); color: #fff;
 }
 
-/* terms row */
 .terms-row-landing {
   display: flex; gap: 10px; align-items: flex-start;
   font-size: 12.5px; color: var(--text-body); cursor: pointer;
@@ -363,7 +354,6 @@ input[type="text"]::placeholder { color: var(--text-muted); }
 .terms-row-landing a { color: var(--blue-accent); text-decoration: none; }
 .terms-row-landing a:hover { text-decoration: underline; }
 
-/* warning */
 .warning-banner {
   background: #FFF8EC; border: 1px solid #F0C060;
   border-radius: var(--radius); padding: 10px 14px;
@@ -373,7 +363,6 @@ input[type="text"]::placeholder { color: var(--text-muted); }
 }
 .warning-banner .icon { flex-shrink: 0; margin-top: 1px; }
 
-/* CTA */
 .cta-btn {
   width: 100%; padding: 13px 24px; border-radius: 10px;
   font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
@@ -393,7 +382,6 @@ input[type="text"]::placeholder { color: var(--text-muted); }
   text-align: center; font-size: 11.5px; color: var(--text-muted); margin-top: 8px;
 }
 
-/* busy banner */
 #busy-banner {
   display: none;
   background: #FFF8EC; border: 1px solid #F0C060;
@@ -401,7 +389,6 @@ input[type="text"]::placeholder { color: var(--text-muted); }
   font-size: 13px; color: #7A5010; margin-bottom: 14px; line-height: 1.6;
 }
 
-/* trust strip */
 .trust-strip {
   display: flex; align-items: center; justify-content: center;
   flex-wrap: wrap; gap: 6px 20px;
@@ -414,7 +401,6 @@ input[type="text"]::placeholder { color: var(--text-muted); }
 }
 .trust-item::before { content: '✓'; color: var(--green); font-size: 10px; font-weight: 700; }
 
-/* ANIMATED RESULT WIDGET */
 .result-widget-wrap {
   width: 100%; max-width: 580px; margin-top: 20px;
   opacity: 0; animation: rise 0.7s 0.7s ease-out forwards;
@@ -582,6 +568,121 @@ input[type="text"]::placeholder { color: var(--text-muted); }
 .cmp-row.yes::before { content: '✓'; font-size: 11px; color: var(--green); min-width: 14px; font-weight: 700; }
 
 /* ═══════════════════════════════════════════════════════ */
+/* VIDEO GUIDES SECTION                                    */
+/* ═══════════════════════════════════════════════════════ */
+#guides {
+  padding: 96px 24px;
+  background: var(--white);
+  border-top: 1px solid var(--border);
+}
+#guides .section-label { color: var(--text-muted); }
+#guides .section-title { color: var(--navy); }
+#guides .section-sub   { color: var(--text-body); }
+
+.lang-tabs {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.lang-tab {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  padding: 14px 32px; border-radius: 12px; cursor: pointer;
+  border: 1.5px solid var(--border);
+  background: var(--bg3);
+  transition: all 0.18s; font-family: 'Inter', sans-serif;
+  color: var(--text-muted);
+  min-width: 130px;
+}
+.lang-tab:hover {
+  border-color: var(--blue-accent);
+  background: var(--blue-soft);
+  color: var(--navy);
+}
+.lang-tab.active {
+  border-color: var(--blue-accent);
+  background: var(--blue-soft);
+  color: var(--navy);
+  box-shadow: 0 0 0 3px rgba(74,108,247,0.12);
+}
+.lang-flag { font-size: 1.5rem; line-height: 1; }
+.lang-name { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; }
+.lang-sub  { font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; opacity: 0.55; }
+
+.video-cards {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 20px; max-width: 860px; margin: 0 auto;
+}
+.video-card {
+  display: flex; flex-direction: column;
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 14px; overflow: hidden; text-decoration: none;
+  transition: all 0.22s;
+  color: inherit;
+  box-shadow: var(--shadow-md);
+}
+.video-card:hover {
+  border-color: var(--blue-accent);
+  background: var(--white);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+.video-thumb {
+  height: 180px;
+  position: relative; overflow: hidden;
+  background: var(--bg3);
+}
+.video-thumb img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.3s ease;
+}
+.video-card:hover .video-thumb img {
+  transform: scale(1.04);
+}
+.play-btn {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.18);
+  transition: background 0.17s;
+}
+.play-btn::after {
+  content: '';
+  width: 52px; height: 52px; border-radius: 50%;
+  background: rgba(255,255,255,0.92);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.35);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff0000'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 26px 26px;
+  transition: transform 0.17s, box-shadow 0.17s;
+}
+.video-card:hover .play-btn {
+  background: rgba(0,0,0,0.28);
+}
+.video-card:hover .play-btn::after {
+  transform: scale(1.10);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.45);
+}
+.video-card-body {
+  padding: 18px 20px 22px; flex: 1; display: flex; flex-direction: column; gap: 5px;
+}
+.video-num {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.12em;
+  color: var(--blue-accent); text-transform: uppercase;
+}
+.video-title {
+  font-size: 15px; font-weight: 700; color: var(--navy);
+  letter-spacing: -0.01em; line-height: 1.35;
+}
+.video-desc {
+  font-size: 12.5px; color: var(--text-muted); line-height: 1.62; flex: 1;
+}
+.video-cta {
+  font-size: 11.5px; font-weight: 600; color: var(--blue-accent);
+  margin-top: 10px; letter-spacing: 0.01em;
+}
+
+/* ═══════════════════════════════════════════════════════ */
 /* FOOTER                                                 */
 /* ═══════════════════════════════════════════════════════ */
 footer {
@@ -598,7 +699,7 @@ footer {
   letter-spacing: -0.03em;
 }
 .footer-logo span { color: var(--blue-accent); }
-.footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+.footer-links { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
 .footer-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; }
 .footer-links a:hover { color: var(--navy); }
 .footer-copy { font-size: 13px; color: var(--text-muted); }
@@ -627,7 +728,6 @@ footer {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* typography */
 .page-title {
   font-weight: 700; line-height: 1.1; letter-spacing: -0.03em;
   color: var(--navy); margin-bottom: 0.5rem; text-align: center;
@@ -647,7 +747,6 @@ footer {
   text-transform: uppercase; color: var(--blue-accent); margin-bottom: 0.75rem;
 }
 
-/* cards in app */
 .card {
   background: var(--white); border: 1px solid var(--border);
   border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow);
@@ -665,7 +764,6 @@ footer {
   border-radius: 6px; padding: 2px 7px; letter-spacing: 0.04em;
 }
 
-/* form elements in app */
 .form-row {
   display: grid; grid-template-columns: 1fr 1fr;
   gap: 1.25rem; margin-bottom: 1.25rem;
@@ -694,7 +792,6 @@ select {
   padding-right: 2rem; cursor: pointer;
 }
 
-/* upload zone in app screens */
 .upload-zone-app {
   border: 2px dashed var(--border); border-radius: var(--radius-lg);
   padding: 1.75rem 1.5rem; text-align: center; cursor: pointer;
@@ -719,7 +816,6 @@ select {
 .upload-label strong { color: var(--blue-accent); }
 .upload-filename { font-size: 11px; font-weight: 600; color: #15803d; margin-top: 0.4rem; }
 
-/* buttons in app */
 .btn {
   display: inline-flex; align-items: center; gap: 0.5rem;
   padding: 0.7rem 1.75rem; border-radius: 10px;
@@ -744,7 +840,6 @@ select {
   display: flex; align-items: center; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;
 }
 
-/* steps bar */
 .steps-bar {
   display: flex; align-items: center; justify-content: center;
   gap: 0; margin-bottom: 2.5rem; font-size: 12px;
@@ -765,7 +860,6 @@ select {
   margin: 0 0.75rem; min-width: 24px; max-width: 60px;
 }
 
-/* period grid */
 .period-grid {
   display: grid; grid-template-columns: 1fr 1fr 1fr;
   gap: 1px; background: var(--border); border-radius: var(--radius);
@@ -781,7 +875,6 @@ select {
 .period-cell.highlight .p-label { color: var(--success); }
 .period-cell.highlight .p-val { color: var(--success); }
 
-/* voucher table */
 .voucher-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
 .voucher-table th {
   text-align: left; padding: 0.6rem 0.85rem; font-size: 10px;
@@ -811,7 +904,6 @@ select {
   font-weight: 500; padding: 2px 7px; border-radius: 6px; font-style: italic;
 }
 
-/* results screen */
 .results-grid {
   display: grid; grid-template-columns: 1fr 1fr;
   gap: 1.25rem; margin-bottom: 1.5rem;
@@ -833,7 +925,6 @@ select {
 }
 .result-card .rc-breakdown { margin-top: 0.75rem; font-size: 12px; color: var(--text-muted); line-height: 1.7; }
 
-/* zero mismatch box */
 .zero-mismatch-box {
   background: #f0f9f4; border: 1px solid #a8d8b8;
   border-radius: var(--radius-lg); padding: 2rem; text-align: center;
@@ -842,7 +933,6 @@ select {
 .zero-mismatch-box h3 { font-size: 1.3rem; font-weight: 700; color: var(--success); margin-bottom: 0.5rem; }
 .zero-mismatch-box p { font-size: 14px; color: var(--text-body); }
 
-/* pay box */
 .pay-box {
   background: var(--blue-soft); border: 1px solid var(--border);
   border-radius: var(--radius-lg); padding: 1.5rem 2rem;
@@ -857,7 +947,6 @@ select {
 }
 .pay-amount sup { font-size: 1rem; vertical-align: super; }
 
-/* download hero */
 .download-hero {
   background: #fff; border: 1px solid var(--border);
   border-radius: var(--radius-lg); padding: 3rem 2rem;
@@ -873,7 +962,6 @@ select {
 .download-hero p { font-size: 14px; color: var(--text-body); margin-bottom: 1.75rem; }
 .expiry-note { font-size: 11px; color: var(--text-muted); margin-top: 0.75rem; font-family: monospace; }
 
-/* terms checkbox in app */
 .terms-row-app {
   display: flex; align-items: flex-start; gap: 0.75rem;
   padding: 1rem 1.25rem; background: var(--blue-soft);
@@ -898,7 +986,6 @@ select {
   background: #b0bec5; cursor: not-allowed; transform: none !important; box-shadow: none !important; opacity: 1;
 }
 
-/* loading overlay */
 .loading-overlay {
   display: none; position: fixed; inset: 0; z-index: 200;
   background: rgba(26,35,64,0.45); backdrop-filter: blur(4px);
@@ -912,7 +999,6 @@ select {
 }
 .progress-title { font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-bottom: 1.5rem; }
 .progress-sub { font-size: 12px; color: var(--text-muted); min-height: 18px; margin-top: 1rem; line-height: 1.5; }
-/* circle animation */
 .circle-wrap { width: 110px; height: 110px; margin: 0 auto 0.5rem; position: relative; }
 .circle-wrap svg { transform: rotate(-90deg); }
 .circle-bg { fill: none; stroke: var(--border); stroke-width: 6; }
@@ -932,7 +1018,6 @@ select {
 }
 .circle-icon { font-size: 1.5rem; }
 .circle-label { font-size: 9px; font-weight: 600; letter-spacing: 0.1em; color: var(--text-muted); margin-top: 2px; }
-/* progress bar */
 .pbar-wrap { padding: 0 0.25rem; }
 .pbar-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; font-size: 12px; }
 .pbar-label { color: var(--text-body); font-weight: 500; text-align: left; flex: 1; }
@@ -950,7 +1035,6 @@ select {
 .pbar-step.done .pbar-step-dot { background: var(--success); }
 .pbar-step.current .pbar-step-dot { background: var(--blue-accent); }
 
-/* toast */
 .toast {
   display: none; position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
   z-index: 300; padding: 10px 20px; border-radius: 10px;
@@ -962,7 +1046,6 @@ select {
 .toast.success { background: var(--success); }
 .toast.error { background: var(--danger); }
 
-/* warning in app */
 .warning-app {
   background: #FFF8EC; border: 1px solid #F0C060;
   border-radius: var(--radius); padding: 0.75rem 1rem;
@@ -971,7 +1054,6 @@ select {
 }
 .warning-app .icon { flex-shrink: 0; margin-top: 1px; }
 
-/* app header */
 .app-header {
   background: rgba(255,255,255,0.92); backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border);
@@ -985,7 +1067,6 @@ select {
 }
 .app-header-logo span { color: var(--blue-accent); }
 
-/* app footer */
 .app-footer {
   padding: 16px 24px; border-top: 1px solid var(--border);
   background: var(--white);
@@ -1016,6 +1097,8 @@ select {
   .results-grid { grid-template-columns: 1fr; }
   .period-grid { grid-template-columns: 1fr; }
   .pay-box { flex-direction: column; text-align: center; }
+  .video-cards { grid-template-columns: 1fr; }
+  .lang-tab { min-width: 90px; padding: 12px 18px; }
 }
 </style>
 </head>
@@ -1080,7 +1163,6 @@ select {
             <span>Both files must be <strong>INR ledgers</strong>. Multi-currency ledgers are not supported.</span>
           </div>
 
-          <!-- ── CHANGE 1: name-pair with role pills ── -->
           <div class="name-pair">
             <div>
               <label>Your Company Name</label>
@@ -1326,6 +1408,56 @@ select {
     </div>
   </section>
 
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- VIDEO GUIDES                                        -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <section id="guides">
+    <div class="section-inner">
+      <p class="section-label">Video Guides</p>
+      <h2 class="section-title">Learn in your language.</h2>
+      <p class="section-sub">Step-by-step walkthroughs in Hindi, English, and Marathi — pick your language and watch both videos.</p>
+
+      <div class="lang-tabs">
+        <button class="lang-tab active" data-lang="hindi" onclick="selectLang('hindi')">
+          <span class="lang-name">हिंदी</span>
+        </button>
+        <button class="lang-tab" data-lang="english" onclick="selectLang('english')">
+          <span class="lang-name">English</span>
+        </button>
+        <button class="lang-tab" data-lang="marathi" onclick="selectLang('marathi')">
+          <span class="lang-name">मराठी</span>
+        </button>
+      </div>
+
+      <div class="video-cards">
+        <a class="video-card" id="vid-export" href="https://youtu.be/c2l7c59bU6k?si=QHBQmHl0tVHc8S6k" target="_blank" rel="noopener">
+          <div class="video-thumb">
+            <img id="thumb-export" src="https://img.youtube.com/vi/c2l7c59bU6k/hqdefault.jpg" alt="How to export Tally XML ledger" loading="lazy"/>
+            <div class="play-btn"></div>
+          </div>
+          <div class="video-card-body">
+            <div class="video-num">01</div>
+            <div class="video-title">How to Export XML Ledger from Tally</div>
+            <div class="video-desc">Step-by-step guide to export your Tally ledger as an XML file, ready for reconciliation.</div>
+            <div class="video-cta">Watch on YouTube &#8594;</div>
+          </div>
+        </a>
+        <a class="video-card" id="vid-use" href="https://youtu.be/DO2HaA_gkVE?si=qWJ7b3M2sxG5-3Oq" target="_blank" rel="noopener">
+          <div class="video-thumb">
+            <img id="thumb-use" src="https://img.youtube.com/vi/DO2HaA_gkVE/hqdefault.jpg" alt="How to use easemyreco" loading="lazy"/>
+            <div class="play-btn"></div>
+          </div>
+          <div class="video-card-body">
+            <div class="video-num">02</div>
+            <div class="video-title">How to Use easemyreco</div>
+            <div class="video-desc">Full walkthrough of the reconciliation process from upload to downloading your Excel report.</div>
+            <div class="video-cta">Watch on YouTube &#8594;</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
@@ -1334,6 +1466,9 @@ select {
         <a href="/privacy-policy">Privacy Policy</a>
         <a href="/terms">Terms</a>
         <a href="/refund-policy">Refund Policy</a>
+        <a href="https://www.linkedin.com/company/aavishkar-tech/?viewAsMember=true" target="_blank" rel="noopener" aria-label="Aavishkar Technologies on LinkedIn" style="display:inline-flex;align-items:center;color:var(--text-muted);transition:color 0.15s;" onmouseover="this.style.color='#0077b5'" onmouseout="this.style.color=''">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
       </div>
       <span class="footer-copy">&#169; 2026 Aavishkar Technologies Private Limited</span>
     </div>
@@ -1356,9 +1491,7 @@ select {
   <main id="app-main">
     <div class="container">
 
-      <!-- ═══════════════════════════════════════════════ -->
-      <!-- SCREEN 2 · Voucher Confirmation               -->
-      <!-- ═══════════════════════════════════════════════ -->
+      <!-- SCREEN 2 · Voucher Confirmation -->
       <div id="screen-vouchers" class="screen">
 
         <div class="steps-bar">
@@ -1381,7 +1514,6 @@ select {
           <br/>⚠️ Entries marked with a warning need your attention.
         </p>
 
-        <!-- Period info -->
         <div class="period-grid" id="period-display">
           <div class="period-cell">
             <div class="p-label">Your File</div>
@@ -1422,9 +1554,7 @@ select {
       </div><!-- /screen-vouchers -->
 
 
-      <!-- ═══════════════════════════════════════════════ -->
-      <!-- SCREEN 3 · Results                            -->
-      <!-- ═══════════════════════════════════════════════ -->
+      <!-- SCREEN 3 · Results -->
       <div id="screen-results" class="screen">
 
         <div class="steps-bar">
@@ -1490,9 +1620,7 @@ select {
       </div><!-- /screen-results -->
 
 
-      <!-- ═══════════════════════════════════════════════ -->
-      <!-- SCREEN 4 · Download                           -->
-      <!-- ═══════════════════════════════════════════════ -->
+      <!-- SCREEN 4 · Download -->
       <div id="screen-download" class="screen">
 
         <div class="steps-bar">
@@ -1555,9 +1683,7 @@ select {
 </div><!-- /app-shell -->
 
 
-<!-- ═══════════════════════════════════════════════════ -->
-<!-- LOADING OVERLAY & TOAST                           -->
-<!-- ═══════════════════════════════════════════════════ -->
+<!-- LOADING OVERLAY & TOAST -->
 <div class="loading-overlay" id="loading">
   <div class="progress-card">
     <div class="progress-title" id="progress-title">Analysing files…</div>
@@ -1586,9 +1712,7 @@ select {
 <div class="toast" id="toast"></div>
 
 
-<!-- ═══════════════════════════════════════════════════ -->
-<!-- JAVASCRIPT                                        -->
-<!-- ═══════════════════════════════════════════════════ -->
+<!-- JAVASCRIPT -->
 <script>
 // ── Config ─────────────────────────────────────────────
 const API_BASE = window.location.origin;
@@ -1734,7 +1858,6 @@ function syncLandingBtn() {
   btn.className = 'cta-btn ' + (ready ? 'active' : 'inactive');
 }
 
-// Terms toggle · mirrors original termsAccepted toggle
 document.getElementById('landing-consent').addEventListener('change', () => {
   termsAccepted = document.getElementById('landing-consent').checked;
   syncLandingBtn();
@@ -1776,7 +1899,7 @@ function setupFileInput(inputId, zoneId, filenameId) {
 setupFileInput('landing-file-a', 'landing-zone-a', 'landing-filename-a');
 setupFileInput('landing-file-b', 'landing-zone-b', 'landing-filename-b');
 
-// ── CHANGE 2: Role selector functions ─────────────────
+// ── Role selector ──────────────────────────────────────
 const ROLE_OPPOSITE = { buyer: 'seller', seller: 'buyer' };
 
 function selectRoleA(role) {
@@ -1799,6 +1922,39 @@ function getSelectedRoleB() {
   return sel ? sel.dataset.role : 'seller';
 }
 
+// ── Video guides language selector ────────────────────
+const VIDEO_LINKS = {
+  hindi: {
+    export: 'https://youtu.be/c2l7c59bU6k?si=QHBQmHl0tVHc8S6k',
+    use:    'https://youtu.be/DO2HaA_gkVE?si=qWJ7b3M2sxG5-3Oq',
+    exportId: 'c2l7c59bU6k',
+    useId:    'DO2HaA_gkVE',
+  },
+  english: {
+    export: 'https://youtu.be/0QOxiGDlpJk?si=q-3H_6pY6QFCQxtQ',
+    use:    'https://youtu.be/OPYVMN5ir1s?si=Rv2umeKo3kG-arl4',
+    exportId: '0QOxiGDlpJk',
+    useId:    'OPYVMN5ir1s',
+  },
+  marathi: {
+    export: 'https://youtu.be/Qf3FALPaIRc?si=Uvp8ImA-HIW-Waq_',
+    use:    'https://youtu.be/3xzcMZKeQVo?si=x7FXAsAD6tQXWZjF',
+    exportId: 'Qf3FALPaIRc',
+    useId:    '3xzcMZKeQVo',
+  },
+};
+
+function selectLang(lang) {
+  document.querySelectorAll('.lang-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.lang === lang);
+  });
+  const v = VIDEO_LINKS[lang];
+  document.getElementById('vid-export').href = v.export;
+  document.getElementById('vid-use').href    = v.use;
+  document.getElementById('thumb-export').src = `https://img.youtube.com/vi/${v.exportId}/hqdefault.jpg`;
+  document.getElementById('thumb-use').src    = `https://img.youtube.com/vi/${v.useId}/hqdefault.jpg`;
+}
+
 // ── Landing: kick off analyse ──────────────────────────
 document.getElementById('landing-analyse-btn').addEventListener('click', async () => {
   const partyAName = document.getElementById('landing-party-a-name').value.trim();
@@ -1812,9 +1968,9 @@ document.getElementById('landing-analyse-btn').addEventListener('click', async (
 
   const fd = new FormData();
   fd.append('party_a_name', partyAName);
-  fd.append('party_a_role', getSelectedRoleA());  // ── CHANGE 2: reads from pill
+  fd.append('party_a_role', getSelectedRoleA());
   fd.append('party_b_name', partyBName);
-  fd.append('party_b_role', getSelectedRoleB());  // ── CHANGE 2: auto-flipped
+  fd.append('party_b_role', getSelectedRoleB());
   fd.append('file_a', fileA);
   fd.append('file_b', fileB);
 
@@ -1890,7 +2046,6 @@ function buildVoucherScreen() {
   state.voucherTypes.forEach((vt, idx) => {
     const tr = document.createElement('tr');
 
-    // Name + source badge
     const tdName = document.createElement('td');
     tdName.innerHTML = `<span class="vt-name">${vt.name}</span>
       <span class="vt-source">${vt.found_in === 'A' ?
@@ -1898,16 +2053,13 @@ function buildVoucherScreen() {
         document.getElementById('landing-party-b-name').value.trim() || 'Party B'
       }</span>`;
 
-    // Found in
     const tdIn = document.createElement('td');
     tdIn.style.cssText = 'color:var(--text-muted); font-size:12px;';
     tdIn.textContent   = vt.found_in === 'A' ? 'Your File' : 'Counterparty File';
 
-    // Count
     const tdCount = document.createElement('td');
     tdCount.innerHTML = `<span class="vt-count">${vt.count} entries</span>`;
 
-    // Classification dropdown
     const tdClass = document.createElement('td');
     if (vt.auto_ignore) {
       tdClass.innerHTML = `<span class="auto-ignore-badge">auto-ignored</span>
@@ -1926,7 +2078,6 @@ function buildVoucherScreen() {
       tdClass.appendChild(sel);
     }
 
-    // Confidence
     const tdConf = document.createElement('td');
     if (vt.auto_ignore) {
       tdConf.innerHTML = `<span class="confidence-badge confidence-high">auto</span>`;
