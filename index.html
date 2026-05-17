@@ -1080,14 +1080,29 @@ select {
             <span>Both files must be <strong>INR ledgers</strong>. Multi-currency ledgers are not supported.</span>
           </div>
 
+          <!-- ── CHANGE 1: name-pair with role pills ── -->
           <div class="name-pair">
             <div>
               <label>Your Company Name</label>
               <input type="text" id="landing-party-a-name" placeholder="e.g. Gada Electronics Pvt. Ltd." autocomplete="off"/>
+              <div style="margin-top:8px;">
+                <div style="font-size:10px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:var(--text-muted);margin-bottom:5px;">Your Role</div>
+                <div class="role-selector" id="role-selector-a">
+                  <div class="role-pill selected" data-role="buyer" onclick="selectRoleA('buyer')">Buyer</div>
+                  <div class="role-pill" data-role="seller" onclick="selectRoleA('seller')">Seller</div>
+                </div>
+              </div>
             </div>
             <div>
               <label>Counterparty Name</label>
               <input type="text" id="landing-party-b-name" placeholder="e.g. Sodhi Garage LLP" autocomplete="off"/>
+              <div style="margin-top:8px;">
+                <div style="font-size:10px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:var(--text-muted);margin-bottom:5px;">Their Role</div>
+                <div class="role-selector" id="role-selector-b">
+                  <div class="role-pill locked selected" data-role="seller">Seller</div>
+                  <div class="role-pill locked" data-role="buyer">Buyer</div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -1749,7 +1764,6 @@ function setupFileInput(inputId, zoneId, filenameId) {
   zone.addEventListener('drop', e => {
     e.preventDefault(); zone.classList.remove('drag-over');
     if (e.dataTransfer.files[0]) {
-      // Assign dropped file to the hidden input via DataTransfer
       try { input.files = e.dataTransfer.files; } catch(ex) { /* Safari fallback */ }
       filename.textContent = '✓ ' + e.dataTransfer.files[0].name;
       zone.classList.add('has-file');
@@ -1761,6 +1775,29 @@ function setupFileInput(inputId, zoneId, filenameId) {
 
 setupFileInput('landing-file-a', 'landing-zone-a', 'landing-filename-a');
 setupFileInput('landing-file-b', 'landing-zone-b', 'landing-filename-b');
+
+// ── CHANGE 2: Role selector functions ─────────────────
+const ROLE_OPPOSITE = { buyer: 'seller', seller: 'buyer' };
+
+function selectRoleA(role) {
+  document.querySelectorAll('#role-selector-a .role-pill').forEach(p => {
+    p.classList.toggle('selected', p.dataset.role === role);
+  });
+  const opposite = ROLE_OPPOSITE[role];
+  document.querySelectorAll('#role-selector-b .role-pill').forEach(p => {
+    p.classList.toggle('selected', p.dataset.role === opposite);
+  });
+}
+
+function getSelectedRoleA() {
+  const sel = document.querySelector('#role-selector-a .role-pill.selected');
+  return sel ? sel.dataset.role : 'buyer';
+}
+
+function getSelectedRoleB() {
+  const sel = document.querySelector('#role-selector-b .role-pill.selected');
+  return sel ? sel.dataset.role : 'seller';
+}
 
 // ── Landing: kick off analyse ──────────────────────────
 document.getElementById('landing-analyse-btn').addEventListener('click', async () => {
@@ -1775,9 +1812,9 @@ document.getElementById('landing-analyse-btn').addEventListener('click', async (
 
   const fd = new FormData();
   fd.append('party_a_name', partyAName);
-  fd.append('party_a_role', 'buyer');
+  fd.append('party_a_role', getSelectedRoleA());  // ── CHANGE 2: reads from pill
   fd.append('party_b_name', partyBName);
-  fd.append('party_b_role', 'seller');
+  fd.append('party_b_role', getSelectedRoleB());  // ── CHANGE 2: auto-flipped
   fd.append('file_a', fileA);
   fd.append('file_b', fileB);
 
